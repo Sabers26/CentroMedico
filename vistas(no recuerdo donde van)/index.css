@@ -1,0 +1,120 @@
+
+
+h1{
+    color: white;
+}
+
+.general{
+    text-align: center;
+}
+
+.carrucel{
+    margin-left: 47%;
+    background-color: white;
+    width: 100px;
+    height: 100px;
+    color: white;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-size: medium;
+    font-family: Apple Chancery, cursive;
+    background-color: black;
+  }
+  
+  html {
+  min-height: 100%;
+  position: relative;
+  }
+  
+  .topnav{
+  display: flex;
+  justify-content: space-around ;
+  margin-bottom: 1%;
+  }
+  
+  body {
+  margin: 0;
+  margin-bottom: 40px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1064%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(70%2c 5%2c 133%2c 1)'%3e%3c/rect%3e%3cpath d='M582.1456077778373 37.75163191703233L490.1807721777353-31.68635400939356 476.1613452151324 68.06705212548786z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1207.159916498394 448.70807425699945L1121.995945938902 466.8102350172921 1140.0981066991947 551.9742055767842 1225.2620772586868 533.8720448164917z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M967.713695726637 187.4314773967118L971.925200042279 66.82977311189318 851.3234957574604 62.6182687962511 847.1119914418183 183.21997308106975z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1150.065156222342 282.47816238638615L1227.0560420550344 356.8273965974699 1301.405276266118 279.83651076477764 1224.4143904334258 205.4872765536939z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M848.6272055969216 58.94213977891879L952.0821915644536 29.383572359623912 885.5754148710402-37.123204333789545z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M364.3720899253548 401.50350652827444L295.6602442904783 426.51257308086355 367.5297669368003 517.0758082568838z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M233.7983800833046 533.8697994655855L196.1645978679466 402.6252037913831 64.92000219374421 440.25898600674117 102.55378440910224 571.5035816809435z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M958.9611275082411 132.71210124918838L1042.0539392705261 116.56049481171308 1025.9023328330509 33.46768304942799 942.8095210707659 49.619289486903284z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M599.8323650628295 336.1832027724402L587.7805866748399 434.3370610374043 685.934444939804 446.3888394253938 697.9862233277936 348.23498116042975z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M931.6318821887402 126.21119023954387L1009.6405879995226-40.66362294436733 849.00613866573-29.430968014153834z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1103.1124308965966 482.9562772873187L965.9863659026801 390.4635785678339 873.4936671831953 527.5896435617504 1010.6197321771118 620.0823422812352z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M502.09970139718865 203.2212453010692L545.4604691494842 316.1799072093017 615.0583633054212 159.86047754877367z' fill='rgba(0%2c 0%2c 0%2c 0.53)' class='triangle-float3'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1064'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+  
+  }
+  footer {
+  background-color: #484848;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  }
+  
+  select{
+  background-color: #484848 ;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  border: 0;
+  }
+  
+  /* Add a black background color to the top navigation */
+  .topnav {
+    background-color: #484848;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add an active class to highlight the current page */
+  .topnav a.active {
+    background-color: #5a2dc4;
+    color: white;
+  }
+  
+  
+  
+  /* Hide the link that should open and close the topnav on small screens */
+  .topnav .icon {
+    display: none;
+  }
+  
+  
+  /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+  @media screen and (max-width: 600px) {
+    .topnav a:not(:first-child) {display: none;}
+    .topnav a.icon {
+      float: right;
+      display: block;
+    }
+  }
+  
+  /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+  @media screen and (max-width: 600px) {
+    .topnav.responsive {position: relative;}
+    .topnav.responsive a.icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .topnav.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+  }
