@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block css %}
 
-    {% block css %}
-    <link rel="stylesheet" href="{% static 'app/'%}static/index.css">
+    {% endblock css %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
     <title>Inicio</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
 
             {% block 'contenido' %}
 
-            {% block 'contenido' %}
+            {% endblock 'contenido' %}
 
         </div>
         <!-- footer -->
@@ -48,6 +48,6 @@
     </div>
     {% block 'script' %}
 
-    {% block 'script' %}
+    {% endblock 'script' %}
 </body>
 </html>
