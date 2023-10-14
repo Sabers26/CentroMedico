@@ -1,13 +1,14 @@
-{block 'base'}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {block 'css'}
+    {% block css %}
 
-    {block 'css'}
-    <link rel="stylesheet" href="../static/index.css">
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'app/'%}static/index.css">
     <title>Inicio</title>
 </head>
 <body>
@@ -28,9 +29,9 @@
         </div>
         <div class="contenido">
 
-            {block 'contenido'}
+            {% block 'contenido' %}
 
-            {block 'contenido'}
+            {% block 'contenido' %}
 
         </div>
         <!-- footer -->
@@ -45,9 +46,8 @@
         </footer>
 
     </div>
-    {block 'script'}
+    {% block 'script' %}
 
-    {block 'script'}
+    {% block 'script' %}
 </body>
 </html>
-{block 'base'}

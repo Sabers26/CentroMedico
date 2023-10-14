@@ -1,42 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="colaborador.css">
-    <title>socios</title>
-</head>
-<body>
-    <form action="" method="post">
-        <section class="general">
-            
-            <h1>Formulario de colaboradores</h1>
-            <label class="labels">Rut del colaborador</label>
-            <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut">
-            <label class="labels">Nombre del colaborador</label>
-            <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre">
-            <label class="labels">Tipo de colaborador</label>
-            <select class="contenido" name="Tipo" id="Tipo">
-                <option value="0">Tipo</option>
-                <option value="1">medico</option>
-                <option value="2">administrador</option>
-                <option value="3">cajero</option>
-            </select>
+{% extends "base.html" %}
+{% load static %}
 
-            <div>
-                <label class="labels-2" id="Espe-l">Tipo de especialidad</label>
-                <select class="contenido-2" name="Espe" id="Espe">
-                    <option value="0">Especialidad</option>
-                    <option value="1">pediatria</option>
-                    <option value="2">oftalmologia</option>
-                    <option value="3">otorrinolaringologia</option>
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'app/'%}static/colaboradores.css">
+    {% endblock css %}
+
+    {% block contenido %}
+        <form action="" method="post">
+            <section class="general">
+                
+                <h1>Formulario de colaboradores</h1>
+                <label class="labels">Rut del colaborador</label>
+                <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut">
+                <label class="labels">Nombre del colaborador</label>
+                <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre">
+                <label class="labels">Tipo de colaborador</label>
+                <select class="contenido" name="Tipo" id="Tipo">
+                    <option value="0">Tipo</option>
+                    <option value="1">medico</option>
+                    <option value="2">administrador</option>
+                    <option value="3">cajero</option>
                 </select>
-            </div>
+
+                <div>
+                    <label class="labels-2" id="Espe-l">Tipo de especialidad</label>
+                    <select class="contenido-2" name="Espe" id="Espe">
+                        <option value="0">Especialidad</option>
+                        <option value="1">pediatria</option>
+                        <option value="2">oftalmologia</option>
+                        <option value="3">otorrinolaringologia</option>
+                    </select>
+                </div>
 
 
-            <input class="boton" type="submit" value="Guardar">
-        </section>
-    </form>
-    <script src="colaborador.js"></script>
-</body>
-</html>
+                <input class="boton" type="submit" value="Guardar">
+            </section>
+        </form>
+    {% endblock contenido %}
+
+    {% block script %}
+        <script src="colaborador.js"></script>
+    {% endblock script %}
+
