@@ -5,10 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+
     {% block css %}
 
     {% endblock css %}
-    <link rel="stylesheet" href="{% static 'index.css' %}">
+    
     <title>Inicio</title>
 </head>
 <body>
@@ -16,22 +18,19 @@
 
         <!-- navbar -->
         <div class="topnav" id="myTopnav">
-            <a href="#" class="active">Inicio</a>
-
-            <a href="#">Horarios</a>
-
+            <a href="{% url 'inicio' %}" class="active">Inicio</a>
             <!-- <a href="#">{{user.username}}: cerrar sesion</a> -->
-            <a href="#">Mas cosas</a>
-
-            <a href="#">Iniciar Sesion</a>
+            <a href="{% url 'login' %}">Iniciar Sesion</a>
+            <a href="{% url 'addColaboradores' %}">add colaborador</a>
+            <a href="{% url 'register' %}">add usuario</a>
             
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </div>
         <div class="contenido">
 
-            {% block 'contenido' %}
+            {% block contenido %}
 
-            {% endblock 'contenido' %}
+            {% endblock contenido %}
 
         </div>
         <!-- footer -->
@@ -46,8 +45,8 @@
         </footer>
 
     </div>
-    {% block 'script' %}
+    {% block script %}
 
-    {% endblock 'script' %}
+    {% endblock script %}
 </body>
 </html>
