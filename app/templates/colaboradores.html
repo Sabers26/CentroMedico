@@ -1,46 +1,53 @@
 {% extends "base.html" %}
 {% load static %}
 
-    {% block css %}
-        <link rel="stylesheet" href="{% static 'colaboradores.css' %}">
-    {% endblock css %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'colaboradores.css' %}">
+{% endblock css %}
 
-    {% block contenido %}
-    <form action="" method="post">
-        <section class="content">
-            
-            <h1>Formulario de colaboradores</h1>
-            <label class="labels">Rut del colaborador</label>
-            <input class="contenido" type="text" name="Rut" id="rut" placeholder="Rut">
+{% block contenido %}
+    {% if messages  %}
+        <ul class="messages mensaje-box">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<form action="" method="post">
+    {% csrf_token %}
+    <section class="content">
+        
+        <h1>Formulario de colaboradores</h1>
+        <label class="labels">Rut del colaborador</label>
+        <input class="contenido" type="text" name="Rut" id="rut" placeholder="Rut">
 
-            <label class="labels">Nombre y apellido del colaborador</label>
-            <input class="contenido" type="text" name="nombreApellido" id="nombreApellido" placeholder="Nombre | Apellido">
-            
-            <label class="labels">Tipo de colaborador</label>
-            <select class="contenido" name="Tipo" id="Tipo">
-                <option value="0">Tipo</option>
-                <option value="1">medico</option>
-                <option value="2">administrador</option>
-                <option value="3">cajero</option>
+        <label class="labels">Nombre y apellido del colaborador</label>
+        <input class="contenido" type="text" name="NombreApellido" id="NombreApellido" placeholder="Nombre | Apellido">
+
+        <label class="labels">Contraseña</label>
+        <input class="contenido" type="Password" name="Password" id="Password" placeholder="Password">
+        
+        <label class="labels">Tipo de colaborador</label>
+        <select class="contenido" name="Tipo" id="Tipo">
+            <option value="1">Administrador</option>
+            <option value="2">Medico</option>
+        </select>
+
+        <div>
+            <label class="labels-2" id="Espe-l">Tipo de especialidad</label>
+            <select class="contenido-2" name="Espe" id="Espe">
+                <option value="1">Pediatria</option>
+                <option value="2">Neurologia</option>
             </select>
-
-            <div>
-                <label class="labels-2" id="Espe-l">Tipo de especialidad</label>
-                <select class="contenido-2" name="Espe" id="Espe">
-                    <option value="0">Especialidad</option>
-                    <option value="1">pediatria</option>
-                    <option value="2">oftalmologia</option>
-                    <option value="3">otorrinolaringologia</option>
-                </select>
-            </div>
+        </div>
 
 
-            <input onclick="validar()" class="boton" type="submit" value="Guardar">
-        </section>
-    </form>
-    {% endblock contenido %}
+        <input onclick="validar()" class="boton" type="submit" value="Guardar">
+    </section>
+</form>
+{% endblock contenido %}
 
-    {% block script %}
-        <script src="{% static 'colaborador.js' %}"></script>
-    {% endblock script %}
+{% block script %}
+    <script src="{% static 'colaborador.js' %}"></script>
+{% endblock script %}
 

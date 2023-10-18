@@ -6,8 +6,15 @@
 {% endblock css %}
 
 {% block contenido %}
-
+    {% if messages  %}
+            <ul class="messages mensaje-box">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+    {% endif %}
     <form action="" method="post">
+        {% csrf_token %}
         <section class="content">
             <h1>Inicio de sesion</h1>
             <label class="labels">Rut &nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -18,5 +25,4 @@
             <input class="boton" type="submit" value="Iniciar">
         </section>
     </form>
-
 {% endblock contenido %}

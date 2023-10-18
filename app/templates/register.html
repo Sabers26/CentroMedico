@@ -6,8 +6,16 @@
 {% endblock css %}
 
 {% block contenido %}
+    {% if messages  %}
+        <ul class="messages mensaje-box">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <form action="" method="post">
+        {% csrf_token %}
         <section class="content">
             <h1>Formulario registro</h1>
             <label class="labels">Rut del usuario</label>
@@ -15,7 +23,7 @@
             <label class="labels">Nombre del usuario</label>
             <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre">
             <label class="labels">Password del usuario</label>
-            <input class="contenido" type="password" name="password" id="password" placeholder="password">
+            <input class="contenido" type="Password" name="Password" id="Password" placeholder="Contraseña">
 
             <input class="boton" type="submit" value="Guardar">
         </section>

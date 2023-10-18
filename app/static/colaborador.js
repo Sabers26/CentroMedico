@@ -9,7 +9,7 @@ select.addEventListener('change', function() {
   const valorSeleccionado = select.value;
   
   // Comprueba el valor seleccionado y ajusta la visibilidad del elemento en consecuencia.
-  if (valorSeleccionado === '1') {
+  if (valorSeleccionado === '2') {
     elemento.style.display = 'block'; // Muestra el elemento
     elemento2.style.display = 'block'; // Muestra el elemento
   } else {
@@ -39,11 +39,11 @@ function validar() {
   // Expresión regular que cumple con los requisitos
   var patron = /^[A-Za-z ]{1,30}$/;
 
-  // Comprobamos si el nombre y apellido NO cumplen con el patrón
-  if (!patron.test(nombreApellido)) {
-    alert("Nombre y apellido no válidos");
-    nombreApellidoInput.value = ""; // Borra el campo si es inválido
-  }
+  // // Comprobamos si el nombre y apellido NO cumplen con el patrón
+  // if (!patron.test(nombreApellido)) {
+  //   alert("Nombre y apellido no válidos");
+  //   nombreApellidoInput.value = ""; // Borra el campo si es inválido
+  // }
 
 };
 

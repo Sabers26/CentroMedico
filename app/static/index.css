@@ -97,6 +97,20 @@ select {
 }
 
 
+.mensaje-box{
+  background-color: #e7f78b;  /* Color de fondo rojo para mensajes de error */
+  border: 1px solid #000000;  /* Borde rojo para mensajes de error */
+  padding: 10px;  /* Espaciado interior para el cuadro */
+  color: #000000;  /* Color del texto para mensajes de error */
+}
+
+.mensaje-box ul{
+  background-color: #e7f78b;  /* Color de fondo rojo para mensajes de error */
+
+}
+
+
+
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {
