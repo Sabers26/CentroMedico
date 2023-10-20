@@ -1,0 +1,104 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+table{
+    text-align: center;
+    
+}
+
+.content{
+    width: 900px;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px ;
+    font-family: 'calibri';
+    color: rgb(0, 0, 0);
+    box-shadow: 7px 13px 37px #000000;
+    padding: 0px;
+    text-align: center;
+}
+
+.contenido{
+    width: 90%;
+    margin-bottom: 20px;
+    height: 20px;
+    background-color: white;
+}
+
+.boton{
+    width: 15%;
+    height: 20%;
+    margin: 20px;
+    background-color: #000000;
+    color: white;
+    padding: 12px;
+    font-size: 10px;
+}
+
+.espe{
+    background-color: white;
+    display: none;
+    margin: 0%;
+    border: 0%;
+    padding: 0%;
+}
+
+.tipo{
+    background-color: white;
+    margin-bottom: 1%;
+    border: 0%;
+    padding: 0%;
+}
+
+th{
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+td{
+    border: 3px solid black;
+}
+
+.boton:hover{
+    transform: translate(0rem, 0.1rem);
+    transition: all 0.5s ease-in-out;
+}
+
+.titulo{
+    margin-bottom: 10px;
+    color: black;
+}
+
+.labels{
+    color: black;
+    margin-left: 5%;
+    float: left;
+}
+
+.eliminar{
+    text-align: center;
+    color: black;
+    text-decoration: none;
+}
+
+.Modificar{
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    background-color: white;
+}
+
+td a{
+    text-decoration: none;
+}
+
+.listar{
+    width: 700px;
+    margin-left: 11%;
+    margin-bottom: 5% ;
+    text-align: center;
+    box-shadow: 3px 8px 19px #000000;
+}

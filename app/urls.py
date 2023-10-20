@@ -6,4 +6,5 @@ urlpatterns = [
     path('addColaboradores', addColaboradores, name='addColaboradores'),
     path('login', login, name='login'),
     path('register', register, name='register'),
+    path('listado', listado, name='listado'),
 ]

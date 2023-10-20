@@ -129,3 +129,6 @@ def register(request):
         
         
     return render(request, 'register.html')
+
+def listado(request):
+    return render(request, 'listado.html')

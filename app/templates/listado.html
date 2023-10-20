@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'listado.css' %}">
+{% endblock css %}
+
+{% block contenido %}
+<form action="" method="post">
+    <div class="content">
+        <h1 class="titulo">Listado de usuarios</h1>
+        <p>Filtro:</p>
+        <select name="tipoUsuario" id="tipo" class="tipo">
+            <option value="0" selected>tipo Usuario</option>
+            <option value="1">medicos</option>
+            <option value="2">paciente</option>
+        </select>
+
+        <select name="idEspecialidad" id="espe" class="espe">
+            <option value="0" selected>Especialidad</option>
+            <option value="1">pediatria</option>
+            <option value="2">oftalmologia</option>
+            <option value="3">otorrinolaringologia</option>
+        </select>
+
+        <section class="listar">
+                <h4>Lista de Usuarios</h4>
+                <table>
+                        <tr>
+                            <th>Rut</th>
+                            <th>Nombre</th>
+                            <th>Tipo usuario</th>
+                            <th>horario</th>
+                        </tr>
+                    
+                        <tr>
+                            <td> Rut </td>
+                            <td> Nombre </td>
+                            <td> Tipo usuario </td>
+                            <td> Horario </td>
+        
+                        </tr>
+                </table>
+                <a class="Modificar" href="#"><input class="boton" type="submit" value="Modificar"></a>
+                <a class="Modificar" href="#"><input class="boton" type="submit" value="Eliminar"></a>
+        </section>
+
+    </div>
+</form>
+{% endblock contenido %}
+
+{% block script %}
+<script src="{% static 'listado.js' %}"></script>
+{% endblock script %}
