@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'listado.css' %}">
+{% endblock css %}
+
+{% block contenido %}
+    <form action="" method="post">
+        <section class="content">
+            
+            <h1>Eliminacion</h1>
+
+            <h3>seguro que desea eliminar a este {{tipo.usuario}}: {{nombre.usuario}}</h3>
+
+            <input class="boton" type="submit" value="Eliminar">
+            <input class="boton" type="submit" value="Cancelar">
+        </section>
+    </form>
+{% endblock contenido %}

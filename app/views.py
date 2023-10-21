@@ -132,3 +132,6 @@ def register(request):
 
 def listado(request):
     return render(request, 'listado.html')
+
+def eliminar(request):
+    return render(request, 'eliminar.html')
