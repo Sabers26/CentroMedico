@@ -23,6 +23,12 @@ def addColaboradores(request):
             "id_especialidad": int(request.POST.get('Espe'))
         }
         
+        print(usuario_data)
+        
+        if int(request.POST.get('Tipo')) == 1:
+            del usuario_data["id_especialidad"]
+
+        
         data_json = json.dumps(usuario_data)
         
         headers = {'Content-Type': 'application/json'}
@@ -130,8 +136,44 @@ def register(request):
         
     return render(request, 'register.html')
 
+
 def listado(request):
-    return render(request, 'listado.html')
+    api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios'
+    
+    response = requests.get(api_url)
+    usuarios = response.json()
+
+    # Obtén los valores de los campos de filtro del formulario
+    tipo_usuario = request.GET.get('tipoUsuario')
+    id_especialidad = request.GET.get('idEspecialidad')
+
+    # Si obtiene algun elemento del filtro como tipo o especialidad llama al metodo de la API para filtrar
+    if tipo_usuario:
+        usuario_data = {
+            "tipo_usuario": tipo_usuario
+        }
+        
+        data_json = json.dumps(usuario_data)
+        headers = {'Content-Type': 'application/json'}
+        
+        response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/tipo', data=data_json, headers=headers)
+        usuarios = response.json()
+    
+    if id_especialidad:
+        usuario_data = {
+            "id_especialidad": id_especialidad
+        }
+        
+        data_json = json.dumps(usuario_data)
+        headers = {'Content-Type': 'application/json'}
+        
+        response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/especialidad', data=data_json, headers=headers)
+        usuarios = response.json()
+        
+    # if id_especialidad:
+    #     usuarios = [usuario for usuario in usuarios if usuario.get('especialidad', {}).get('id_especialidad') == id_especialidad]
+
+    return render(request, 'listado.html', {'usuarios': usuarios})
 
 def eliminar(request):
     return render(request, 'eliminar.html')

@@ -6,22 +6,23 @@
 {% endblock css %}
 
 {% block contenido %}
-<form action="" method="post">
+<form action="" method="get">
     <div class="content">
         <h1 class="titulo">Listado de usuarios</h1>
         <p>Filtro:</p>
         <select name="tipoUsuario" id="tipo" class="tipo">
-            <option value="0" selected>tipo Usuario</option>
-            <option value="1">medicos</option>
-            <option value="2">paciente</option>
+            <option value="">Tipo Usuario</option> {# Eliminar el valor seleccionado #}
+            <option value="1">Administrador</option>
+            <option value="2">Médicos</option> {# Usar valores que coincidan con los filtros en la vista #}
+            <option value="3">Pacientes</option>
         </select>
 
         <select name="idEspecialidad" id="espe" class="espe">
-            <option value="0" selected>Especialidad</option>
-            <option value="1">pediatria</option>
-            <option value="2">oftalmologia</option>
-            <option value="3">otorrinolaringologia</option>
+            <option value="" selected>Especialidad</option>
+            <option value="1">PEDIATRIA</option>
+            <option value="2">NEUROLOGIA</option>
         </select>
+        <input type="submit" value="Filtrar">
 
         <section class="listar">
                 <h4>Lista de Usuarios</h4>
@@ -30,16 +31,19 @@
                             <th>Rut</th>
                             <th>Nombre</th>
                             <th>Tipo usuario</th>
-                            <th>horario</th>
+                            <th>Especialidad</th>
                         </tr>
                     
+                        
+                        {% for usuario in usuarios %}
                         <tr>
-                            <td> Rut </td>
-                            <td> Nombre </td>
-                            <td> Tipo usuario </td>
-                            <td> Horario </td>
-        
+                            <td>{{ usuario.rut }}</td>
+                            <td>{{ usuario.nombre }}</td>
+                            <td>{{ usuario.tipo_usuario.nombre_tipo }}</td>
+                            <td>{{ usuario.especialidad.nombre_especialidad }}</td>
                         </tr>
+                         {% endfor %}
+                        
                 </table>
                 <a class="Modificar" href="#"><input class="boton" type="submit" value="Modificar"></a>
                 <a class="Modificar" href="#"><input class="boton" type="submit" value="Eliminar"></a>
@@ -47,6 +51,11 @@
 
     </div>
 </form>
+
+
+    <ul>
+        
+    </ul>
 {% endblock contenido %}
 
 {% block script %}
