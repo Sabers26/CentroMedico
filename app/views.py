@@ -136,14 +136,9 @@ def register(request):
         
     return render(request, 'register.html')
 
-
-<<<<<<< HEAD
-def eliminar(request):
-    return render(request, 'eliminar.html')
-
 def modifiColab(request):
     return render(request, 'modificacion-cola.html')
-=======
+
 def listado(request):
     api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios'
     
@@ -287,4 +282,3 @@ def eliminar(request,id):
         
     
     return render(request, 'eliminar.html', {'id': id})
->>>>>>> 3261b2f21c86c2b906c5ad741b69e66d34230155
