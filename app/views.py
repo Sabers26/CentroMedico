@@ -135,3 +135,6 @@ def listado(request):
 
 def eliminar(request):
     return render(request, 'eliminar.html')
+
+def modifiColab(request):
+    return render(request, 'modificacion-cola.html')

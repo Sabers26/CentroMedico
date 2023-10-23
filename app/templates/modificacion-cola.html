@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'modificacion-cola.css' %}">
+{% endblock css %}
+
+{% block contenido %}
+<form action="" method="post">
+    <section class="content">
+        <h1>Formulario modificacion colaborador</h1>
+        <label class="labels">Rut del colaborador</label>
+        <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut" disabled>
+        <label class="labels">Nombre del colaborador</label>
+        <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre">
+        <label class="labels">tipo del usuario</label>
+        <select name="tipo" id="tipo">
+            <option value="tipo">tipo usuario</option>
+            <option value="paciente">paciente</option>
+            <option value="meidco">medico</option>
+            <option value="secretario">secretario</option>
+        </select>
+
+        <label class="labels">Password del colaborador</label>
+        <input class="contenido" type="password" name="password" id="password" placeholder="password">
+        <label class="labels">repetir password del colaborador</label>
+        <input class="contenido" type="password2" name="password2" id="password2" placeholder="password">
+
+        <input class="boton" type="submit" value="Guardar">
+    </section>
+</form>
+{% endblock contenido %}

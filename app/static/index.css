@@ -7,7 +7,7 @@ h1 {
   width: 100%;
 }
 
-a{
+a {
   background-color: black;
 }
 
@@ -30,6 +30,7 @@ a{
 html {
   min-height: 100%;
   position: relative;
+  background-image: url(imagenes/white-colored-vintage-watercolor-abstract-background-and-motion-light-background-and-gradient-diagonal-lines-free-photo.jpg);
 }
 
 .topnav {
@@ -39,9 +40,10 @@ html {
 }
 
 body {
+  padding: 0;
   margin: 0;
-  margin-bottom: 40px;
 }
+
 
 .footer {
   background-color: black;
@@ -52,7 +54,7 @@ body {
   text-align: center;
 }
 
-select{
+select {
   background-color: #484848;
   color: black;
   text-decoration: none;
@@ -95,20 +97,6 @@ select{
 .topnav .icon {
   display: none;
 }
-
-
-.mensaje-box{
-  background-color: #e7f78b;  /* Color de fondo rojo para mensajes de error */
-  border: 1px solid #000000;  /* Borde rojo para mensajes de error */
-  padding: 10px;  /* Espaciado interior para el cuadro */
-  color: #000000;  /* Color del texto para mensajes de error */
-}
-
-.mensaje-box ul{
-  background-color: #e7f78b;  /* Color de fondo rojo para mensajes de error */
-
-}
-
 
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
