@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'colaboradores.css' %}">
+{% endblock css %}
+
+{% block contenido %}
+    {% if messages  %}
+        <ul class="messages mensaje-box">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <section class="content">
+            
+            <h1>Modificar Usuario</h1>
+            <label class="labels">Rut del colaborador</label>
+            <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut" value="{{usuario.rut}}">
+    
+            <label class="labels">Nombre y apellido del colaborador</label>
+            <input class="contenido" type="text" name="NombreApellido" id="NombreApellido" placeholder="Nombre | Apellido" value="{{usuario.nombre}}">
+    
+            <label class="labels">Contraseña</label>
+            <input class="contenido" type="Password" name="Password" id="Password" placeholder="Password">
+    
+            <input onclick="validar()" class="boton" type="submit" value="Guardar">
+        </section>
+    </form>
+
+{% endblock contenido %}
+
+{% block script %}
+
+{% endblock script %}
+

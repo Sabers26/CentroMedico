@@ -6,12 +6,13 @@
 {% endblock css %}
 
 {% block contenido %}
-    <form action="" method="post">
+    <form action="" method="POST">
+        {% csrf_token %}
         <section class="content">
             
             <h1>Eliminacion</h1>
 
-            <h3>seguro que desea eliminar a este {{tipo.usuario}}: {{nombre.usuario}}</h3>
+            <h3>seguro que desea eliminar a usuario rut: {{id}}</h3>
 
             <input class="boton" type="submit" value="Eliminar">
             <input class="boton" type="submit" value="Cancelar">
