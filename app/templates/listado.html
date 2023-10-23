@@ -48,7 +48,9 @@
                             <td>{{ usuario.nombre }}</td>
                             <td>{{ usuario.tipo_usuario.nombre_tipo }}</td>
                             <td>{{ usuario.especialidad.nombre_especialidad }}</td>
+                            <td>{{ usuario.habilitado }}</td>
                             <td><a href="modificarusuario/{{ usuario.rut }}" role="button">Modificar</a></td>
+                            <td><a href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
                         </tr>
                         {% endfor %}
                         

@@ -172,8 +172,7 @@ def listado(request):
 
     return render(request, 'listado.html', {'usuarios': usuarios})
 
-def eliminar(request):
-    return render(request, 'eliminar.html')
+
 
 
 def modificarusuario(request,id):
@@ -240,3 +239,44 @@ def modificarusuario(request,id):
 
     
     return render(request, 'modificar_usuario.html',{'usuario': usuario})
+
+
+def eliminar(request,id):
+    if request.method == 'POST':
+        usuario_data = {
+            "rut_usuario": str(id),
+            "habilitado": False,
+        }
+        data_json = json.dumps(usuario_data)
+        
+        print(data_json)
+        
+        headers = {'Content-Type': 'application/json'}
+        
+        try:
+            url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/act'
+            # Realizar una solicitud POST a la API de Flask para deshabilitar el usuario
+            response = requests.post(url, data=data_json, headers=headers)
+
+            # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+            if response.status_code == 200:
+                respuesta = response.json()
+
+                if respuesta.get("message") == "Se modifico al usuario correctamenete":
+                    print(respuesta)
+                    messages.success(request, "Se deshabilito el  usuario")
+                    return redirect(to="listado")
+                else:
+                    print("No se modifico el usuario")
+                    print(respuesta)
+                    messages.warning(request, "No se modifico el usuario")
+                
+            else:
+                # Manejar errores si la solicitud no fue exitosa
+                return JsonResponse({'error': 'No se pudo modificar el usuario en la API de Flask'}, status=500)
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({'error': 'Error de conexión a la API de Flask'}, status=500)
+        
+        
+    
+    return render(request, 'eliminar.html', {'id': id})
