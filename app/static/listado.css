@@ -109,3 +109,7 @@ td a{
     float: left;
     margin-left: 100px;
 }
+
+select{
+    background-color: white;
+}
