@@ -10,7 +10,7 @@ table{
 .content{
     width: 900px;
     padding: 30px;
-    margin-left: 93%;
+    margin: auto;
     margin-top: 100px;
     border-radius: 4px ;
     font-family: 'calibri';
@@ -99,8 +99,15 @@ td a{
     margin-left: 10%;
     margin-bottom: 5% ;
     text-align: center;
-    background-color: rgb(212, 227, 216);
     box-shadow: 3px 8px 19px #000000;
+}
+
+h1{
+    background-color: white;
+}
+
+p{
+    background-color: white;
 }
 
 .derecha{
@@ -111,4 +118,8 @@ td a{
 
 select{
     background-color: white;
+}
+
+form{
+    background-color: #3880cc;
 }

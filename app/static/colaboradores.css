@@ -3,8 +3,6 @@ body {
     margin: 0;
 }
 
-
-
 .content{
     width: 900px;
     padding: 30px;
@@ -17,9 +15,10 @@ body {
     text-align: center;
 }
 
-form{
-    margin-left: 10%;
+h1{
+    background-color: white;
 }
+
 
 .contenido{
     width: 90%;
@@ -68,4 +67,9 @@ h1{
     margin-left: 5%;
     float: left;
     display: none;
+}
+
+form{
+    margin-top: 100px;
+    background-color: #3880cc;
 }

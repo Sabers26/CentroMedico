@@ -5,11 +5,13 @@ h1 {
 .general {
   text-align: center;
   width: 100%;
+  background-color: #3880cc;
 }
 
 a {
   background-color: #163451;
 }
+
 
 .carrucel {
   margin-left: 47%;
@@ -30,7 +32,7 @@ a {
 html {
   min-height: 100%;
   position: relative;
-  background-image: linear-gradient(25deg, #0543b2, #2861bf, #3880cc, #419fd9);
+  background-color: #3880cc;
   background-repeat: repeat;
 }
 
