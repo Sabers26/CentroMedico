@@ -1,28 +1,39 @@
 body {
     padding: 0;
     margin: 0;
-    background-image: url(imagenes/white-colored-vintage-watercolor-abstract-background-and-motion-light-background-and-gradient-diagonal-lines-free-photo.jpg);
+    
 }
 
+form{
+    background-color: #3880cc;
+}
 
 .content{
     width: 900px;
     padding: 30px;
     margin: auto;
     margin-top: 100px;
+    background-color: beige;
     border-radius: 4px ;
     font-family: 'calibri';
     color: rgb(0, 0, 0);
     box-shadow: 7px 13px 37px #000000;
     padding: 0px;
     text-align: center;
+    border-radius: 25px;
 }
+
 
 .contenido{
     width: 90%;
     margin-bottom: 20px;
     height: 20px;
     background-color: white;
+}
+
+h1{
+    background-color: beige;
+    color: black;
 }
 
 .boton{
@@ -49,4 +60,6 @@ h1{
     color: black;
     margin-left: 5%;
     float: left;
+    background-color: beige;
 }
+

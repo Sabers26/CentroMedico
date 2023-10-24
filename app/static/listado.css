@@ -1,7 +1,6 @@
 body {
     padding: 0;
     margin: 0;
-    background-image: url(imagenes/white-colored-vintage-watercolor-abstract-background-and-motion-light-background-and-gradient-diagonal-lines-free-photo.jpg);
 }
 
 table{
@@ -97,11 +96,18 @@ td a{
 
 .listar{
     width: 700px;
-    margin-left: 11%;
+    margin-left: 10%;
     margin-bottom: 5% ;
     text-align: center;
-    background-color: rgb(212, 227, 216);
     box-shadow: 3px 8px 19px #000000;
+}
+
+h1{
+    background-color: white;
+}
+
+p{
+    background-color: white;
 }
 
 .derecha{
@@ -112,4 +118,8 @@ td a{
 
 select{
     background-color: white;
+}
+
+form{
+    background-color: #3880cc;
 }

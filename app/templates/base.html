@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,10 @@
     {% block css %}
 
     {% endblock css %}
-    
+
     <title>Inicio</title>
 </head>
+
 <body>
     <div class="general">
 
@@ -24,25 +26,20 @@
             <a href="{% url 'addColaboradores' %}">add colaborador</a>
             <a href="{% url 'register' %}">add usuario</a>
             <a href="{% url 'listado' %}">Usuarios</a>
-            
+
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </div>
-        <div class="contenido">
 
             {% block contenido %}
 
             {% endblock contenido %}
 
-        </div>
         <!-- footer -->
         <footer>
             <div class="footer">
-            <p>Dirijete a cualquiera de nuestras redes sociales</p>
-            {% comment %} <a href="#"><img src="{% static 'myapp/'%}imagenes/facebook.png" width="30px" /></a>
-            <a href="#"><img src="{% static 'myapp/'%}imagenes/gorjeo.png" width="30px" /></a>
-            <a href="#"><img src="{% static 'myapp/'%}imagenes/whatsapp.png" width="30px" /></a>
-            <a href="#"><img src="{% static 'myapp/'%}imagenes/instagram.png" width="30px" /></a>
-            </div> {% endcomment %}
+                <p>Dirijete a cualquiera de nuestras redes sociales</p>
+            </div>
+
         </footer>
 
     </div>
@@ -50,4 +47,5 @@
 
     {% endblock script %}
 </body>
+
 </html>
