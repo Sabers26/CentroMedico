@@ -13,10 +13,16 @@ body {
     box-shadow: 7px 13px 37px #000000;
     padding: 0px;
     text-align: center;
+    border-radius: 20px;
+    background-color: beige;
+}
+
+.contenidos{
+    background-color: beige;
 }
 
 h1{
-    background-color: white;
+    background-color: beige;
 }
 
 
@@ -60,6 +66,7 @@ h1{
     color: black;
     margin-left: 5%;
     float: left;
+    background-color: beige;
 }
 
 .labels-2{
@@ -67,6 +74,7 @@ h1{
     margin-left: 5%;
     float: left;
     display: none;
+    background-color: beige;
 }
 
 form{

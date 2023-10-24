@@ -3,10 +3,6 @@ body {
     margin: 0;
 }
 
-table{
-    text-align: center;
-}
-
 .content{
     width: 900px;
     padding: 30px;
@@ -18,6 +14,7 @@ table{
     box-shadow: 7px 13px 37px #000000;
     padding: 0px;
     text-align: center;
+    background-color: beige;
 }
 
 .contenido{
@@ -52,14 +49,6 @@ table{
     padding: 0%;
 }
 
-th{
-    font-size: 17px;
-    margin-bottom: 20px;
-}
-
-td{
-    border: 3px solid black;
-}
 
 .boton:hover{
     transform: translate(0rem, 0.1rem);
@@ -91,29 +80,42 @@ h1{
 
 td a{
     text-decoration: none;
-    
+}
+
+a{
+    text-decoration: none;
+}
+
+.ruta{
+    background-color: white;
+    color: black;
+}
+
+h4{
+    background-color: beige;
 }
 
 .listar{
-    width: 700px;
-    margin-left: 10%;
+    width: 100%;
     margin-bottom: 5% ;
     text-align: center;
     box-shadow: 3px 8px 19px #000000;
+    background-color: beige;
 }
 
 h1{
-    background-color: white;
+    background-color: beige;
 }
 
 p{
-    background-color: white;
+    background-color: beige;
 }
 
 .derecha{
     width: 300px;
     float: left;
     margin-left: 100px;
+    background-color: beige;
 }
 
 select{
@@ -122,4 +124,34 @@ select{
 
 form{
     background-color: #3880cc;
+}
+
+table{
+	background-color: white;
+	text-align: left;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td{
+	padding: 20px;
+}
+
+thead{
+	background-color: #246355;
+	border-bottom: solid 5px #0F362D;
+	color: white;
+}
+
+tr{
+    border: solid 3px black;
+}
+
+tr:nth-child(even){
+	background-color: #ddd;
+}
+
+tr:hover td{
+	background-color: #369681;
+	color: white;
 }

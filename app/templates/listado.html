@@ -56,8 +56,8 @@
                                 <td>{{ usuario.tipo_usuario.nombre_tipo }}</td>
                                 <td>{{ usuario.especialidad.nombre_especialidad }}</td>
                                 <td>{{ usuario.habilitado }}</td>
-                                <td><a href="modifiColab/{{ usuario.rut }}" role="button">Modificar</a></td>
-                                <td><a href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
+                                <td><a class="ruta" href="modifiColab/{{ usuario.rut }}" role="button">Modificar</a></td>
+                                <td><a class="ruta" href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
                             </tr>
                             {% endfor %}
                         {% endif %}
@@ -69,7 +69,7 @@
                                 <td>{{ diccionario.usuariob.tipo_usuario.nombre_tipo }}</td>
                                 <td>{{ diccionario.usuariob.especialidad.nombre_especialidad }}</td>
                                 <td>{{ diccionario.usuariob.habilitado }}</td>
-                                <td><a href="modifiColab/{{ usuario.rut }}" role="button">Modificar</a></td>
+                                <a href="modifiColab/{{ usuario.rut }}" role="button">Modificar</a></td>
                                 <td><a href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
                             </tr>
                         {% endif %}
