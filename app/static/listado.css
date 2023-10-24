@@ -1,7 +1,6 @@
 body {
     padding: 0;
     margin: 0;
-    background-image: url(imagenes/white-colored-vintage-watercolor-abstract-background-and-motion-light-background-and-gradient-diagonal-lines-free-photo.jpg);
 }
 
 table{
@@ -11,7 +10,7 @@ table{
 .content{
     width: 900px;
     padding: 30px;
-    margin: auto;
+    margin-left: 93%;
     margin-top: 100px;
     border-radius: 4px ;
     font-family: 'calibri';
@@ -97,7 +96,7 @@ td a{
 
 .listar{
     width: 700px;
-    margin-left: 11%;
+    margin-left: 10%;
     margin-bottom: 5% ;
     text-align: center;
     background-color: rgb(212, 227, 216);

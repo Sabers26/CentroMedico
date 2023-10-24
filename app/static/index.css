@@ -8,7 +8,7 @@ h1 {
 }
 
 a {
-  background-color: black;
+  background-color: #163451;
 }
 
 .carrucel {
@@ -30,7 +30,8 @@ a {
 html {
   min-height: 100%;
   position: relative;
-  background-image: url(imagenes/white-colored-vintage-watercolor-abstract-background-and-motion-light-background-and-gradient-diagonal-lines-free-photo.jpg);
+  background-image: linear-gradient(25deg, #0543b2, #2861bf, #3880cc, #419fd9);
+  background-repeat: repeat;
 }
 
 .topnav {
@@ -42,14 +43,22 @@ html {
 body {
   padding: 0;
   margin: 0;
+} 
+
+h1{
+  background-color: #163451;
 }
 
+p{
+  background-color: #163451;
+}
 
 .footer {
-  background-color: black;
+  background-color: #163451;
   position: absolute;
   bottom: 0;
   width: 100%;
+  font-size: 20px;
   color: white;
   text-align: center;
 }
@@ -64,7 +73,7 @@ select {
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: #484848;
+  background-color: #163451;
   overflow: hidden;
 }
 
@@ -87,7 +96,7 @@ select {
 
 /* Add an active class to highlight the current page */
 .topnav a.active {
-  background-color: #5a2dc4;
+  background-color: #163451;
   color: white;
 }
 
