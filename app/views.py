@@ -138,58 +138,80 @@ def register(request):
 
 
 def listado(request):
-    api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios'
-    
-    response = requests.get(api_url)
-    usuarios = response.json()
+    try:
+        api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios'
+        response = requests.get(api_url)
+        usuarios = None
+        # Comprobar si la api da respuesta
+        if response.status_code == 200:
+            usuarios = response.json()
+            if "message" in usuarios:
+                messages.warning(request,'No se encontraron usuarios')
+            
+            
+            
+        
 
-    # Obtén los valores de los campos de filtro del formulario
-    tipo_usuario = request.GET.get('tipoUsuario')
-    id_especialidad = request.GET.get('idEspecialidad')
-    rut = request.GET.get('Rut')
-    usuariob = None #Esto limpia a usuario busqueda del diccionario de datos
+        # Obtén los valores de los campos de filtro del formulario
+        tipo_usuario = request.GET.get('tipoUsuario')
+        id_especialidad = request.GET.get('idEspecialidad')
+        rut = request.GET.get('Rut')
+        usuariob = None #Esto limpia a usuario busqueda del diccionario de datos
 
-    # Si obtiene algun elemento del filtro como tipo o especialidad llama al metodo de la API para filtrar
-    if tipo_usuario:
-        usuario_data = {
-            "tipo_usuario": tipo_usuario
-        }
+        # Si obtiene algun elemento del filtro como tipo o especialidad llama al metodo de la API para filtrar
+        if tipo_usuario:
+            usuario_data = {
+                "tipo_usuario": tipo_usuario
+            }
+            
+            data_json = json.dumps(usuario_data)
+            headers = {'Content-Type': 'application/json'}
+            
+            response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/tipo', data=data_json, headers=headers)
+            if response.status_code == 200:
+                usuarios = response.json()
+                if "message" in usuarios:
+                    messages.warning(request,'No se encontraron usuarios filtrados por tipo')
         
-        data_json = json.dumps(usuario_data)
-        headers = {'Content-Type': 'application/json'}
-        
-        response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/tipo', data=data_json, headers=headers)
-        usuarios = response.json()
-    
-    if id_especialidad:
-        usuario_data = {
-            "id_especialidad": id_especialidad
-        }
-        
-        data_json = json.dumps(usuario_data)
-        headers = {'Content-Type': 'application/json'}
-        
-        response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/especialidad', data=data_json, headers=headers)
-        usuarios = response.json()
-    
-    if rut:
-        print(rut)
-        
-        # Le añade el guion al rut para que la api no lo rechace por las validaciones
-        rut_con_guion = rut[:-1] + "-" + rut[-1]
-        print(rut_con_guion)
-        usuario_data = {
-            "rut_usuario": rut_con_guion
-        }
-        
-        data_json = json.dumps(usuario_data)
-        headers = {'Content-Type': 'application/json'}
-        
-        response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/buscarUsuario', data=data_json, headers=headers)
-        usuariob = response.json()
-        print(usuariob)
-        usuarios = None #Al buscar por rut esto limpia a los usuarios del diccionario de datos
-        
+        if id_especialidad:
+            usuario_data = {
+                "id_especialidad": id_especialidad
+            }
+            
+            data_json = json.dumps(usuario_data)
+            headers = {'Content-Type': 'application/json'}
+            
+            response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/especialidad', data=data_json, headers=headers)
+            if response.status_code == 200:
+                usuarios = response.json()
+                if "message" in usuarios:
+                    messages.warning(request,'No se encontraron usuarios filtrados por especialidad')
+        if rut:
+            print(rut)
+            
+            # Le añade el guion al rut para que la api no lo rechace por las validaciones
+            # rut_con_guion = rut[:-1] + "-" + rut[-1]
+            # print(rut_con_guion)
+            usuario_data = {
+                "rut_usuario": rut
+            }
+            
+            data_json = json.dumps(usuario_data)
+            headers = {'Content-Type': 'application/json'}
+            
+            response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/buscarUsuario', data=data_json, headers=headers)
+            if response.status_code == 200:
+                usuariob = response.json()
+                if "message" in usuarios:
+                    messages.warning(request,'No se encontraron usuarios filtrados por tipo')
+                
+                
+            print(usuariob)
+            usuarios = None #Al buscar por rut esto limpia a los usuarios del diccionario de datos
+    except requests.exceptions.RequestException:
+        return  messages.warning(request,'Error de conexión a la API de Flask')
+
+
 
     diccionario = { #El diccionario esta para enviar a los usuarios o a un usuario de la busqueda
         'usuarios': usuarios,
@@ -263,9 +285,9 @@ def modificarusuario(request,id):
                 
             else:
                 # Manejar errores si la solicitud no fue exitosa
-                return JsonResponse({'error': 'No se pudo modificar el usuario en la API de Flask'}, status=500)
+                return messages.warning(request, 'No se pudo modificar el usuario en la API de Flask')
         except requests.exceptions.RequestException as e:
-            return JsonResponse({'error': 'Error de conexión a la API de Flask'}, status=500)
+            return  messages.warning(request,'Error de conexión a la API de Flask')
 
     
     return render(request, 'modificar_usuario.html',{'usuario': usuario})
