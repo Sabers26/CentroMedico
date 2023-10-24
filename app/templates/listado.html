@@ -19,16 +19,16 @@
         <div class="derecha">
             <p>Filtro:</p>
             <select name="tipoUsuario" id="tipo">
-                <option value="0" selected>tipo Usuario</option>
-                <option value="1">medicos</option>
-                <option value="2">paciente</option>
+                <option value="" selected>tipo Usuario</option>
+                <option value="1">Administrador</option>
+                <option value="2">Medico</option>
+                <option value="3">Paciente</option>
             </select>
             
             <select name="idEspecialidad" id="espe" class="espe">
-                <option value="0" selected>Especialidad</option>
-                <option value="1">pediatria</option>
-                <option value="2">oftalmologia</option>
-                <option value="3">otorrinolaringologia</option>
+                <option value="" selected>Especialidad</option>
+                <option value="1">Pediatria</option>
+                <option value="2">Neurologia</option>
             </select>
 
             <input class="boton2" type="submit" value="Filtrar">
@@ -48,18 +48,31 @@
                             <th>Especialidad</th>
                         </tr>
                     
-                        
-                        {% for usuario in usuarios %}
-                        <tr>
-                            <td>{{ usuario.rut }}</td>
-                            <td>{{ usuario.nombre }}</td>
-                            <td>{{ usuario.tipo_usuario.nombre_tipo }}</td>
-                            <td>{{ usuario.especialidad.nombre_especialidad }}</td>
-                            <td>{{ usuario.habilitado }}</td>
-                            <td><a href="modificarusuario/{{ usuario.rut }}" role="button">Modificar</a></td>
-                            <td><a href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
-                        </tr>
-                        {% endfor %}
+                        {% if diccionario.usuarios  %}
+                            {% for usuario in diccionario.usuarios %}
+                            <tr>
+                                <td>{{ usuario.rut }}</td>
+                                <td>{{ usuario.nombre }}</td>
+                                <td>{{ usuario.tipo_usuario.nombre_tipo }}</td>
+                                <td>{{ usuario.especialidad.nombre_especialidad }}</td>
+                                <td>{{ usuario.habilitado }}</td>
+                                <td><a href="modifiColab/{{ usuario.rut }}" role="button">Modificar</a></td>
+                                <td><a href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
+                            </tr>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if diccionario.usuariob  %}
+                            <tr>
+                                <td>{{ diccionario.usuariob.rut }}</td>
+                                <td>{{ diccionario.usuariob.nombre }}</td>
+                                <td>{{ diccionario.usuariob.tipo_usuario.nombre_tipo }}</td>
+                                <td>{{ diccionario.usuariob.especialidad.nombre_especialidad }}</td>
+                                <td>{{ diccionario.usuariob.habilitado }}</td>
+                                <td><a href="modifiColab/{{ usuario.rut }}" role="button">Modificar</a></td>
+                                <td><a href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
+                            </tr>
+                        {% endif %}
                         
                 </table>
         </section>

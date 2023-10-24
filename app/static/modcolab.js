@@ -1,11 +1,13 @@
-// Obtén una referencia al select y al elemento que deseas mostrar/ocultar.
-const select = document.getElementById('tipo');
-const elemento = document.getElementById('espe');
+document.addEventListener('DOMContentLoaded', function() {
+  const dato = document.getElementById('tipo');
+  const select = dato.getAttribute('data-mi-valor');
+  console.log("prueba si llegue aqui")
+  console.log(select)
 
-// Agrega un evento de cambio al select.
-select.addEventListener('change', function() {
-  // Obtiene el valor seleccionado en el select.
-  const valorSeleccionado = select.value;
+
+  const elemento = document.getElementById('espe');
+
+  const valorSeleccionado = select;
   
   // Comprueba el valor seleccionado y ajusta la visibilidad del elemento en consecuencia.
   if (valorSeleccionado === '2') {

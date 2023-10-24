@@ -6,26 +6,32 @@
 {% endblock css %}
 
 {% block contenido %}
+
+<div id="tipo" data-mi-valor="{{ usuario.tipo_usuario.id }}"></div>
+
+<p>{{usuario.tipo_usuario.id}}</p>
 <form action="" method="post">
+    {% csrf_token %}
     <section class="content">
         <h1>Formulario modificacion colaborador</h1>
         <label class="labels">Rut del colaborador</label>
-        <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut" disabled>
+        <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut" value="{{usuario.rut}}" disabled>
         <label class="labels">Nombre del colaborador</label>
         <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre">
 
-        <label class="labels">tipo del usuario</label>
-        <select name="tipo" id="tipo">
-            <option value="tipo">tipo usuario</option>
-            <option value="paciente">paciente</option>
-            <option value="meidco">medico</option>
-            <option value="secretario">secretario</option>
+        <label class="labels">Tipo Colaborador</label>
+        <input class="contenido" type="text" name="ntipo" id="ntipo" value= "{{usuario.tipo_usuario.nombre_tipo}}" disabled>
+
+        <select name="idEspecialidad" id="espe" class="espe">
+            <option value="" selected>Especialidad</option>
+            <option value="1" {% if usuario.especialidad.id_especialidad == 1 %}selected{% endif %}>Pediatria</option>
+            <option value="2" {% if usuario.especialidad.id_especialidad == 2 %}selected{% endif %}>Neurologia</option>
         </select>
 
         <label class="labels">estado del usuario</label>
-        <select name="tipo" id="tipo">
-            <option value="tipo">Habilitado</option>
-            <option value="paciente">Desabilitado</option>
+        <select name="estado" id="estado">
+            <option value="0">Habilitado</option>
+            <option value="1">Desabilitado</option>
         </select>
 
         <label class="labels">Password del colaborador</label>
@@ -37,3 +43,8 @@
     </section>
 </form>
 {% endblock contenido %}
+
+
+{% block script %}
+<script src="{% static 'modcolab.js' %}"></script>
+{% endblock script %}
