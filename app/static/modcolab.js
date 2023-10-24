@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Comprueba el valor seleccionado y ajusta la visibilidad del elemento en consecuencia.
   if (valorSeleccionado === '2') {
     elemento.style.display = 'block'; // Muestra el elemento
-    elemento.style.marginLeft = '40%';
+    elemento.style.marginLeft = '5%';
     elemento.style.marginTop = '2%';
     elemento.style.marginBottom = '2%';
   } else {
