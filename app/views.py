@@ -202,27 +202,24 @@ def listado(request):
             response = requests.post('https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/buscarUsuario', data=data_json, headers=headers)
             if response.status_code == 200:
                 usuariob = response.json()
-                if "message" in usuarios:
+                if "message" in usuariob:
+                    usuariob = None
                     messages.warning(request,'No se encontraron usuarios filtrados por tipo')
-                
-                
-            print(usuariob)
             usuarios = None #Al buscar por rut esto limpia a los usuarios del diccionario de datos
-    except requests.exceptions.RequestException:
-        return  messages.warning(request,'Error de conexión a la API de Flask')
-
-
-
-    diccionario = { #El diccionario esta para enviar a los usuarios o a un usuario de la busqueda
+                
+                
+        diccionario = { #El diccionario esta para enviar a los usuarios o a un usuario de la busqueda
         'usuarios': usuarios,
         'usuariob':usuariob
-    }
-    
-    if usuariob:
-        diccionario['usuariob'] = usuariob
-            
-    
-    return render(request, 'listado.html', {'diccionario': diccionario})
+        }
+
+        if usuariob:
+            diccionario['usuariob'] = usuariob
+
+        print(diccionario)
+        return render(request, 'listado.html', {'diccionario': diccionario})
+    except requests.exceptions.RequestException:
+        return  messages.warning(request,'Error de conexión a la API de Flask')
 
 
 
