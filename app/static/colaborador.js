@@ -11,6 +11,7 @@ select.addEventListener('change', function() {
   // Comprueba el valor seleccionado y ajusta la visibilidad del elemento en consecuencia.
   if (valorSeleccionado === '2') {
     elemento.style.display = 'block'; // Muestra el elemento
+    elemento.style.marginLeft = '5%';
     elemento2.style.display = 'block'; // Muestra el elemento
   } else {
     elemento.style.display = 'none'; // Oculta el elemento
