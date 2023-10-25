@@ -13,7 +13,7 @@
             {% endfor %}
         </ul>
     {% endif %}
-<form action="" method="post">
+<form action="" method="post" id="registro-form">
     {% csrf_token %}
     <section class="content">
         
@@ -25,7 +25,9 @@
         <input class="contenido" type="text" name="NombreApellido" id="NombreApellido" placeholder="Nombre | Apellido">
 
         <label class="labels">Contraseña</label>
-        <input class="contenido" type="Password" name="Password" id="Password" placeholder="Password">
+        <input class="contenido" type="Password" name="Password" id="Password" placeholder="**********">
+        <label class="labels">Repetir Contraseña</label>
+        <input class="contenido" type="Password" name="password2" id="password2" placeholder="**********">
         
         <label class="labels">Tipo de colaborador</label>
         <select class="contenido" name="Tipo" id="Tipo">
@@ -49,5 +51,7 @@
 
 {% block script %}
     <script src="{% static 'colaborador.js' %}"></script>
+    <script src="{% static 'password.js' %}"></script>
 {% endblock script %}
+
 

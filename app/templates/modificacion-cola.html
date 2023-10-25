@@ -8,16 +8,14 @@
 {% block contenido %}
 
 <div id="tipo" data-mi-valor="{{ usuario.tipo_usuario.id }}"></div>
-
-<p>{{usuario.tipo_usuario.id}}</p>
-<form action="" method="post">
+<form action="" method="post" id="registro-form">
     {% csrf_token %}
     <section class="content">
         <h1>Formulario modificacion colaborador</h1>
         <label class="labels">Rut del colaborador</label>
         <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut" value="{{usuario.rut}}" disabled>
         <label class="labels">Nombre del colaborador</label>
-        <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre">
+        <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre" value="{{usuario.nombre}}" >
 
         <label class="labels">Tipo Colaborador</label>
         <input class="contenido" type="text" name="ntipo" id="ntipo" value= "{{usuario.tipo_usuario.nombre_tipo}}" disabled>
@@ -28,16 +26,10 @@
             <option value="2" {% if usuario.especialidad.id_especialidad == 2 %}selected{% endif %}>Neurologia</option>
         </select>
 
-        <label class="labels">estado del usuario</label>
-        <select name="estado" id="estado">
-            <option value="0">Habilitado</option>
-            <option value="1">Desabilitado</option>
-        </select>
-
-        <label class="labels">Password del colaborador</label>
-        <input class="contenido" type="password" name="password" id="password" placeholder="password">
-        <label class="labels">repetir password del colaborador</label>
-        <input class="contenido" type="password2" name="password2" id="password2" placeholder="password">
+        <label class="labels">Contraseña</label>
+        <input class="contenido" type="Password" name="Password" id="Password" placeholder="**********">
+        <label class="labels">Repetir Contraseña</label>
+        <input class="contenido" type="Password" name="password2" id="password2" placeholder="**********">
 
         <input class="boton" type="submit" value="Guardar">
     </section>
@@ -47,4 +39,5 @@
 
 {% block script %}
 <script src="{% static 'modcolab.js' %}"></script>
+<script src="{% static 'password.js' %}"></script>
 {% endblock script %}

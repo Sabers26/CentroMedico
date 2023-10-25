@@ -37,6 +37,7 @@
 
         <p>buscar:</p>
         <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut">
+        <a href="{% url 'addColaboradores' %}" style="width: 40px; background-color: black;  color: white; text-decoration: none;">Registrar colaborador</a>
 
         <section class="listar">
                 <h4>Lista de Usuarios</h4>
@@ -46,6 +47,7 @@
                             <th>Nombre</th>
                             <th>Tipo usuario</th>
                             <th>Especialidad</th>
+                            <th>Estado</th>
                         </tr>
                     
                         {% if diccionario.usuarios  %}
@@ -54,10 +56,22 @@
                                 <td>{{ usuario.rut }}</td>
                                 <td>{{ usuario.nombre }}</td>
                                 <td>{{ usuario.tipo_usuario.nombre_tipo }}</td>
+                                {% if usuario.especialidad == "N/A" %}
+                                <td>{{ usuario.especialidad }}</td>
+                                {% else %}
                                 <td>{{ usuario.especialidad.nombre_especialidad }}</td>
+                                {% endif %}
                                 <td>{{ usuario.habilitado }}</td>
-                                <td><a class="ruta" href="modifiColab/{{ usuario.rut }}" role="button">Modificar</a></td>
-                                <td><a class="ruta" href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
+                                <td><a class="ruta" href="{% url 'modifiColab'  usuario.rut%}" role="button">Modificar</a></td>
+
+                                {% if usuario.habilitado == "HABILITADO" %}
+                                <td><a class="ruta" href="{% url 'eliminar'  usuario.rut  usuario.habilitado %}" role="button">Deshabilitar</a></td>
+                                {% endif %}
+
+                                {% if usuario.habilitado == "DESHABILITADO" %}
+                                <td><a class="ruta" href="{% url 'eliminar'  usuario.rut  usuario.habilitado %}" role="button">Habilitar</a></td>
+                                {% endif %}
+
                             </tr>
                             {% endfor %}
                         {% endif %}
@@ -67,10 +81,21 @@
                                 <td>{{ diccionario.usuariob.rut }}</td>
                                 <td>{{ diccionario.usuariob.nombre }}</td>
                                 <td>{{ diccionario.usuariob.tipo_usuario.nombre_tipo }}</td>
+                                {% if diccionario.usuariob.especialidad == "N/A" %}
+                                <td>{{ diccionario.usuariob.especialidad }}</td>
+                                {% else %}
                                 <td>{{ diccionario.usuariob.especialidad.nombre_especialidad }}</td>
+                                {% endif %}
                                 <td>{{ diccionario.usuariob.habilitado }}</td>
-                                <a href="modifiColab/{{ usuario.rut }}" role="button">Modificar</a></td>
-                                <td><a href="eliminar/{{ usuario.rut }}" role="button">Eliminar</a></td>
+                                <td><a class="ruta" href="{% url 'modifiColab'  diccionario.usuariob.rut%}" role="button">Modificar</a></td>
+
+                                {% if diccionario.usuariob.habilitado == "HABILITADO" %}
+                                <td><a class="ruta" href="{% url 'eliminar'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Deshabilitar</a></td>
+                                {% endif %}
+
+                                {% if diccionario.usuariob.habilitado == "DESHABILITADO" %}
+                                <td><a class="ruta" href="{% url 'eliminar'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Habilitar</a></td>
+                                {% endif %}
                             </tr>
                         {% endif %}
                         

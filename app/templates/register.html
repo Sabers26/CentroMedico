@@ -14,21 +14,25 @@
         </ul>
     {% endif %}
 
-    <form action="" method="post">
+    <form action="" method="post" id="registro-form">
         {% csrf_token %}
         <section class="content">
             <h1>Formulario registro</h1>
-            <label class="labels">Rut del usuario</label>
+            <label class="labels">Rut usuario</label>
             <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut">
-            <label class="labels">Nombre del usuario</label>
+            <label class="labels">Nombre completo</label>
             <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre">
-            <label class="labels">Password del usuario</label>
-            <input class="contenido" type="Password" name="Password" id="Password" placeholder="Contraseña">
-            <label class="labels">repetir password del usuario</label>
-            <input class="contenido" type="password2" name="password2" id="password2" placeholder="password">
+            <label class="labels">Contraseña</label>
+            <input class="contenido" type="Password" name="Password" id="Password" placeholder="**********">
+            <label class="labels">Repetir Contraseña</label>
+            <input class="contenido" type="Password" name="password2" id="password2" placeholder="**********">
 
             <input class="boton" type="submit" value="Guardar">
         </section>
     </form>
 
 {% endblock contenido %}
+
+{% block script %}
+<script src="{% static 'password.js' %}"></script>
+{% endblock script %}

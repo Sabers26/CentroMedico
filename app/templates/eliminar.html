@@ -10,12 +10,28 @@
         {% csrf_token %}
         <section class="content">
             
-            <h1>Eliminacion</h1>
+            
+            {% if estado == "HABILITADO" %}
+            <h1>Deshabilitar</h1>
 
-            <h3>seguro que desea eliminar a usuario rut: {{id}}</h3>
+            <h3>Seguro que desea Deshabilitar a usuario rut: {{id}}</h3>
 
-            <input class="boton" type="submit" value="Eliminar">
-            <input class="boton" type="submit" value="Cancelar">
+            <input class="boton" type="submit" value="Deshabilitar">
+            <a class="boton" href="{% url 'listado'%}" role="button">Cancelar</a>
+            {% endif %}
+
+            {% if estado == "DESHABILITADO" %}
+            <h1>Habilitar</h1>
+
+            <h3>Seguro que desea Habilitar a usuario rut: {{id}}</h3>
+
+            <input class="boton" type="submit" value="Habilitar">
+            <a class="boton" href="{% url 'listado'%}" role="button">Cancelar</a>
+            {% endif %}
+
+            
+
+            {% comment %} <input class="boton" type="submit" value="Cancelar"> {% endcomment %}
         </section>
     </form>
 {% endblock contenido %}

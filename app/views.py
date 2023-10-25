@@ -23,7 +23,6 @@ def addColaboradores(request):
             "id_especialidad": int(request.POST.get('Espe'))
         }
         
-        print(usuario_data)
         
         if int(request.POST.get('Tipo')) == 1:
             del usuario_data["id_especialidad"]
@@ -41,18 +40,18 @@ def addColaboradores(request):
                 respuesta = response.json()
 
                 if respuesta.get("message") :
-                    print("No se registro el usuario")
                     messages.warning(request, "No se registro el colaborador")
+                    return redirect(to="listado")
                 else:
-                    print(respuesta)
                     messages.success(request, "Se registro el  colaborador: " + respuesta.get("nombre"))
-                print(response)
+                    return redirect(to="listado")
 
             else:
                 # Manejar errores si la solicitud no fue exitosa
-                return JsonResponse({'error': 'No se pudo crear el usuario en la API de Flask'}, status=500)
-        except requests.exceptions.RequestException as e:
-            return JsonResponse({'error': 'Error de conexión a la API de Flask'}, status=500)
+                messages.success(request,'No se pudo crear el usuario en la API de Flask')
+        except requests.exceptions.RequestException:
+            messages.success(request,'Error de conexión a la API de Flask')
+            return redirect(to="listado")
         
     return render(request, 'colaboradores.html')
 
@@ -81,7 +80,6 @@ def login(request):
                     print("No inicio sesion")
                     messages.warning(request, "No inicio sesion")
                 else:
-                    print("SI JALAAAAAAA")
                     messages.success(request, "El usuario: " + respuesta.get("nombre") + " inicio sesion")
                     return redirect(to="inicio")
                     
@@ -122,16 +120,19 @@ def register(request):
                 respuesta = response.json()
 
                 if respuesta.get("message") :
-                    print("No se registro el usuario")
                     messages.warning(request, "No se registro el usuario")
+                    return redirect(to="inicio")
                 else:
-                    print(respuesta)
                     messages.success(request, "Se registro el  usuario: " + respuesta.get("nombre"))
+                    return redirect(to="inicio")
             else:
                 # Manejar errores si la solicitud no fue exitosa
-                return JsonResponse({'error': 'No se pudo crear el usuario en la API de Flask'}, status=500)
-        except requests.exceptions.RequestException as e:
-            return JsonResponse({'error': 'Error de conexión a la API de Flask'}, status=500)
+                messages.warning(request,'No se pudo crear el usuario en la API de Flask')
+                return redirect(to="inicio")
+            
+        except requests.exceptions.RequestException:
+            messages.warning(request,'Error de conexión a la API de Flask')
+            return redirect(to="inicio")
         
         
     return render(request, 'register.html')
@@ -187,7 +188,6 @@ def listado(request):
                 if "message" in usuarios:
                     messages.warning(request,'No se encontraron usuarios filtrados por especialidad')
         if rut:
-            print(rut)
             
             # Le añade el guion al rut para que la api no lo rechace por las validaciones
             # rut_con_guion = rut[:-1] + "-" + rut[-1]
@@ -203,6 +203,7 @@ def listado(request):
             if response.status_code == 200:
                 usuariob = response.json()
                 if "message" in usuariob:
+                    print(usuariob)
                     usuariob = None
                     messages.warning(request,'No se encontraron usuarios filtrados por tipo')
             usuarios = None #Al buscar por rut esto limpia a los usuarios del diccionario de datos
@@ -216,7 +217,6 @@ def listado(request):
         if usuariob:
             diccionario['usuariob'] = usuariob
 
-        print(diccionario)
         return render(request, 'listado.html', {'diccionario': diccionario})
     except requests.exceptions.RequestException:
         return  messages.warning(request,'Error de conexión a la API de Flask')
@@ -242,14 +242,9 @@ def modificarusuario(request,id):
     
     
     if request.method == 'POST':
-        print("RUT: ",str(request.POST.get('Rut')))
-        print("NOMBRE: ",str(request.POST.get('NombreApellido')))
-        print("CONTRASEÑA ", str(request.POST.get('Password')))
-        
         rut = str(request.POST.get('Rut'))
         rut_con_guion = rut[:-1] + "-" + rut[-1]
-        print("ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ")
-        print(rut_con_guion)
+
         usuario_data = {
             "rut_usuario": rut_con_guion,
             "nombre_usuario": str(request.POST.get('NombreApellido')),
@@ -258,8 +253,6 @@ def modificarusuario(request,id):
         
         data_json = json.dumps(usuario_data)
         
-        print(data_json)
-        
         headers = {'Content-Type': 'application/json'}
 
         try:
@@ -276,73 +269,67 @@ def modificarusuario(request,id):
                     messages.success(request, "Se modifico el  usuario: ")
                     return redirect(to="listado")
                 else:
-                    print("No se modifico el usuario")
-                    print(respuesta)
                     messages.warning(request, "No se modifico el usuario")
+                    return redirect(to="listado")
                 
             else:
                 # Manejar errores si la solicitud no fue exitosa
                 return messages.warning(request, 'No se pudo modificar el usuario en la API de Flask')
-        except requests.exceptions.RequestException as e:
+        except requests.exceptions.RequestException:
             return  messages.warning(request,'Error de conexión a la API de Flask')
 
     
     return render(request, 'modificar_usuario.html',{'usuario': usuario})
 
 def modifiColab(request,id):
-    #Primero obtener el usuario para que sus datos se muestren en el formulario
-    api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/buscarUsuario'
-    
-    usuario_rut = {
-        "rut_usuario": str(id),
-    }
+    try:
+        #Primero obtener el usuario para que sus datos se muestren en el formulario
+        api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/buscarUsuario'
         
-    data_json = json.dumps(usuario_rut)
-    
-    headers = {'Content-Type': 'application/json'}
-
-    response = requests.post(api_url, data=data_json, headers=headers)
-    usuario = response.json()
-    
-    print(id)
-    print(usuario)
-    
-    
-    if request.method == 'POST':
-        print("RUT: ",str(request.POST.get('Rut')))
-        print("NOMBRE: ",str(request.POST.get('Nombre')))
-        print("CONTRASEÑA ", str(request.POST.get('password')))
-        
-        rut = str(id)
-        rut_con_guion = rut[:-1] + "-" + rut[-1]
-        print("ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ")
-        print(rut_con_guion)
-        
-        especialidad = request.POST.get('idEspecialidad')
-        
-        if especialidad == "":
-            especialidad = None
-            
-        # if especialidad is None:
-        #     especialidad = None  # O cualquier otra acción que desees realizar
-        
-        usuario_data = {
-            "rut_usuario": rut_con_guion,
-            "nombre_usuario": str(request.POST.get('Nombre')),
-            "password_usuario": str(request.POST.get('password')),
-            "id_especialidad": especialidad
-            
+        usuario_rut = {
+            "rut_usuario": str(id),
         }
-        
-        data_json = json.dumps(usuario_data)
-        
-        print(data_json)
+            
+        data_json = json.dumps(usuario_rut)
         
         headers = {'Content-Type': 'application/json'}
 
-        try:
+        response = requests.post(api_url, data=data_json, headers=headers)
+        
+        if response.status_code == 200:
+            usuario = response.json()
+            if "message" in usuario:
+                messages.warning(request, "Usuario no encontrado en la base de datos")
+                return redirect(to="listado")
+        
+        
+        if request.method == 'POST':
+            rut = str(id)
+            rut_con_guion = rut[:-1] + "-" + rut[-1]
+
+            especialidad = request.POST.get('idEspecialidad')
+            
+            if especialidad == "":
+                especialidad = None
+                
+            # if especialidad is None:
+            #     especialidad = None  # O cualquier otra acción que desees realizar
+            
+            usuario_data = {
+                "rut_usuario": rut_con_guion,
+                "nombre_usuario": str(request.POST.get('Nombre')),
+                "password_usuario": str(request.POST.get('Password')),
+                "id_especialidad": especialidad
+            }
+            
+            data_json = json.dumps(usuario_data)
+            
+
+            headers = {'Content-Type': 'application/json'}
+
+            
             url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/mod'
-            # Realizar una solicitud POST a la API de Flask para crear un usuario
+            # Realizar una solicitud POST a la API de Flask para modificar un usuario
             response = requests.post(url, data=data_json, headers=headers)
 
             # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
@@ -351,27 +338,30 @@ def modifiColab(request,id):
 
                 if respuesta.get("message") == "Usuario modificado correctamente":
                     print(respuesta)
-                    messages.success(request, "Se modifico el  usuario: ")
+                    messages.success(request, "Se modifico el  usuario rut: ")
                     return redirect(to="listado")
                 else:
                     print("No se modifico el usuario")
                     print(respuesta)
                     messages.warning(request, "No se modifico el usuario")
+                    return redirect(to="listado")
                 
             else:
                 # Manejar errores si la solicitud no fue exitosa
-                return JsonResponse({'error': 'No se pudo modificar el usuario en la API de Flask'}, status=500)
-        except requests.exceptions.RequestException as e:
-            return JsonResponse({'error': 'Error de conexión a la API de Flask'}, status=500)
+                messages.warning(request, 'No se pudo modificar el usuario en la API de Flask')
+                return redirect(to="listado")
+            
+    except requests.exceptions.RequestException:
+        messages.warning(request,'Error de conexión a la API de Flask')
+        return redirect(to="listado")
     
     return render(request, 'modificacion-cola.html', {'usuario':usuario})
 
 
-def eliminar(request,id):
+def eliminar(request,id,estado):
     if request.method == 'POST':
         usuario_data = {
             "rut_usuario": str(id),
-            "habilitado": False,
         }
         data_json = json.dumps(usuario_data)
         
@@ -390,19 +380,25 @@ def eliminar(request,id):
 
                 if respuesta.get("message") == "Se modifico al usuario correctamenete":
                     print(respuesta)
-                    messages.success(request, "Se deshabilito el  usuario")
+                    if estado == 'HABILITADO':
+                        messages.success(request, "Se deshabilito el  usuario")
+                    elif estado == 'DESHABILITADO':
+                        messages.success(request, "Se habilito el  usuario")
                     return redirect(to="listado")
                 else:
-                    print("No se modifico el usuario")
-                    print(respuesta)
                     messages.warning(request, "No se modifico el usuario")
+                    return redirect(to="listado")
                 
             else:
                 # Manejar errores si la solicitud no fue exitosa
-                return JsonResponse({'error': 'No se pudo modificar el usuario en la API de Flask'}, status=500)
-        except requests.exceptions.RequestException as e:
-            return JsonResponse({'error': 'Error de conexión a la API de Flask'}, status=500)
+                messages.warning(request,'No se pudo modificar el usuario en la API de Flask')
+                return redirect(to="listado")
+                
+        except requests.exceptions.RequestException:
+            messages.warning(request,'Error de conexión a la API de Flask')
+            return redirect(to="listado")
         
         
     
-    return render(request, 'eliminar.html', {'id': id})
+    return render(request, 'eliminar.html', {'id': id, 'estado': estado})
+
