@@ -305,7 +305,7 @@ def modifiColab(request,id):
         
         if request.method == 'POST':
             rut = str(id)
-            rut_con_guion = rut[:-1] + "-" + rut[-1]
+            # rut_con_guion = rut[:-1] + "-" + rut[-1]
 
             especialidad = request.POST.get('idEspecialidad')
             
@@ -316,7 +316,7 @@ def modifiColab(request,id):
             #     especialidad = None  # O cualquier otra acción que desees realizar
             
             usuario_data = {
-                "rut_usuario": rut_con_guion,
+                "rut_usuario": rut,
                 "nombre_usuario": str(request.POST.get('Nombre')),
                 "password_usuario": str(request.POST.get('Password')),
                 "id_especialidad": especialidad
@@ -338,7 +338,7 @@ def modifiColab(request,id):
 
                 if respuesta.get("message") == "Usuario modificado correctamente":
                     print(respuesta)
-                    messages.success(request, "Se modifico el  usuario rut: ")
+                    messages.success(request, "Se modifico el  usuario rut: " + str(rut))
                     return redirect(to="listado")
                 else:
                     print("No se modifico el usuario")
