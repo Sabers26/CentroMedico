@@ -13,7 +13,16 @@ def inicio(request):
 def horario(request):
     if request.method == 'POST':
         rango_fecha = request.POST.get('daterange')
-        print("PRUEBA FECHA: ",rango_fecha)
+        
+        
+        # Separa la cadena en dos fechas utilizando el guion como separador
+        fechas_separadas = rango_fecha.split(" - ")
+
+        # Almacena las fechas en dos variables
+        fecha_inicio = fechas_separadas[0]
+        fecha_fin = fechas_separadas[1]
+        print("PRUEBA FECHA INI : ",fecha_inicio)
+        print("PRUEBA FECHA FIN : ",fecha_fin)
     
     
     return render(request, 'horario.html')
