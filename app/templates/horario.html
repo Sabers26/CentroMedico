@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    {% comment %} <link rel="stylesheet" href="{% static 'listado.css' %}"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{% endblock css %}
+
+{% block contenido %}
+
+<script src="{% static 'listado.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    {% if messages  %}
+    <ul class="messages mensaje-box">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <section class="content">
+            <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+
+            <input class="boton" type="submit" value="Enviar">
+        </section>
+    </form>
+
+    
+
+
+
+
+
+
+    <script>
+    $(function() {
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+    }, function(start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+    });
+    </script>
+
+
+{% endblock contenido %}
+
+{% block script %}
+
+
+
+{% endblock script %}
