@@ -11,11 +11,15 @@
     {% block css %}
 
     {% endblock css %}
+    
 
     <title>Inicio</title>
 </head>
 
 <body>
+    {% block script %}
+
+    {% endblock script %}
     <div class="general">
 
         <!-- navbar -->
@@ -25,6 +29,11 @@
             <a href="{% url 'login' %}">Iniciar Sesion</a>
             <a href="{% url 'register' %}">Registro</a>
             <a href="{% url 'listado' %}">Usuarios</a>
+            <a href="{% url 'toma-fecha' %}">Tomar hora</a>
+            <a href="{% url 'registrohorario' %}">Registro Horario</a>
+
+
+            
 
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </div>
@@ -42,9 +51,7 @@
         </footer>
 
     </div>
-    {% block script %}
-
-    {% endblock script %}
+    
 </body>
 
 </html>

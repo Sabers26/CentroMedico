@@ -13,4 +13,5 @@ urlpatterns = [
     path('horario',horario,name='horario'),
     path('toma-fecha',tomaFecha,name='toma-fecha'),
     path('toma-horario',tomaHorario,name='toma-horario'),
+    path('registrohorario', registrohorario, name='registrohorario'),
 ]

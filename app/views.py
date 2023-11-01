@@ -10,23 +10,6 @@ from django.http import JsonResponse
 def inicio(request):
     return render(request, 'index.html')
 
-def horario(request):
-    if request.method == 'POST':
-        rango_fecha = request.POST.get('daterange')
-        
-        
-        # Separa la cadena en dos fechas utilizando el guion como separador
-        fechas_separadas = rango_fecha.split(" - ")
-
-        # Almacena las fechas en dos variables
-        fecha_inicio = fechas_separadas[0]
-        fecha_fin = fechas_separadas[1]
-        print("PRUEBA FECHA INI : ",fecha_inicio)
-        print("PRUEBA FECHA FIN : ",fecha_fin)
-    
-    
-    return render(request, 'horario.html')
-
 def addColaboradores(request):
     api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/add'
     
@@ -403,7 +386,52 @@ def eliminar(request,id):
     return render(request, 'eliminar.html', {'id': id})
 
 def tomaFecha(request):
+    if request.method == 'POST':
+        return redirect(to="toma-horario")
+        
     return render(request, 'toma-fecha.html')
 
 def tomaHorario(request):
     return render(request, 'toma-horario.html')
+
+def registrohorario(request):
+    lista_horas = []
+    if request.method == 'POST':
+        #Obtiene el rango de fecha
+        rango_fecha = request.POST.get('daterange')
+        
+        #Separa las fechas y las almacena en 2 variables
+        fechas_separadas = rango_fecha.split(" - ")
+        fecha_inicio = fechas_separadas[0]
+        fecha_fin = fechas_separadas[1]
+        
+        #Obtiene todas los horarios seleccionados
+        valores_checkbox = request.POST.getlist('hora')
+        for valor in valores_checkbox:
+            lista_horas.append(valor)
+
+        print("LISTA DE HORAS: ",lista_horas)
+        print("PRUEBA FECHA INI : ",fecha_inicio)
+        print("PRUEBA FECHA FIN : ",fecha_fin)
+            
+            
+            
+    return render(request, 'registro-horario.html')
+
+
+def horario(request):
+    if request.method == 'POST':
+        rango_fecha = request.POST.get('daterange')
+        
+        
+        # Separa la cadena en dos fechas utilizando el guion como separador
+        fechas_separadas = rango_fecha.split(" - ")
+
+        # Almacena las fechas en dos variables
+        fecha_inicio = fechas_separadas[0]
+        fecha_fin = fechas_separadas[1]
+        print("PRUEBA FECHA INI : ",fecha_inicio)
+        print("PRUEBA FECHA FIN : ",fecha_fin)
+    
+    
+    return render(request, 'horario.html')
