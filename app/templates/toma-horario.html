@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+{% comment %}
+<link rel="stylesheet" href="{% static 'listado.css' %}"> {% endcomment %}
+<link rel="stylesheet" type="text/css" href="{% static 'toma-fecha.css' %}" />
+{% endblock css %}
+
+{% block contenido %}
+<form action="" method="post">
+    {% csrf_token %}
+    <section class="content">
+        <h1>Toma de atencion</h1>
+        <table>
+            <tr>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>horario</th>
+            </tr>
+
+            <tr>
+                <td>rut</td>
+                <td>nombre</td>
+                <td>especialidad</td>
+                <td>horario</td>
+                <td><a class="ruta" href="#" role="button">Selecionar</a></td>
+            </tr>
+
+
+
+        </table>
+    </section>
+</form>
+{% endblock contenido %}

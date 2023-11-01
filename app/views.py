@@ -392,3 +392,9 @@ def eliminar(request,id):
         
     
     return render(request, 'eliminar.html', {'id': id})
+
+def tomaFecha(request):
+    return render(request, 'toma-fecha.html')
+
+def tomaHorario(request):
+    return render(request, 'toma-horario.html')

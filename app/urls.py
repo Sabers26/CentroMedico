@@ -10,5 +10,7 @@ urlpatterns = [
     path('modifiColab/<id>', modifiColab, name='modifiColab'),
     path('eliminar/<id>/<estado>', eliminar, name='eliminar'),
     path('modificarusuario/<id>', modificarusuario, name='modificarusuario'),
-    path('horario',horario,name='horario')
+    path('horario',horario,name='horario'),
+    path('toma-fecha',tomaFecha,name='toma-fecha'),
+    path('toma-horario',tomaHorario,name='toma-horario'),
 ]

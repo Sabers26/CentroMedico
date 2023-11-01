@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    {% comment %} <link rel="stylesheet" href="{% static 'listado.css' %}"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'toma-fecha.css' %}" />
+{% endblock css %}
+
+{% block contenido %}
+<form action="" method="post">
+    {% csrf_token %}
+    <section class="content">
+        <h1>Toma de atencion</h1>
+        <label class="labels">Fecha</label>
+        <input class="contenido" type="date" name="date" id="date">
+        <label class="labels" id="Espe">Especialidad</label>
+        <select class="contenido" name="Espe" id="Espe">
+            <option value="0" selected>Especialidad</option>
+            <option value="1">Pediatria</option>
+            <option value="2">Neurologia</option>
+        </select>
+
+        <input class="boton" type="submit" value="Enviar">
+    </section>
+</form>
+{% endblock contenido %}
