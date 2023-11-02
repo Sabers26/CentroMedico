@@ -66,11 +66,15 @@ p{
 }
 
 select {
-  background-color: #484848;
-  color: black;
+  background-color: #163451;
+  color: white;
   text-decoration: none;
   font-size: 17px;
-  border: solid black 2px;
+  border: solid #163451 2px;
+}
+
+option{
+  color: black;
 }
 
 /* Add a black background color to the top navigation */
