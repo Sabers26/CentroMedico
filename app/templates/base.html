@@ -11,14 +11,14 @@
     {% block css %}
 
     {% endblock css %}
-    
+
 
     <title>Inicio</title>
 </head>
 
 <body>
     {% block script %}
-
+    <script src="{% static 'js/base.js' %}"></script>
     {% endblock script %}
     <div class="general">
 
@@ -28,19 +28,20 @@
             <!-- <a href="#">{{user.username}}: cerrar sesion</a> -->
             <a href="{% url 'login' %}">Iniciar Sesion</a>
             <a href="{% url 'register' %}">Registro</a>
-            <a href="{% url 'listado' %}">Usuarios</a>
-            <a href="{% url 'toma-fecha' %}">Tomar hora</a>
-            <a href="{% url 'registrohorario' %}">Registro Horario</a>
 
-
-            
+            <select name="admin" id="admin" onchange="redireccionar()">
+                <option value="">admin</option>
+                <option value="http://127.0.0.1:8000/listado">Usuarios</option>
+                <option value="http://127.0.0.1:8000/toma-fecha">toma hora</option>
+                <option value="http://127.0.0.1:8000/registrohorario">registro hora</option>
+            </select>
 
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </div>
 
-            {% block contenido %}
+        {% block contenido %}
 
-            {% endblock contenido %}
+        {% endblock contenido %}
 
         <!-- footer -->
         <footer>
@@ -51,7 +52,7 @@
         </footer>
 
     </div>
-    
+
 </body>
 
 </html>
