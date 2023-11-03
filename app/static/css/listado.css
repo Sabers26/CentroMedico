@@ -14,7 +14,7 @@ body {
     box-shadow: 7px 13px 37px #000000;
     padding: 0px;
     text-align: center;
-    background-color: beige;
+    background-color: white;
 }
 
 .contenido{
@@ -92,7 +92,7 @@ a{
 }
 
 h4{
-    background-color: beige;
+    background-color: white;
 }
 
 .listar{
@@ -100,22 +100,22 @@ h4{
     margin-bottom: 5% ;
     text-align: center;
     box-shadow: 3px 8px 19px #000000;
-    background-color: beige;
+    background-color: white;
 }
 
 h1{
-    background-color: beige;
+    background-color: white;
 }
 
 p{
-    background-color: beige;
+    background-color: white;
 }
 
 .derecha{
     width: 300px;
     float: left;
     margin-left: 100px;
-    background-color: beige;
+    background-color: white;
 }
 
 select{

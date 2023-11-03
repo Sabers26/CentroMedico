@@ -58,7 +58,7 @@ form {
 
 h1 {
     color: black;
-    background-color: beige;
+    background-color: white;
 }
 
 .labels {
@@ -66,13 +66,13 @@ h1 {
     margin-left: 5%;
     margin-right: 50px;
     float: left;
-    background-color: beige;
+    background-color: white;
 }
 
 .labels-2 {
     color: black;
     float: left;
-    background-color: beige;
+    background-color: white;
 }
 
 .espe{

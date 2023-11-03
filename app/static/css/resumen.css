@@ -13,6 +13,7 @@ form{
     padding: 30px;
     margin: auto;
     margin-top: 100px;
+    margin-bottom: 100px;
     background-color: white;
     border-radius: 4px ;
     font-family: 'calibri';
@@ -31,11 +32,6 @@ form{
     background-color: white;
 }
 
-h1{
-    background-color: white;
-    color: black;
-}
-
 .boton{
     width: 30%;
     height: 40%;
@@ -51,45 +47,38 @@ h1{
     transition: all 0.5s ease-in-out;
 }
 
-h1{
-    margin-bottom: 10px;
-    color: black;
-}
 
 .labels{
     color: black;
     margin-left: 5%;
     float: left;
+    background-color: beige;
+}
+
+img{
+    margin-top: 30px;
+}
+
+h6{
+    background-color: white;
+    width: 200px;
+    margin-left: 39%;
+}
+
+h3{
     background-color: white;
 }
 
-
-form{
-    background-color: #3880cc;
+h1{
+    background-color: white;
+    color: black;
+    margin-bottom: 10px;
+    font-size: 25px;
 }
 
-table{
-	background-color: white;
-	text-align: left;
-	border-collapse: collapse;
-	width: 100%;
+h4{
+    background-color: white;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-size: 20px;
 }
-
-th, td{
-	padding: 20px;
-}
-
-thead{
-	background-color: #246355;
-	border-bottom: solid 5px #0F362D;
-	color: white;
-}
-
-tr{
-    border: solid 3px black;
-}
-
-tr:nth-child(even){
-	background-color: #ddd;
-}
-

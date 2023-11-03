@@ -14,15 +14,15 @@ body {
     padding: 0px;
     text-align: center;
     border-radius: 20px;
-    background-color: beige;
+    background-color: white;
 }
 
 .contenidos{
-    background-color: beige;
+    background-color: white;
 }
 
 h1{
-    background-color: beige;
+    background-color: white;
 }
 
 
@@ -65,7 +65,7 @@ h1{
     color: black;
     margin-left: 5%;
     float: left;
-    background-color: beige;
+    background-color: white;
 }
 
 .labels-2{
@@ -73,7 +73,7 @@ h1{
     margin-left: 5%;
     float: left;
     display: none;
-    background-color: beige;
+    background-color: white;
 }
 
 form{

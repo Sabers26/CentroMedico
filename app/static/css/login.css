@@ -13,7 +13,7 @@ form{
     padding: 30px;
     margin: auto;
     margin-top: 100px;
-    background-color: beige;
+    background-color: white;
     border-radius: 4px ;
     font-family: 'calibri';
     color: rgb(0, 0, 0);
@@ -32,7 +32,7 @@ form{
 }
 
 h1{
-    background-color: beige;
+    background-color: white;
     color: black;
 }
 
@@ -60,6 +60,6 @@ h1{
     color: black;
     margin-left: 5%;
     float: left;
-    background-color: beige;
+    background-color: white;
 }
 
