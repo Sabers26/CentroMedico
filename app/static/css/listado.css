@@ -118,9 +118,6 @@ p{
     background-color: white;
 }
 
-select{
-    background-color: white;
-}
 
 form{
     background-color: #3880cc;
@@ -154,4 +151,9 @@ tr:nth-child(even){
 tr:hover td{
 	background-color: #369681;
 	color: white;
+}
+
+select{
+    background-color: white;
+    color: black;
 }
