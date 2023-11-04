@@ -4,6 +4,7 @@ from django.contrib import messages
 import requests
 import json
 from django.http import JsonResponse
+from datetime import datetime
 
 # Create your views here.
 
@@ -83,6 +84,7 @@ def login(request):
                 else:
                     print("SI JALAAAAAAA")
                     messages.success(request, "El usuario: " + respuesta.get("nombre") + " inicio sesion")
+                    request.session['usuario_data'] = usuario_data
                     return redirect(to="inicio")
                     
                     
@@ -386,13 +388,88 @@ def eliminar(request,id):
     return render(request, 'eliminar.html', {'id': id})
 
 def tomaFecha(request):
+    api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/horario-medico/fecha'
+    
+    usuario_data = request.session.get('usuario_data', {})
+    print(usuario_data)
     if request.method == 'POST':
-        return redirect(to="toma-horario")
+
+        fecha = request.POST.get('date')
+        especialidad = request.POST.get('Espe')
+        
+        
+        return redirect(to=f"toma-horario/{fecha}/{especialidad}")
         
     return render(request, 'toma-fecha.html')
 
-def tomaHorario(request):
-    return render(request, 'toma-horario.html')
+def tomaHorario(request, fecha, especialidad):
+    
+    
+    #data = [datos]
+    print("data", fecha)
+    
+    api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/horario-medico/fecha'
+    
+    usuario_data = request.session.get('usuario_data', {})
+    print(usuario_data)
+    
+    respuesta = None  # Inicializa la variable respuesta antes del bloque try
+    
+    fecha_original = fecha
+
+    # # Convierte la fecha en un objeto datetime
+    fecha_obj = datetime.strptime(fecha_original, '%Y-%m-%d')
+
+    # # Formatea la fecha en 'DD-MM-YYYY'
+    fecha_formateada = fecha_obj.strftime('%d-%m-%Y')
+    
+    
+    
+    data ={
+        "fecha": fecha_formateada,
+        "especialidad_id": int(especialidad)
+    }
+    
+    
+    if request.method == 'GET':
+        data_json = json.dumps(data)
+        
+        headers = {'Content-Type': 'application/json'}
+        try:
+            # Realizar una solicitud POST a la API de Flask para crear un usuario
+            response = requests.post(api_url, data=data_json, headers=headers)
+            if response.status_code == 200:
+                respuesta = response.json()
+                print(respuesta)
+                if len(respuesta)==0:
+                    print(respuesta)
+                    print("No se encontraron horas")
+                    messages.warning(request, "No se encontraron horas")
+                else:
+                    print(respuesta)
+                    lista = []
+                    for item in respuesta:
+                        # Crear una lista de horarios médicos para el elemento actual
+                        horarios = item['horario_medico']
+
+                        for horario in horarios:
+                            lista.append({
+                                'fecha': horario['fecha'],
+                                'hora_bloque': horario['horario']['hora_bloque'],
+                                'nombre': item['nombre'],
+                                'rut': item['rut'],
+                            })
+
+                    # Ordenar la lista de datos en orden descendente por la hora del bloque
+                    lista = sorted(lista, key=lambda x: datetime.strptime(x['hora_bloque'], '%H:%M'), reverse=False)
+                    print("SI JALAAAAAAA")
+                    #messages.success(request, "El usuario: " + respuesta.get("nombre") + " inicio sesión")
+                    #request.session['usuario_data'] = usuario_data
+                
+        except:
+            print("No jalo")
+            
+    return render(request, 'toma-horario.html', {'lista': lista})
 
 def registrohorario(request):
     lista_horas = []

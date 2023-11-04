@@ -11,23 +11,24 @@
     <section class="content">
         <h1>Toma de atencion</h1>
         <table>
-            <tr>
-                <th>Rut</th>
-                <th>Nombre</th>
-                <th>Especialidad</th>
-                <th>horario</th>
-            </tr>
-
-            <tr>
-                <td>rut</td>
-                <td>nombre</td>
-                <td>especialidad</td>
-                <td>horario</td>
-                <td><a class="ruta" href="#" role="button">Selecionar</a></td>
-            </tr>
-
-
-
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora Bloque</th>
+                    <th>Nombre</th>
+                    <th>RUT</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in lista %}
+                    <tr>
+                        <td>{{ item.fecha }}</td>
+                        <td>{{ item.hora_bloque }}</td>
+                        <td>{{ item.nombre }}</td>
+                        <td>{{ item.rut }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </section>
 </form>
