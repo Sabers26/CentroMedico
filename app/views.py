@@ -515,3 +515,6 @@ def horario(request):
 
 def resumen(request):
     return render(request, 'resumen.html')
+
+def buscarAtencion(request):
+    return render(request , 'buscar-atencion.html')

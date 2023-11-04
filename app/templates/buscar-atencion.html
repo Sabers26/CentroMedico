@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/listado.css' %}">
+{% endblock css %}
+
+{% block contenido %}
+
+    <form action="" method="get">
+        <div class="content">
+            <h1>Busqueda de usuarios</h1>
+            <div class="derecha">
+                <p>Filtro:</p>
+                <label class="labels">Rut:</label>
+                <input class="lRut" type="text" name="Rut" id="Rut" placeholder="Rut">
+        
+                <input class="boton2" type="submit" value="Buscar">
+            </div>
+
+            <table>
+                <tr>
+                    <th>Rut</th>
+                    <th>Nombre</th>
+                    <th>Horas</th>
+                </tr>
+    
+                <tr>
+                    <td>rut</td>
+                    <td>nombre</td>
+                    <td>Horas</td>
+                </tr>
+    
+    
+    
+            </table>
+        </div>
+    </form>
+
+{% endblock contenido %}
+
+{% block script %}
+    <script src="{% static 'js/base.js' %}"></script>
+{% endblock script %}
