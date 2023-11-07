@@ -72,6 +72,10 @@
                                 <td><a class="ruta" href="{% url 'eliminar'  usuario.rut  usuario.habilitado %}" role="button">Habilitar</a></td>
                                 {% endif %}
 
+                                {% if usuario.especialidad.nombre_especialidad %}
+                                    <td><a class="ruta" href="{% url 'registrohorario'  usuario.rut %}" role="button">Agregar Horas</a></td>
+                                {% endif %}
+
                             </tr>
                             {% endfor %}
                         {% endif %}
@@ -95,6 +99,10 @@
 
                                 {% if diccionario.usuariob.habilitado == "DESHABILITADO" %}
                                 <td><a class="ruta" href="{% url 'eliminar'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Habilitar</a></td>
+                                {% endif %}
+                                
+                                {% if diccionario.usuariob.especialidad.nombre_especialidad %}
+                                    <td><a class="ruta" href="{% url 'eliminar' diccionario.usuariob.rut diccionario.usuariob.habilitado %}" role="button">Agregar Horas</a></td>
                                 {% endif %}
                             </tr>
                         {% endif %}
