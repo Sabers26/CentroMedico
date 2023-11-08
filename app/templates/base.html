@@ -28,11 +28,11 @@
             <!-- <a href="#">{{user.username}}: cerrar sesion</a> -->
             <a href="{% url 'login' %}">Iniciar Sesion</a>
             <a href="{% url 'register' %}">Registro</a>
+            <a href="{% url 'toma-fecha' %}">Registro</a>
 
             <select name="admin" id="admin" onchange="redireccionar()">
                 <option value="">admin</option>
                 <option value="http://127.0.0.1:8000/listado">Usuarios</option>
-                <option value="http://127.0.0.1:8000/toma-fecha">toma hora</option>
                 <option value="http://127.0.0.1:8000/registrohorario">registro hora</option>
                 <option value="http://127.0.0.1:8000/addColaboradores">colaboradores</option>
                 <option value="http://127.0.0.1:8000/buscarAtencion">buscar Usuario</option>

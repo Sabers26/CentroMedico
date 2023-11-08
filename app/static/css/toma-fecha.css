@@ -29,6 +29,7 @@ form{
     margin-bottom: 20px;
     height: 20px;
     background-color: white;
+    color: black;
 }
 
 h1{
@@ -92,8 +93,4 @@ tr{
 
 tr:nth-child(even){
 	background-color: #ddd;
-}
-
-select{
-    color: black;
 }
