@@ -17,5 +17,6 @@ urlpatterns = [
     path('resumen/<data>', resumen, name='resumen'),
     path('buscarAtencion', buscarAtencion, name='buscarAtencion'),
     path('listadoHorarioMedico/<id>', listadoHorarioMedico, name='listadoHorarioMedico'),
-    path('confirmaciontoma<data>', confirmaciontoma, name='confirmaciontoma')
+    path('confirmaciontoma<data>', confirmaciontoma, name='confirmaciontoma'),
+    path('eliminarhorario/<data>', resumen, name='resumen'),
 ]

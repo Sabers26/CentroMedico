@@ -620,6 +620,7 @@ def confirmaciontoma(request,data):
             # Comprobar si la solicitud fue exitosa (código de estado 200 para revisar si hay respuesta de la api)
             if response.status_code == 200:
                 respuesta = response.json()
+                print(respuesta)
                 if respuesta.get("message") :
                     messages.warning(request, "No se registro el usuario")
                     
@@ -673,7 +674,7 @@ def horario(request):
 def buscarAtencion(request):
     
     try:
-        api_url = "https://centromedico.aldarroyo.repl.co/api/horario-medico/buscar"
+        api_url = "https://centromedico.aldarroyo.repl.co/api/atenciones/buscar"
         
         usuario_data = {
             "rut_usuario": id
@@ -703,4 +704,14 @@ def buscarAtencion(request):
     return render(request , 'buscar-atencion.html')
 
 
+def eliminarhorario(request,data):
+    print("DATA VISTA eliminar: ",data)
     
+    data = data.replace("'", '"')
+
+    data = json.loads(data)  # Convierte la cadena JSON en un diccionario
+    
+    
+    
+    
+    return render(request, 'eliminar-horario.html', {"data": data})
