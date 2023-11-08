@@ -82,7 +82,7 @@ def login(request):
 
                 if respuesta.get("message") :
                     print("No inicio sesion")
-                    messages.warning(request, "No inicio sesion")
+                    messages.warning(request, "No se ecnontro al usuario")
                 else:
                     request.session['usuario_data'] = usuario_data
                     messages.success(request, "El usuario: " + respuesta.get("nombre") + " inicio sesion")
@@ -612,14 +612,12 @@ def confirmaciontoma(request,data):
         correo = str(request.POST.get('correo'))
     
         
-        # Convierte el objeto JSON en un diccionario de Python
-        
         headers = {'Content-Type': 'application/json'}
         try:
             # Realizar una solicitud POST a la API de Flask para crear un usuario
             response = requests.post(api_url, data=data_json, headers=headers)
 
-            # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+            # Comprobar si la solicitud fue exitosa (código de estado 200 para revisar si hay respuesta de la api)
             if response.status_code == 200:
                 respuesta = response.json()
                 if respuesta.get("message") :
@@ -627,8 +625,6 @@ def confirmaciontoma(request,data):
                     
                 else:
                     print("JALOOO")
-                    
-                    
                     
                     # Genera la URL con el objeto JSON directamente en la URL
                     url_destino = f'/resumen/{respuesta}'
