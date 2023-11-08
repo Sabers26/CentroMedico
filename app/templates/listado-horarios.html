@@ -6,36 +6,51 @@
 {% endblock css %}
 
 {% block contenido %}
+{% if messages  %}
+    <ul class="messages mensaje-box">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
-    <form action="" method="get">
-        <div class="content">
-            <h1>Busqueda de horario medico</h1>
-            <div class="derecha">
-                <p>Filtro:</p>
-                <label class="labels">Rut:</label>
-                <input class="lRut" type="text" name="Rut" id="Rut" placeholder="Rut">
-        
-                <input class="boton2" type="submit" value="Buscar">
-            </div>
 
-            <table>
-                <tr>
-                    <th>Rut</th>
-                    <th>Nombre</th>
-                    <th>Horas</th>
-                </tr>
+    <div class="content">
+        <h1>Horario del medico: {{datos.nombre}}</h1>
+        <div class="derecha">
+            {% comment %} <p>Filtro:</p>
+            <label class="labels">Rut:</label>
+            <input class="lRut" type="text" name="Rut" id="Rut" placeholder="Rut">
     
-                <tr>
-                    <td>rut</td>
-                    <td>nombre</td>
-                    <td>Horas</td>
-                </tr>
-    
-    
-    
-            </table>
+            <input class="boton2" type="submit" value="Buscar"> {% endcomment %}
         </div>
-    </form>
+
+        <table>
+            <p>RUT del Médico: {{ datos.rut }}</p>
+            <p>Especialidad: {{ datos.especialidad.nombre_especialidad }}</p>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Disponible</th>
+            </tr>
+            {% for hora in datos.horario_medico %}
+                <tr>
+                    <td>{{ hora.fecha }}</td>
+                    <td>{{ hora.horario.hora_bloque }}</td>
+                    <td>
+                        {% if hora.disponible %}
+                            Disponible
+                        {% else %}
+                            No Disponible
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    
+        
+    </div>
+
 
 {% endblock contenido %}
 

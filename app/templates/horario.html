@@ -21,32 +21,7 @@
     </ul>
     {% endif %}
 
-    <form action="" method="post">
-        {% csrf_token %}
-        <section class="content">
-            <input type="text" name="daterange" value="01/11/2023 - 01/12/2023" />
-
-            <input class="boton" type="submit" value="Enviar">
-        </section>
-    </form>
-
-
-
-
-
-
-
-
-    <script>
-    $(function() {
-    $('input[name="daterange"]').daterangepicker({
-        opens: 'left'
-    }, function(start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    });
-    });
-    </script>
-
+    
 
 {% endblock contenido %}
 

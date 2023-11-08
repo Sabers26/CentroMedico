@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/listado.css' %}">
+{% endblock css %}
+
+{% block contenido %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <section class="content">
+            
+            
+            <h1>Tomar hora</h1>
+            <br>
+            <h3>Ingrese su correo para poder registrar la hora</h3>
+            <label class="labels">Correo</label>
+            <input class="contenido" type="text" name="correo" id="correo" placeholder="correo">
+
+            <h3>Seguro que desea tomar la hora: </h3>
+
+            <input class="boton" type="submit" value="Aceptar">
+            {% comment %} <a class="boton" href="{% url 'listado'%}" role="button">Aceptar</a> {% endcomment %}
+
+
+            
+
+            {% comment %} <input class="boton" type="submit" value="Cancelar"> {% endcomment %}
+        </section>
+    </form>
+{% endblock contenido %}

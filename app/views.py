@@ -5,10 +5,13 @@ import requests
 import json
 from django.http import JsonResponse
 from datetime import datetime
+from django.core.mail import send_mail
 
 # Create your views here.
 
 def inicio(request):
+    
+    
     return render(request, 'index.html')
 
 def addColaboradores(request):
@@ -224,8 +227,6 @@ def listado(request):
         return  messages.warning(request,'Error de conexión a la API de Flask')
 
 
-
-
 def modificarusuario(request,id):
     #Primero obtener el usuario para que sus datos se muestren en el formulario
     api_url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/buscarUsuario'
@@ -422,14 +423,9 @@ def tomaFecha(request):
 
 def tomaHorario(request, fecha, especialidad):
     
-    
-    #data = [datos]
-    print("data", fecha)
+    lista = []
     
     api_url = 'https://centromedico.aldarroyo.repl.co/api/horario-medico/fecha'
-    
-    usuario_data = request.session.get('usuario_data', {})
-    print(usuario_data)
     
     respuesta = None  # Inicializa la variable respuesta antes del bloque try
     
@@ -446,6 +442,14 @@ def tomaHorario(request, fecha, especialidad):
         "especialidad_id": int(especialidad)
     }
     
+    if 'usuario_data' in request.session:
+        # Accede al diccionario almacenado en la sesión
+        usuario_data = request.session['usuario_data']
+
+        # Recupera el valor de 'rut_usuario'
+        rut_usuario = usuario_data.get('rut_usuario', None)
+    
+    
     
     if request.method == 'GET':
         data_json = json.dumps(data)
@@ -456,13 +460,10 @@ def tomaHorario(request, fecha, especialidad):
             response = requests.post(api_url, data=data_json, headers=headers)
             if response.status_code == 200:
                 respuesta = response.json()
-                print(respuesta)
                 if len(respuesta)==0:
-                    print(respuesta)
-                    print("No se encontraron horas")
                     messages.warning(request, "No se encontraron horas")
                 else:
-                    print(respuesta)
+                    print("LLEGE AL ELSE")
                     lista = []
                     for item in respuesta:
                         # Crear una lista de horarios médicos para el elemento actual
@@ -472,9 +473,15 @@ def tomaHorario(request, fecha, especialidad):
                             lista.append({
                                 'fecha': horario['fecha'],
                                 'hora_bloque': horario['horario']['hora_bloque'],
+                                'id_bloque': horario['horario']['id'],
                                 'nombre': item['nombre'],
                                 'rut': item['rut'],
+                                'rut_paciente': rut_usuario
                             })
+                            print(lista)
+                            
+                    if len(lista)==0:
+                        messages.warning(request, "No se encontraron horas")
 
                     # Ordenar la lista de datos en orden descendente por la hora del bloque
                     lista = sorted(lista, key=lambda x: datetime.strptime(x['hora_bloque'], '%H:%M'), reverse=False)
@@ -482,9 +489,10 @@ def tomaHorario(request, fecha, especialidad):
                     #messages.success(request, "El usuario: " + respuesta.get("nombre") + " inicio sesión")
                     #request.session['usuario_data'] = usuario_data
                 
-        except:
-            print("No jalo")
-            
+        except Exception as e:
+            messages.warning(request, f"Error con el servidor: {str(e)}")
+            print("me cai:", str(e))
+                
     return render(request, 'toma-horario.html', {'lista': lista})
 
 def registrohorario(request,id):
@@ -547,28 +555,130 @@ def registrohorario(request,id):
     return render(request, 'registro-horario.html')
 
 
-def horario(request):
-    if request.method == 'POST':
-        rango_fecha = request.POST.get('daterange')
-        
-        
-        # Separa la cadena en dos fechas utilizando el guion como separador
-        fechas_separadas = rango_fecha.split(" - ")
 
-        # Almacena las fechas en dos variables
-        fecha_inicio = fechas_separadas[0]
-        fecha_fin = fechas_separadas[1]
-        print("PRUEBA FECHA INI : ",fecha_inicio)
-        print("PRUEBA FECHA FIN : ",fecha_fin)
+
+
+def listadoHorarioMedico(request, id):
+    try:
+        api_url = "https://centromedico.aldarroyo.repl.co/api/horario-medico/buscar"
+        
+        usuario_data = {
+            "rut_usuario": id
+        }
+        headers = {'Content-Type': 'application/json'}
+        
+        data_json = json.dumps(usuario_data)
+        
+        response = requests.post(api_url, data=data_json, headers=headers)
+        datos = None
+        
+        # Comprobar si la API responde con éxito (código 200)
+        if response.status_code == 200:
+            datos = response.json()
+            if "message" in datos:
+                messages.warning(request, 'No se encontraron horarios')
+            else:
+                messages.warning(request, 'No se encontraron horarios')
+        else:
+            messages.error(request, 'Error al obtener datos de la API')
+            
+    except Exception as e:
+        messages.error(request, f'Error del servidor: {str(e)}')
+    
+    return render(request, 'listado-horarios.html', {'datos': datos})
+
+
+
+def confirmaciontoma(request,data):
+    api_url = "https://centromedico.aldarroyo.repl.co/api/atenciones/add"
+    
+    # Reemplaza comillas simples por comillas dobles en la cadena JSON
+    data = data.replace("'", '"')
+
+    data = json.loads(data)  # Convierte la cadena JSON en un diccionario
+
+    api_url = "https://centromedico.aldarroyo.repl.co/api/atenciones/add"
+
+    atencion = {
+        "fecha_consulta": data['fecha'],
+        "rut_medico": data['rut'],
+        "hora_consulta": data['id_bloque'],
+        "rut_paciente": data['rut_paciente'].replace("-", "")
+    }
+    
+    if request.method == 'POST':
+        data_json = json.dumps(atencion)
+        
+        correo = str(request.POST.get('correo'))
+    
+        
+        # Convierte el objeto JSON en un diccionario de Python
+        
+        headers = {'Content-Type': 'application/json'}
+        try:
+            # Realizar una solicitud POST a la API de Flask para crear un usuario
+            response = requests.post(api_url, data=data_json, headers=headers)
+
+            # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+            if response.status_code == 200:
+                respuesta = response.json()
+                if respuesta.get("message") :
+                    messages.warning(request, "No se registro el usuario")
+                    
+                else:
+                    print("JALOOO")
+                    
+                    
+                    
+                    # Genera la URL con el objeto JSON directamente en la URL
+                    url_destino = f'/resumen/{respuesta}'
+                    
+                    send_mail(
+                        'Reserva hora centro medico',
+                        'Hora confirmada.',
+                        'apicorreosduoc@gmail.com',
+                        [correo],
+                        fail_silently=False,
+                        )
+                    
+                    return redirect(url_destino)
+                    
+                    
+            else:
+                messages.warning(request,'No se pudo crear la atencion en la API de Flask')
+                
+        except:
+            messages.warning(request,'Error de conexión a la API de Flask')
+    
+
+    
+    
+    
+    return render(request, 'confirmacion-toma.html')
+
+def resumen(request,data):
+    print("DATA VISTA RESUMEN: ",data)
+    
+    data = data.replace("'", '"')
+
+    data = json.loads(data)  # Convierte la cadena JSON en un diccionario
+    
+    
+    
+    
+    return render(request, 'resumen.html', {"data": data})
+
+def horario(request):
+    
     
     
     return render(request, 'horario.html')
 
-def resumen(request):
-    return render(request, 'resumen.html')
-
 def buscarAtencion(request):
+    
+    
+    
     return render(request , 'buscar-atencion.html')
 
-def listadoHorarioMedico(request):
-    return render(request, 'listado-horarios.html')
+
+    

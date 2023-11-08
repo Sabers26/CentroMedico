@@ -13,7 +13,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>Fecha</th>
                     <th>Hora Bloque</th>
                     <th>Nombre</th>
                     <th>RUT</th>
@@ -26,6 +25,11 @@
                         <td>{{ item.hora_bloque }}</td>
                         <td>{{ item.nombre }}</td>
                         <td>{{ item.rut }}</td>
+                        {% comment %} <td><a class="ruta" href="{% url 'resumen'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Tomar Hora</a></td> {% endcomment %}
+
+                        <td>
+                            <a class="ruta" href="{% url 'confirmaciontoma' item %}" role="button">Tomar Hora</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

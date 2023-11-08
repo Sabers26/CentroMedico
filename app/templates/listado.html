@@ -74,6 +74,8 @@
 
                                 {% if usuario.especialidad.nombre_especialidad %}
                                     <td><a class="ruta" href="{% url 'registrohorario'  usuario.rut %}" role="button">Agregar Horas</a></td>
+                                    <td><a class="ruta" href="{% url 'listadoHorarioMedico'  usuario.rut %}" role="button">Ver Horas</a></td>
+
                                 {% endif %}
 
                             </tr>
@@ -103,6 +105,10 @@
                                 
                                 {% if diccionario.usuariob.especialidad.nombre_especialidad %}
                                     <td><a class="ruta" href="{% url 'eliminar' diccionario.usuariob.rut diccionario.usuariob.habilitado %}" role="button">Agregar Horas</a></td>
+                                {% endif %}
+
+                                {% if diccionario.usuariob.tipo_usuario.nombre_tipo == "PACIENTE" %}
+                                <td><a class="ruta" href="{% url 'eliminar'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Ver atenciones</a></td>
                                 {% endif %}
                             </tr>
                         {% endif %}

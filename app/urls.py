@@ -14,7 +14,8 @@ urlpatterns = [
     path('toma-fecha',tomaFecha,name='toma-fecha'),
     path('toma-horario/<fecha>/<especialidad>',tomaHorario,name='toma-horario'),
     path('registrohorario/<id>', registrohorario, name='registrohorario'),
-    path('resumen', resumen, name='resumen'),
+    path('resumen/<data>', resumen, name='resumen'),
     path('buscarAtencion', buscarAtencion, name='buscarAtencion'),
-    path('listadoHorarioMedico', listadoHorarioMedico, name='listadoHorarioMedico'),
+    path('listadoHorarioMedico/<id>', listadoHorarioMedico, name='listadoHorarioMedico'),
+    path('confirmaciontoma<data>', confirmaciontoma, name='confirmaciontoma')
 ]

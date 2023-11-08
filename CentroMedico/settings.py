@@ -125,3 +125,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache' 
 SESSION_CACHE_ALIAS = 'default' 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'apicorreosduoc@gmail.com'
+EMAIL_HOST_PASSWORD = 'icibtxcdkkwxhfcv'
+DEFAULT_FROM_EMAIL = 'apicorreosduoc@gmail.com'
