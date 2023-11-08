@@ -16,4 +16,5 @@ urlpatterns = [
     path('registrohorario/<id>', registrohorario, name='registrohorario'),
     path('resumen', resumen, name='resumen'),
     path('buscarAtencion', buscarAtencion, name='buscarAtencion'),
+    path('listadoHorarioMedico', listadoHorarioMedico, name='listadoHorarioMedico'),
 ]

@@ -17,6 +17,10 @@ body {
     background-color: white;
 }
 
+select{
+    color: black;
+}
+
 .contenidos{
     background-color: white;
 }

@@ -569,3 +569,6 @@ def resumen(request):
 
 def buscarAtencion(request):
     return render(request , 'buscar-atencion.html')
+
+def listadoHorarioMedico(request):
+    return render(request, 'listado-horarios.html')

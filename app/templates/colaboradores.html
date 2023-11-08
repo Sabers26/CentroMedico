@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="{% static 'css/colaboradores.css' %}">
 {% endblock css %}
 
+{% block script %}
+    <script src="{% static 'js/colaborador.js' %}"></script>
+    <script src="{% static 'js/password.js' %}"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+{% endblock script %}
+
 {% block contenido %}
     {% if messages  %}
         <ul class="messages mensaje-box">
@@ -49,10 +55,6 @@
 </form>
 {% endblock contenido %}
 
-{% block script %}
-    <script src="{% static 'js/colaborador.js' %}"></script>
-    <script src="{% static 'js/password.js' %}"></script>
-    <script src="{% static 'js/base.js' %}"></script>
-{% endblock script %}
+
 
 
