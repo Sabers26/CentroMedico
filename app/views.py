@@ -676,6 +676,32 @@ def horario(request):
 
 def buscarAtencion(request):
     
+    try:
+        api_url = "https://centromedico.aldarroyo.repl.co/api/horario-medico/buscar"
+        
+        usuario_data = {
+            "rut_usuario": id
+        }
+        headers = {'Content-Type': 'application/json'}
+        
+        data_json = json.dumps(usuario_data)
+        
+        response = requests.post(api_url, data=data_json, headers=headers)
+        datos = None
+        
+        # Comprobar si la API responde con éxito (código 200)
+        if response.status_code == 200:
+            datos = response.json()
+            if "message" in datos:
+                messages.warning(request, 'No se encontraron horarios')
+            else:
+                messages.warning(request, 'No se encontraron horarios')
+        else:
+            messages.error(request, 'Error al obtener datos de la API')
+            
+    except Exception as e:
+        messages.error(request, f'Error del servidor: {str(e)}')
+    
     
     
     return render(request , 'buscar-atencion.html')

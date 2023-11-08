@@ -108,7 +108,7 @@
                                 {% endif %}
 
                                 {% if diccionario.usuariob.tipo_usuario.nombre_tipo == "PACIENTE" %}
-                                <td><a class="ruta" href="{% url 'eliminar'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Ver atenciones</a></td>
+                                <td><a class="ruta" href="{% url 'buscarAtencion'  diccionario.usuariob.rut %}" role="button">Ver atenciones</a></td>
                                 {% endif %}
                             </tr>
                         {% endif %}
