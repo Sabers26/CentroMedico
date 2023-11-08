@@ -2,8 +2,10 @@
 {% load static %}
 
 {% block css %}
-    {% comment %} <link rel="stylesheet" href="{% static 'listado.css' %}"> {% endcomment %}
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{% comment %}
+<link rel="stylesheet" href="{% static 'listado.css' %}"> {% endcomment %}
+<link rel="stylesheet" href="{% static 'css/registro-hora.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 {% endblock css %}
 
 {% block contenido %}
@@ -13,31 +15,35 @@
 <form action="" method="post">
     {% csrf_token %}
     <section class="content">
-        <input type="text" name="daterange" value="01/11/2023 - 01/12/2023" />
+
+        <h1>Disponibilidad medico</h1>
         <br>
-        <label><input type="checkbox" name="hora" value=1 /> 8:00</label>
+        <input type="text" id="fecha" name="daterange" value="01/11/2023 - 01/12/2023" />
         <br>
-        <label><input type="checkbox" name="hora" value=2 /> 9:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=1 /> 8:00</label>
         <br>
-        <label><input type="checkbox" name="hora" value=3 /> 10:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=2 /> 9:00</label>
         <br>
-        <label><input type="checkbox" name="hora" value=4 /> 11:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=3 /> 10:00</label>
         <br>
-        <label><input type="checkbox" name="hora" value=5 /> 12:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=4 /> 11:00</label>
         <br>
-        <label><input type="checkbox" name="hora" value=6 /> 13:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=5 /> 12:00</label>
         <br>
-        <label><input type="checkbox" name="hora" value=7 /> 14:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=6 /> 13:00</label>
         <br>
-        <label><input type="checkbox" name="hora" value=8 /> 15:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=7 /> 14:00</label>
         <br>
-        <label><input type="checkbox" name="hora" value=9 /> 16:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=8 /> 15:00</label>
         <br>
-        <label><input type="checkbox" name="hora" value=10 /> 17:00</label>
+        <label><input class='label' type="checkbox" name="hora" value=9 /> 16:00</label>
+        <br>
+        <label><input class='label' type="checkbox" name="hora" value=10 /> 17:00</label>
+        <br>
 
         <input class="boton" type="submit" value="Enviar">
     </section>
-    
+
 
 
 </form>
@@ -46,20 +52,21 @@
 
 
 <script>
-    $(function() {
-    $('input[name="daterange"]').daterangepicker({
-        opens: 'left'
-    }, function(start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function (start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
     });
-    });
-    </script>
+</script>
 
 
 
 {% endblock contenido %}
 
 {% block script %}
+<script src="{% static 'js/registro-hora.js' %}"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

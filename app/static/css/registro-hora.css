@@ -1,19 +1,12 @@
 body {
     padding: 0;
     margin: 0;
-    
-}
-
-form{
-    background-color: #3880cc;
 }
 
 .content{
     width: 900px;
     padding: 30px;
     margin: auto;
-    margin-top: 100px;
-    background-color: white;
     border-radius: 4px ;
     font-family: 'calibri';
     color: rgb(0, 0, 0);
@@ -21,6 +14,19 @@ form{
     padding: 0px;
     text-align: center;
     border-radius: 20px;
+    background-color: white;
+}
+
+select{
+    color: black;
+}
+
+.contenidos{
+    background-color: white;
+}
+
+h1{
+    background-color: white;
 }
 
 
@@ -31,9 +37,12 @@ form{
     background-color: white;
 }
 
-h1{
+.contenido-2{
+    width: 90%;
+    margin-bottom: 20px;
+    height: 20px;
     background-color: white;
-    color: black;
+    display: none;
 }
 
 .boton{
@@ -44,6 +53,7 @@ h1{
     color: white;
     padding: 12px;
     font-size: 16px;
+    margin-top: 5px;
 }
 
 .boton:hover{
@@ -63,37 +73,16 @@ h1{
     background-color: white;
 }
 
+.labels-2{
+    color: black;
+    margin-left: 5%;
+    float: left;
+    display: none;
+    background-color: white;
+}
 
 form{
+    margin-top: 100px;
     background-color: #3880cc;
 }
 
-table{
-	background-color: white;
-	text-align: left;
-	border-collapse: collapse;
-	width: 100%;
-}
-
-th, td{
-	padding: 20px;
-    color: black;
-}
-
-thead{
-	background-color: #246355;
-	border-bottom: solid 5px #0F362D;
-	color: white;
-}
-
-tr{
-    border: solid 3px black;
-}
-
-tr:nth-child(even){
-	background-color: #ddd;
-}
-
-select{
-    color: black;
-}
