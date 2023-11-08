@@ -2,27 +2,27 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/colaboradores.css' %}">
+<link rel="stylesheet" href="{% static 'css/colaboradores.css' %}">
 {% endblock css %}
 
 {% block script %}
-    <script src="{% static 'js/colaborador.js' %}"></script>
-    <script src="{% static 'js/password.js' %}"></script>
-    <script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/colaborador.js' %}"></script>
+<script src="{% static 'js/password.js' %}"></script>
+<script src="{% static 'js/base.js' %}"></script>
 {% endblock script %}
 
 {% block contenido %}
-    {% if messages  %}
-        <ul class="messages mensaje-box">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+{% if messages %}
+<ul class="messages mensaje-box">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 <form action="" method="post" id="registro-form">
     {% csrf_token %}
     <section class="content">
-        
+
         <h1>Formulario de colaboradores</h1>
         <label class="labels">Rut del colaborador</label>
         <input class="contenido" type="text" name="Rut" id="rut" placeholder="Rut">
@@ -34,27 +34,20 @@
         <input class="contenido" type="Password" name="Password" id="Password" placeholder="**********">
         <label class="labels">Repetir Contraseña</label>
         <input class="contenido" type="Password" name="password2" id="password2" placeholder="**********">
-        
+
         <label class="labels">Tipo de colaborador</label>
-        <select class="contenido" name="Tipo" id="Tipo">
+        <select class="contenido" name="Tipo" id="tipo" onchange="mostrarSelect(this.value)">
             <option value="1">Administrador</option>
             <option value="2">Medico</option>
         </select>
 
-        <div class="contenidos">
-            <label class="labels-2" id="Espe-l">Tipo de especialidad</label>
-            <select class="contenido-2" name="Espe" id="Espe">
-                <option value="1">Pediatria</option>
-                <option value="2">Neurologia</option>
-            </select>
-        </div>
-
+        <label class="labels-2" id="espe-l">Tipo de especialidad</label>
+        <select class="contenido-2" name="Espe" id="espe">
+            <option value="1">Pediatria</option>
+            <option value="2">Neurologia</option>
+        </select>
 
         <input onclick="validar()" class="boton" type="submit" value="Guardar">
     </section>
 </form>
 {% endblock contenido %}
-
-
-
-

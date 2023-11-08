@@ -1,23 +1,17 @@
 // Obtén una referencia al select y al elemento que deseas mostrar/ocultar.
-const select = document.getElementById('Tipo');
-const elemento = document.getElementById('Espe');
-const elemento2 = document.getElementById('Espe-l');
-
-// Agrega un evento de cambio al select.
-select.addEventListener('change', function() {
-  // Obtiene el valor seleccionado en el select.
-  const valorSeleccionado = select.value;
-  
-  // Comprueba el valor seleccionado y ajusta la visibilidad del elemento en consecuencia.
-  if (valorSeleccionado === '2') {
-    elemento.style.display = 'block'; // Muestra el elemento
-    elemento.style.marginLeft = '5%';
-    elemento2.style.display = 'block'; // Muestra el elemento
+function mostrarSelect(valorSeleccionado) {
+  var selectSecundario = document.getElementById('espe');
+  var label = document.getElementById('espe-l');
+  if (valorSeleccionado == '2') {
+      selectSecundario.style.display = 'block';
+      selectSecundario.style.marginLeft = '5%';
+      label.style.display = 'block';
+      label.style.marginLeft = '5%';
   } else {
-    elemento.style.display = 'none'; // Oculta el elemento
-    elemento2.style.display = 'none'; // Muestra el elemento
+      selectSecundario.style.display = 'none';
+      label.style.display = 'none';
   }
-});
+}
 
 function validar() {
 
