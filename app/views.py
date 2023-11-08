@@ -12,7 +12,7 @@ def inicio(request):
     return render(request, 'index.html')
 
 def addColaboradores(request):
-    api_url = 'https://centromedicoarquitectura.lusaezd.repl.co/api/usuarios/add'
+    api_url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/add'
     
     if request.method == 'POST':
         # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
@@ -57,7 +57,7 @@ def addColaboradores(request):
     return render(request, 'colaboradores.html')
 
 def login(request):
-    api_url = 'https://centromedicofinal.aldarroyo.repl.co/api/usuarios/login'
+    api_url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/login'
     
     if request.method == 'POST':
         # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
@@ -99,7 +99,7 @@ def login(request):
     return render(request, 'login.html')
 
 def register(request):
-    api_url = 'https://centromedicofinal.aldarroyo.repl.co/api/usuarios/add'
+    api_url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/add'
     
     if request.method == 'POST':
         # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
@@ -142,7 +142,7 @@ def register(request):
 
 def listado(request):
     try:
-        api_url = 'https://centromedicofinal.aldarroyo.repl.co/api/usuarios'
+        api_url = 'https://centromedico.aldarroyo.repl.co/api/usuarios'
         response = requests.get(api_url)
         usuarios = None
         # Comprobar si la api da respuesta
@@ -170,7 +170,7 @@ def listado(request):
             data_json = json.dumps(usuario_data)
             headers = {'Content-Type': 'application/json'}
             
-            response = requests.post('https://centromedicofinal.aldarroyo.repl.co/api/usuarios/tipo', data=data_json, headers=headers)
+            response = requests.post('https://centromedico.aldarroyo.repl.co/api/usuarios/tipo', data=data_json, headers=headers)
             if response.status_code == 200:
                 usuarios = response.json()
                 if "message" in usuarios:
@@ -184,7 +184,7 @@ def listado(request):
             data_json = json.dumps(usuario_data)
             headers = {'Content-Type': 'application/json'}
             
-            response = requests.post('https://centromedicofinal.aldarroyo.repl.co/api/usuarios/especialidad', data=data_json, headers=headers)
+            response = requests.post('https://centromedico.aldarroyo.repl.co/api/usuarios/especialidad', data=data_json, headers=headers)
             if response.status_code == 200:
                 usuarios = response.json()
                 if "message" in usuarios:
@@ -201,7 +201,7 @@ def listado(request):
             data_json = json.dumps(usuario_data)
             headers = {'Content-Type': 'application/json'}
             
-            response = requests.post('https://centromedicofinal.aldarroyo.repl.co/api/usuarios/buscarUsuario', data=data_json, headers=headers)
+            response = requests.post('https://centromedico.aldarroyo.repl.co/api/usuarios/buscarUsuario', data=data_json, headers=headers)
             if response.status_code == 200:
                 usuariob = response.json()
                 if "message" in usuariob:
@@ -228,7 +228,7 @@ def listado(request):
 
 def modificarusuario(request,id):
     #Primero obtener el usuario para que sus datos se muestren en el formulario
-    api_url = 'https://centromedicofinal.aldarroyo.repl.co/api/usuarios/buscarUsuario'
+    api_url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/buscarUsuario'
     
     usuario_rut = {
         "rut_usuario": str(id),
@@ -258,7 +258,7 @@ def modificarusuario(request,id):
         headers = {'Content-Type': 'application/json'}
 
         try:
-            url = 'https://centromedicofinal.aldarroyo.repl.co/api/usuarios/mod'
+            url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/mod'
             # Realizar una solicitud POST a la API de Flask para crear un usuario
             response = requests.post(url, data=data_json, headers=headers)
 
@@ -286,7 +286,7 @@ def modificarusuario(request,id):
 def modifiColab(request,id):
     try:
         #Primero obtener el usuario para que sus datos se muestren en el formulario
-        api_url = 'https://centromedicofinal.aldarroyo.repl.co/api/usuarios/buscarUsuario'
+        api_url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/buscarUsuario'
         
         usuario_rut = {
             "rut_usuario": str(id),
@@ -330,7 +330,7 @@ def modifiColab(request,id):
             headers = {'Content-Type': 'application/json'}
 
             
-            url = 'https://centromedicofinal.aldarroyo.repl.co/api/usuarios/mod'
+            url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/mod'
             # Realizar una solicitud POST a la API de Flask para modificar un usuario
             response = requests.post(url, data=data_json, headers=headers)
 
@@ -372,7 +372,7 @@ def eliminar(request,id,estado):
         headers = {'Content-Type': 'application/json'}
         
         try:
-            url = 'https://centromedicofinal.aldarroyo.repl.co/api/usuarios/act'
+            url = 'https://centromedico.aldarroyo.repl.co/api/usuarios/act'
             # Realizar una solicitud POST a la API de Flask para deshabilitar el usuario
             response = requests.post(url, data=data_json, headers=headers)
 
@@ -406,7 +406,7 @@ def eliminar(request,id,estado):
 
 
 def tomaFecha(request):
-    api_url = 'https://centromedicofinal.aldarroyo.repl.co/api/horario-medico/fecha'
+    api_url = 'https://centromedico.aldarroyo.repl.co/api/horario-medico/fecha'
     
     usuario_data = request.session.get('usuario_data', {})
     print(usuario_data)
@@ -426,7 +426,7 @@ def tomaHorario(request, fecha, especialidad):
     #data = [datos]
     print("data", fecha)
     
-    api_url = 'https://centromedicofinal.aldarroyo.repl.co/api/horario-medico/fecha'
+    api_url = 'https://centromedico.aldarroyo.repl.co/api/horario-medico/fecha'
     
     usuario_data = request.session.get('usuario_data', {})
     print(usuario_data)
@@ -488,7 +488,7 @@ def tomaHorario(request, fecha, especialidad):
     return render(request, 'toma-horario.html', {'lista': lista})
 
 def registrohorario(request,id):
-    api_url = 'https://centromedicofinal.aldarroyo.repl.co/api/horario-medico/add'
+    api_url = 'https://centromedico.aldarroyo.repl.co/api/horario-medico/add'
     
     # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
         
@@ -502,8 +502,8 @@ def registrohorario(request,id):
         fecha_inicio = fechas_separadas[0]
         fecha_fin = fechas_separadas[1]
         
+        #Esto es para darle el formato adecuado en la base de datos
         fecha_inicio = datetime.strptime(fecha_inicio, "%m/%d/%Y").strftime("%Y-%m-%d")
-        
         fecha_fin = datetime.strptime(fecha_fin, "%m/%d/%Y").strftime("%Y-%m-%d")
 
         
@@ -513,8 +513,7 @@ def registrohorario(request,id):
         valores_checkbox = request.POST.getlist('hora')
         for valor in valores_checkbox:
             lista_horas.append(valor)
-            
-            print
+
             
         solicitud = {
             "rut_usuario": id,
@@ -528,7 +527,6 @@ def registrohorario(request,id):
         headers = {'Content-Type': 'application/json'}
         try:
             response = requests.post(api_url, data=data_json, headers=headers)
-
             # Comprobar si la solicitud fue exitosa (código de estado 200 para indicar que la api retorna informacion)
             if response.status_code == 200:
                 respuesta = response.json()
@@ -545,15 +543,6 @@ def registrohorario(request,id):
         except:
             messages.warning(request,'Error de conexión a la API de Flask')
             return redirect(to="inicio")
-            
-            
-            
-
-        print("LISTA DE HORAS: ",lista_horas)
-        print("PRUEBA FECHA INI : ",fecha_inicio)
-        print("PRUEBA FECHA FIN : ",fecha_fin)
-            
-            
             
     return render(request, 'registro-horario.html')
 
