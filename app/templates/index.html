@@ -2,25 +2,34 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/index.css' %}"> -->
 {% endblock css %}
 
 {% block contenido %}
 
 
-    {% if messages %}
-    <ul class="messages mensaje-box">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+{% if messages %}
+<ul class="messages mensaje-box">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
-    <section class="content" style="margin-bottom: 50px;">
-        <h1>Bienvenid@ a Tu centro medico</h1>
-        <img src="{% static 'imagenes/medico.png' %}" width="800">
-        <img src="{% static 'imagenes/chayan.jpeg' %}" width="200px">
-    </section>
+<div class="container text-center">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+            <h1>Bienvenid@ a Tu centro medico</h1>
+            <img src="{% static 'imagenes/medico.png' %}" width="800">
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<section class="content" style="margin-bottom: 50px;">
+
+</section>
 
 
 {% endblock contenido %}
