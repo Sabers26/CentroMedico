@@ -92,18 +92,7 @@ def eliminar(request):
 
 
 def tomaFecha(request):
-    api_url = 'https://centromedico.aldarroyo.repl.co/api/horario-medico/fecha'
-    
-    usuario_data = request.session.get('usuario_data', {})
-    print(usuario_data)
-    if request.method == 'POST':
 
-        fecha = request.POST.get('date')
-        especialidad = request.POST.get('Espe')
-        
-        
-        return redirect(to=f"toma-horario/{fecha}/{especialidad}")
-        
     return render(request, 'toma-fecha.html')
 
 def tomaHorario(request):
