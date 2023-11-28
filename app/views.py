@@ -78,12 +78,12 @@ def listado(request):
 def modificarusuario(request):
     
     
-    return render(request, 'modificar_usuario.html')
+    return render(request, 'user/modificar_usuario.html')
 
 def modifiColab(request):
     
     
-    return render(request, 'modificacion-cola.html', {'usuario':usuario})
+    return render(request, 'admin/modificacion-cola.html')
 
 
 def eliminar(request):
@@ -92,16 +92,16 @@ def eliminar(request):
 
 
 def tomaFecha(request):
-
+    
     return render(request, 'toma-fecha.html')
 
 def tomaHorario(request):
     
-    return render(request, 'toma-horario.html')
+    return render(request, 'user/toma-horario.html')
 
 def registrohorario(request):
             
-    return render(request, 'registro-horario.html')
+    return render(request, 'admin/registro-horario.html')
 
 
 
@@ -109,17 +109,17 @@ def registrohorario(request):
 
 def listadoHorarioMedico(request):
     
-    return render(request, 'listado-horarios.html')
+    return render(request, 'admin/listado-horarios.html')
 
 
 
 def confirmaciontoma(request):
     
-    return render(request, 'confirmacion-toma.html')
+    return render(request, 'user/confirmacion-toma.html')
 
 def resumen(request): 
     
-    return render(request, 'resumen.html')
+    return render(request, 'user/resumen.html')
 
 def horario(request):
     
@@ -130,7 +130,7 @@ def horario(request):
 def buscarAtencion(request):
     
     
-    return render(request , 'buscar-atencion.html')
+    return render(request , 'admin/buscar-atencion.html')
 
 
 def eliminarhorario(request):
