@@ -59,7 +59,7 @@ def addColaboradores(request):
             return redirect(to="listado")
         
     
-    return render(request, 'colaboradores.html')
+    return render(request, 'admin/colaboradores.html')
 
 def login(request):
     
@@ -72,18 +72,18 @@ def register(request):
 
 
 def listado(request):
-    return render(request, 'listado.html')
+    return render(request, 'admin/listado.html')
 
 
 def modificarusuario(request):
     
     
-    return render(request, 'modificar_usuario.html')
+    return render(request, 'user/modificar_usuario.html')
 
 def modifiColab(request):
     
     
-    return render(request, 'modificacion-cola.html', {'usuario':usuario})
+    return render(request, 'admin/modificacion-cola.html', {'usuario':usuario})
 
 
 def eliminar(request):
@@ -104,15 +104,15 @@ def tomaFecha(request):
         
         return redirect(to=f"toma-horario/{fecha}/{especialidad}")
         
-    return render(request, 'toma-fecha.html')
+    return render(request, 'user/toma-fecha.html')
 
 def tomaHorario(request):
     
-    return render(request, 'toma-horario.html')
+    return render(request, 'user/toma-horario.html')
 
 def registrohorario(request):
             
-    return render(request, 'registro-horario.html')
+    return render(request, 'admin/registro-horario.html')
 
 
 
@@ -120,17 +120,17 @@ def registrohorario(request):
 
 def listadoHorarioMedico(request):
     
-    return render(request, 'listado-horarios.html')
+    return render(request, 'admin/listado-horarios.html')
 
 
 
 def confirmaciontoma(request):
     
-    return render(request, 'confirmacion-toma.html')
+    return render(request, 'user/confirmacion-toma.html')
 
 def resumen(request): 
     
-    return render(request, 'resumen.html')
+    return render(request, 'user/resumen.html')
 
 def horario(request):
     
@@ -141,7 +141,7 @@ def horario(request):
 def buscarAtencion(request):
     
     
-    return render(request , 'buscar-atencion.html')
+    return render(request , 'admin/buscar-atencion.html')
 
 
 def eliminarhorario(request):
