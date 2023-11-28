@@ -59,7 +59,7 @@ def addColaboradores(request):
             return redirect(to="listado")
         
     
-    return render(request, 'colaboradores.html')
+    return render(request, 'admin/colaboradores.html')
 
 def login(request):
     
@@ -72,7 +72,7 @@ def register(request):
 
 
 def listado(request):
-    return render(request, 'listado.html')
+    return render(request, 'admin/listado.html')
 
 
 def modificarusuario(request):
