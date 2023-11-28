@@ -11,37 +11,54 @@
 
 {% block contenido %}
 
-<form action="" method="post" id="registro-form">
+<form action="" method="POST">
     {% csrf_token %}
-    <section class="content">
+    <div class="container text-center ">
+        <div class="margen">
+            <h2>Formulario de colaboradores</h2>
+            <div class="row">
+                <div class="mb-3">
+                    <label for="Rut" class="form-label">Rut del colaborador</label>
+                    <input type="text" class="form-control" id="Rut" type="text" name="Rut" placeholder="Rut">
+                </div>
+                <div class="mb-3">
+                    <label for="NombreApellido" class="form-label">Nombre y apellido</label>
+                    <input type="text" class="form-control" id="NombreApellido" placeholder="Nombre | Apellido">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" placeholder="******">
+                </div>
 
-        <h1>Formulario de colaboradores</h1>
-        <label class="labels">Rut del colaborador</label>
-        <input class="contenido" type="text" name="Rut" id="rut" placeholder="Rut">
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Repetir contraseña</label>
+                    <input type="password" class="form-control" id="password2" placeholder="******">
+                </div>
 
-        <label class="labels">Nombre y apellido del colaborador</label>
-        <input class="contenido" type="text" name="NombreApellido" id="NombreApellido" placeholder="Nombre | Apellido">
+                <div class="mb-3">
+                    <label for="tipo" class="form-label" id="tipo">Especialidad</label>
+                    <select class="dropdown" name="tipo" id="tipo" onchange="mostrarSelect(this.value)">
+                        <option value="0" selected>Tipo usuario</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Medico</option>
+                    </select>
+                </div>
 
-        <label class="labels">Contraseña</label>
-        <input class="contenido" type="Password" name="Password" id="Password" placeholder="**********">
-        <label class="labels">Repetir Contraseña</label>
-        <input class="contenido" type="Password" name="password2" id="password2" placeholder="**********">
+                <div class="mb-3">
+                    <label for="espe" class="form-label" id="espe-l">Especialidad</label>
+                    <select class="dropdown" name="espe" id="espe">
+                        <option value="0" selected>Especialidad</option>
+                        <option value="1">Pediatria</option>
+                        <option value="2">Neurologia</option>
+                    </select>
+                </div>
 
-        <label class="labels">Tipo de colaborador</label>
-        <select class="contenido" name="Tipo" id="tipo" onchange="mostrarSelect(this.value)">
-            <option value="1">Administrador</option>
-            <option value="2">Medico</option>
-        </select>
-
-        <label class="labels-2" id="espe-l">Tipo de especialidad</label>
-        <select class="contenido-2" name="Espe" id="espe">
-            <option value="1">Pediatria</option>
-            <option value="2">Neurologia</option>
-        </select>
-
-        <input onclick="validar()" class="boton" type="submit" value="Guardar">
-    </section>
+                <button style="width: 30%; " type="submit" class="btn btn-dark" onclick="validar()">Enviar</button>
+            </div>
+        </div>
+    </div>
 </form>
+
 {% endblock contenido %}
 
 

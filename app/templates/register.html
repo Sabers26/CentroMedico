@@ -2,34 +2,51 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock css %}
 
 {% block contenido %}
-    {% if messages  %}
-        <ul class="messages mensaje-box">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+{% if messages %}
+<ul class="messages mensaje-box">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
-    <form action="" method="post" id="registro-form">
-        {% csrf_token %}
-        <section class="content">
-            <h1>Formulario registro</h1>
-            <label class="labels">Rut usuario</label>
-            <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut">
-            <label class="labels">Nombre completo</label>
-            <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre">
-            <label class="labels">Contraseña</label>
-            <input class="contenido" type="Password" name="Password" id="Password" placeholder="**********">
-            <label class="labels">Repetir Contraseña</label>
-            <input class="contenido" type="Password" name="password2" id="password2" placeholder="**********">
 
-            <input class="boton" type="submit" value="Guardar">
-        </section>
-    </form>
+<form action="" method="POST" id="registro-form">
+    {% csrf_token %}
+    <div class="container text-center ">
+        <div class="margen">
+            <h2>Formulario de usuario</h2>
+            <div class="row">
+                <div class="mb-3">
+                    <label for="Rut" class="form-label">Rut del colaborador</label>
+                    <input type="text" class="form-control" id="Rut" type="text" name="Rut" placeholder="Rut">
+                </div>
+                <div class="mb-3">
+                    <label for="NombreApellido" class="form-label">Nombre y apellido</label>
+                    <input type="text" class="form-control" id="NombreApellido" placeholder="Nombre | Apellido">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" placeholder="******">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Repetir contraseña</label>
+                    <input type="password" class="form-control" id="password2" placeholder="******">
+                </div>
+
+
+                <button style="width: 30%; " type="submit" class="btn btn-dark" onclick="validar()">Enviar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
 
 {% endblock contenido %}
 

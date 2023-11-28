@@ -7,33 +7,54 @@
 
 {% block contenido %}
 
-<div id="tipo" data-mi-valor="{{ usuario.tipo_usuario.id }}"></div>
-<form action="" method="post" id="registro-form">
+<form action="" method="POST">
     {% csrf_token %}
-    <section class="content">
-        <h1>Formulario modificacion colaborador</h1>
-        <label class="labels">Rut del colaborador</label>
-        <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut" value="{{usuario.rut}}" disabled>
-        <label class="labels">Nombre del colaborador</label>
-        <input class="contenido" type="text" name="Nombre" id="Nombre" placeholder="Nombre" value="{{usuario.nombre}}" >
+    <div class="container text-center ">
+        <div class="margen">
+            <h2>Formulario modificacion colaborador</h2>
+            <div class="row">
+                <div class="mb-3">
+                    <label for="Rut" class="form-label">Rut del colaborador</label>
+                    <input type="text" class="form-control" id="Rut" type="text" name="Rut" placeholder="Rut">
+                </div>
+                <div class="mb-3">
+                    <label for="NombreApellido" class="form-label">Nombre y apellido</label>
+                    <input type="text" class="form-control" id="NombreApellido" placeholder="Nombre | Apellido">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" placeholder="******">
+                </div>
 
-        <label class="labels">Tipo Colaborador</label>
-        <input class="contenido" type="text" name="ntipo" id="ntipo" value= "{{usuario.tipo_usuario.nombre_tipo}}" disabled>
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Repetir contraseña</label>
+                    <input type="password" class="form-control" id="password2" placeholder="******">
+                </div>
 
-        <select name="idEspecialidad" id="espe" class="espe">
-            <option value="" selected>Especialidad</option>
-            <option value="1" {% if usuario.especialidad.id_especialidad == 1 %}selected{% endif %}>Pediatria</option>
-            <option value="2" {% if usuario.especialidad.id_especialidad == 2 %}selected{% endif %}>Neurologia</option>
-        </select>
+                <div class="mb-3">
+                    <label for="tipo" class="form-label" id="tipo">Especialidad</label>
+                    <select class="dropdown" name="tipo" id="tipo" onchange="mostrarSelect(this.value)">
+                        <option value="0" selected>Tipo usuario</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Medico</option>
+                    </select>
+                </div>
 
-        <label class="labels">Contraseña</label>
-        <input class="contenido" type="Password" name="Password" id="Password" placeholder="**********">
-        <label class="labels">Repetir Contraseña</label>
-        <input class="contenido" type="Password" name="password2" id="password2" placeholder="**********">
+                <div class="mb-3">
+                    <label for="espe" class="form-label" id="espe-l">Especialidad</label>
+                    <select class="dropdown" name="espe" id="espe">
+                        <option value="0" selected>Especialidad</option>
+                        <option value="1">Pediatria</option>
+                        <option value="2">Neurologia</option>
+                    </select>
+                </div>
 
-        <input class="boton" type="submit" value="Guardar">
-    </section>
+                <button style="width: 30%; " type="submit" class="btn btn-dark" onclick="validar()">Enviar</button>
+            </div>
+        </div>
+    </div>
 </form>
+
 {% endblock contenido %}
 
 

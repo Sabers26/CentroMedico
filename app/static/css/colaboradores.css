@@ -1,86 +1,42 @@
-body {
-    padding: 0;
-    margin: 0;
-}
-
-.content{
-    width: 900px;
-    padding: 30px;
-    margin: auto;
-    border-radius: 4px ;
-    font-family: 'calibri';
-    color: rgb(0, 0, 0);
-    box-shadow: 7px 13px 37px #000000;
-    padding: 0px;
-    text-align: center;
-    border-radius: 20px;
-    background-color: white;
-}
-
-select{
-    color: black;
-}
-
-.contenidos{
-    background-color: white;
-}
-
-h1{
-    background-color: white;
-}
-
-
-.contenido{
-    width: 90%;
-    margin-bottom: 20px;
-    height: 20px;
-    background-color: white;
-}
-
-.contenido-2{
-    width: 90%;
-    margin-bottom: 20px;
-    height: 20px;
-    background-color: white;
-    display: none;
-}
-
-.boton{
-    width: 30%;
-    height: 40%;
-    margin: 20px;
-    background-color: #000000;
+*{
     color: white;
-    padding: 12px;
-    font-size: 16px;
 }
 
-.boton:hover{
-    transform: translate(0rem, 0.1rem);
-    transition: all 0.5s ease-in-out;
+.margen{
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 10%;
+    padding-top: 2%;
+    border-radius: 25px;
+    background-image: radial-gradient(circle at 120.71% 50%, #7e54f8 0, #4d42d4 50%, #0331b0 100%);
+    box-shadow: 10px 14px 31px -1px rgba(0,0,0,0.72);
+    margin-bottom: 5%;
 }
 
-h1{
-    margin-bottom: 10px;
+.btn{
+    margin-left: 35%;
+    margin-bottom: 5%;
+}
+
+.form-control{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.form-label{
+    margin-right: 40%;
+}
+
+.form-text{
+    color: white;
+}
+
+html,body{
+    background-color: rgb(245, 245, 234);
+}
+
+select, option{
+    font-size: 19px;
     color: black;
-}
-
-.labels{
-    color: black;
-    margin-left: 5%;
-    float: left;
-    background-color: white;
-}
-
-.labels-2{
-    color: black;
-    margin-left: 5%;
-    float: left;
-    display: none;
-    background-color: white;
-}
-
-form{
-    margin-top: 100px;
-    background-color: #3880cc;
+    width: 50%;
 }
