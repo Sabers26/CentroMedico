@@ -93,7 +93,7 @@ def eliminar(request):
 
 def tomaFecha(request):
     
-    return render(request, 'toma-fecha.html')
+    return render(request, 'user/toma-fecha.html')
 
 def tomaHorario(request):
     

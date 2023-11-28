@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block css %}
-    {% comment %} <link rel="stylesheet" href="{% static 'listado.css' %}"> {% endcomment %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/toma-fecha.css' %}" />
+{% comment %}
+<link rel="stylesheet" href="{% static 'listado.css' %}"> {% endcomment %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/toma-fecha.css' %}" />
 {% endblock css %}
 
 {% block script %}
@@ -15,36 +16,43 @@
     function validarFecha() {
         var fechaIngresada = new Date(document.getElementById('dia').value);
         var fechaActual = new Date();
-    
+
         // Asegurarse de que ambas fechas tengan el mismo formato de tiempo
-        fechaIngresada.setHours(0,0,0,0);
-        fechaActual.setHours(0,0,0,0);
-    
-        if(fechaIngresada < fechaActual) {
+        fechaIngresada.setHours(0, 0, 0, 0);
+        fechaActual.setHours(0, 0, 0, 0);
+
+        if (fechaIngresada < fechaActual) {
             alert('La fecha ingresada es anterior a la fecha actual. Por favor, ingresa una fecha válida.');
             return false;  // Esto detendrá el evento de envío
         }
-    
+
         return true;  // Esto permitirá que el evento de envío continúe
     }
-    </script>
+</script>
+
 
 <form action="" method="post" id="form" onsubmit="return validarFecha()">
     {% csrf_token %}
-    <section class="content">
-        <h1>Toma de atencion</h1>
-        <label class="labels">Fecha</label>
-        <input class="contenido" type="date" name="date" id="dia">
-        <label class="labels" id="Espe">Especialidad</label>
-        <select class="contenido" name="Espe" id="Espe">
-            <option value="0" selected>Especialidad</option>
-            <option value="1">Pediatria</option>
-            <option value="2">Neurologia</option>
-        </select>
+    <div class="container text-center ">
+        <div class="margen">
+            <h2>Toma de atencion</h2>
+            <div class="row">
+                <div class="mb-3">
+                    <label for="dia" class="form-label">Fecha</label>
+                    <input class="form-control" type="date" name="date" id="dia">
+                </div>
+                <div class="mb-3">
 
-        <input class="boton" type="submit" value="Enviar" id="boton">
-    </section>
+                    <label for="Espe" class="form-label" id="Espe">Especialidad</label>
+                    <select class="dropdown" name="Espe" id="Espe">
+                        <option value="0" selected>Especialidad</option>
+                        <option value="1">Pediatria</option>
+                        <option value="2">Neurologia</option>
+                    </select>
+                </div>
+                <button style="width: 30%; " type="submit" class="btn btn-dark">Enviar</button>
+            </div>
+        </div>
+    </div>
 </form>
 {% endblock contenido %}
-
-
