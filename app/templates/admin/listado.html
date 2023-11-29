@@ -2,130 +2,67 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/listado.css' %}">
+
+
+
+
+
 {% endblock css %}
 
 {% block contenido %}
-    {% if messages  %}
-    <ul class="messages mensaje-box">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-<form action="" method="get">
-    <div class="content">
-        <h1>Listado de usuarios</h1>
-        <div class="derecha">
-            <p>Filtro:</p>
-            <select name="tipoUsuario" id="tipo">
-                <option value="" selected>tipo Usuario</option>
-                <option value="1">Administrador</option>
-                <option value="2">Medico</option>
-                <option value="3">Paciente</option>
-            </select>
-            
-            <select name="idEspecialidad" id="espe" class="espe">
-                <option value="" selected>Especialidad</option>
-                <option value="1">Pediatria</option>
-                <option value="2">Neurologia</option>
-            </select>
-
-            <input class="boton2" type="submit" value="Filtrar">
-        </div>
-
-
-        <p>buscar:</p>
-        <input class="contenido" type="text" name="Rut" id="Rut" placeholder="Rut">
-        <a href="{% url 'addColaboradores' %}" style="width: 40px; background-color: black;  color: white; text-decoration: none;">Registrar colaborador</a>
-
-        <section class="listar">
-                <h4>Lista de Usuarios</h4>
-                <table>
+<div class="container mt-5">
+    <div class="row my-5">
+        <div class="col-sm-12 col-md-12 col-lg-12 cot-xl-12">
+            <div class="mb-2" style="text-align: right;">
+            </div>
+            <div class="table-responsive">
+                <table id="datatable-responsive" class="table table-striped table-bordered">
+                    <thead class="table-primary">
                         <tr>
-                            <th>Rut</th>
-                            <th>Nombre</th>
-                            <th>Tipo usuario</th>
-                            <th>Especialidad</th>
-                            <th>Estado</th>
+                            <th class="centered">ID</th>
+                            <th class="centered">Nombre</th>
+                            <th class="centered">Precio</th>
+                        </tr>
+                        <!-- Fila de Selects para Filtrar -->
+                        <tr id="filterRow">
+                            <th></th> <!-- Celda vacía para la columna ID -->
+                            <th></th> <!-- Celda vacía para la columna Nombre -->
+                            <th></th> <!-- Celda vacía para la columna Precio -->
                         </tr>
                     
-                        {% if diccionario.usuarios  %}
-                            {% for usuario in diccionario.usuarios %}
-                            <tr>
-                                <td>{{ usuario.rut }}</td>
-                                <td>{{ usuario.nombre }}</td>
-                                <td>{{ usuario.tipo_usuario.nombre_tipo }}</td>
-                                {% if usuario.especialidad == "N/A" %}
-                                <td>{{ usuario.especialidad }}</td>
-                                {% else %}
-                                <td>{{ usuario.especialidad.nombre_especialidad }}</td>
-                                {% endif %}
-                                <td>{{ usuario.habilitado }}</td>
-                                <td><a class="ruta" href="{% url 'modifiColab'  usuario.rut%}" role="button">Modificar</a></td>
-
-                                {% if usuario.habilitado == "HABILITADO" %}
-                                <td><a class="ruta" href="{% url 'eliminar'  usuario.rut  usuario.habilitado %}" role="button">Deshabilitar</a></td>
-                                {% endif %}
-
-                                {% if usuario.habilitado == "DESHABILITADO" %}
-                                <td><a class="ruta" href="{% url 'eliminar'  usuario.rut  usuario.habilitado %}" role="button">Habilitar</a></td>
-                                {% endif %}
-
-                                {% if usuario.especialidad.nombre_especialidad %}
-                                    <td><a class="ruta" href="{% url 'registrohorario'  usuario.rut %}" role="button">Agregar Horas</a></td>
-                                    <td><a class="ruta" href="{% url 'listadoHorarioMedico'  usuario.rut %}" role="button">Ver Horas</a></td>
-
-                                {% endif %}
-
-                            </tr>
-                            {% endfor %}
-                        {% endif %}
-
-                        {% if diccionario.usuariob  %}
-                            <tr>
-                                <td>{{ diccionario.usuariob.rut }}</td>
-                                <td>{{ diccionario.usuariob.nombre }}</td>
-                                <td>{{ diccionario.usuariob.tipo_usuario.nombre_tipo }}</td>
-                                {% if diccionario.usuariob.especialidad == "N/A" %}
-                                <td>{{ diccionario.usuariob.especialidad }}</td>
-                                {% else %}
-                                <td>{{ diccionario.usuariob.especialidad.nombre_especialidad }}</td>
-                                {% endif %}
-                                <td>{{ diccionario.usuariob.habilitado }}</td>
-                                <td><a class="ruta" href="{% url 'modifiColab'  diccionario.usuariob.rut%}" role="button">Modificar</a></td>
-
-                                {% if diccionario.usuariob.habilitado == "HABILITADO" %}
-                                <td><a class="ruta" href="{% url 'eliminar'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Deshabilitar</a></td>
-                                {% endif %}
-
-                                {% if diccionario.usuariob.habilitado == "DESHABILITADO" %}
-                                <td><a class="ruta" href="{% url 'eliminar'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Habilitar</a></td>
-                                {% endif %}
-                                
-                                {% if diccionario.usuariob.especialidad.nombre_especialidad %}
-                                    <td><a class="ruta" href="{% url 'eliminar' diccionario.usuariob.rut diccionario.usuariob.habilitado %}" role="button">Agregar Horas</a></td>
-                                {% endif %}
-
-                                {% if diccionario.usuariob.tipo_usuario.nombre_tipo == "PACIENTE" %}
-                                <td><a class="ruta" href="{% url 'buscarAtencion'  diccionario.usuariob.rut %}" role="button">Ver atenciones</a></td>
-                                {% endif %}
-                            </tr>
-                        {% endif %}
+                        <!-- Fila de Encabezado de la Tabla -->
                         
+                    </thead>
+                    <tbody id="table_body_clientes">
+
+                    </tbody>
                 </table>
-        </section>
+                
+            </div>
+            
+        </div>
 
     </div>
-</form>
 
 
-    <ul>
-        
-    </ul>
+</div>
+
+
+
+
 {% endblock contenido %}
 
 {% block script %}
-<script src="{% static 'listado.js' %}"></script>
-<script src="{% static 'js/base.js' %}"></script>
+
+
+
+
+<script src="{% static 'js/datatable/listado.js' %}"></script>
+
+
+
+
+
+
+
 {% endblock script %}

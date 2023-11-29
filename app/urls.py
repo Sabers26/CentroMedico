@@ -18,4 +18,6 @@ urlpatterns = [
     path('buscarAtencion', buscarAtencion, name='buscarAtencion'),
     path('listadoHorarioMedico', listadoHorarioMedico, name='listadoHorarioMedico'),
     path('confirmaciontoma', confirmaciontoma, name='confirmaciontoma'),
-    path('eliminarhorario', resumen, name='resumen'),]
+    path('eliminarhorario', resumen, name='resumen'),
+    path('lista_usuarios',lista_usuarios, name='lista_usuarios'),
+    ]

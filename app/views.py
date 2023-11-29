@@ -135,3 +135,18 @@ def buscarAtencion(request):
 
 def eliminarhorario(request):
     return render(request, 'eliminar-horario.html')
+
+
+
+def lista_usuarios(_request):
+    api_url = 'https://apiarquitectura.lusaezd.repl.co/api/usuarios/'
+    response = requests.get(api_url)
+    
+    # Verificar si la respuesta fue exitosa (código 200)
+    if response.status_code == 200:
+        # Convertir la respuesta a una lista de diccionarios
+        usuarios = response.json()
+        return JsonResponse(usuarios, safe=False)
+    else:
+        # Manejar el caso en que la respuesta no sea exitosa
+        return JsonResponse({'error': 'No se pudo obtener la lista de usuarios'}, status=response.status_code)
