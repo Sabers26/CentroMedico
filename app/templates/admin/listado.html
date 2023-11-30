@@ -16,18 +16,25 @@
             <div class="mb-2" style="text-align: right;">
             </div>
             <div class="table-responsive">
+                <a href="{% url 'addColaboradores' %}" role="button" class="btn btn-primary text-light">Registrar Colaborador</a>
                 <table id="datatable-responsive" class="table table-striped table-bordered">
                     <thead class="table-primary">
                         <tr>
-                            <th class="centered">ID</th>
+                            <th class="centered">Rut</th>
                             <th class="centered">Nombre</th>
-                            <th class="centered">Precio</th>
+                            <th class="centered">Tipo</th>
+                            <th class="centered">Especialidad</th>
+                            <th class="centered">Estado</th>
+                            <th class="centered"> </th>
                         </tr>
                         <!-- Fila de Selects para Filtrar -->
                         <tr id="filterRow">
                             <th></th> <!-- Celda vacía para la columna ID -->
                             <th></th> <!-- Celda vacía para la columna Nombre -->
                             <th></th> <!-- Celda vacía para la columna Precio -->
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     
                         <!-- Fila de Encabezado de la Tabla -->
@@ -63,6 +70,26 @@
 
 
 
+<script>
+    function eliminar_usuario(rut,estado){
+        if (estado == 'true') {
+            estado = false
+        } else {
+            estado = true
+        }
 
+	Swal.fire({
+		"title": "¿Estas seguro?",
+		"text" : "Se cambiara el estado del usuario",
+		"icon" :"question",
+		"showCancelButton": true})
+		.then(function(result){
+		if(result.isConfirmed){
+			window.location.href = "eliminar/"+rut+"/"+estado
+		}
+		
+		})
+}
+</script>
 
 {% endblock script %}

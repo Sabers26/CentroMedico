@@ -20,14 +20,16 @@ def addColaboradores(request):
     if request.method == 'POST':
         # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
         usuario_data = {
-            "rut_usuario": str(request.POST.get('Rut')),
-            "nombre_usuario": str(request.POST.get('NombreApellido')),
-            "id_tipo": int(request.POST.get('Tipo')),
-            "password": str(request.POST.get('Password')),
-            "id_especialidad": int(request.POST.get('Espe'))
+            "rut_usuario": str(request.POST.get('rut')),
+            "nombre_usuario": str(request.POST.get('nombreApellido')),
+            "id_tipo": int(request.POST.get('tipo')),
+            "password": str(request.POST.get('password')),
+            "id_especialidad": int(request.POST.get('espe'))
         }
         
         data_json = json.dumps(usuario_data)
+        
+        print(usuario_data)
         
         headers = {'Content-Type': 'application/json'}
         
@@ -86,9 +88,38 @@ def modifiColab(request):
     return render(request, 'admin/modificacion-cola.html')
 
 
-def eliminar(request):
-        
-    return render(request, 'eliminar.html')
+def eliminar(request,rut,estado):
+    usuario_data = {
+        "rut_usuario": str(rut),
+        "estado": estado
+    }
+    data_json = json.dumps(usuario_data)
+    
+    
+    headers = {'Content-Type': 'application/json'}
+    
+    try:
+        url = 'https://apiarquitectura.lusaezd.repl.co/api/usuarios/modEstado'
+        # Realizar una solicitud POST a la API de Flask para deshabilitar el usuario
+        response = requests.post(url, data=data_json, headers=headers)
+
+        # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+        if response.status_code == 200:
+            respuesta = response.json()
+            print("RESPUESTA==============")
+            print(respuesta)
+
+            if respuesta.get("correcto") == "Se ha modificado el estado del usuario correctamente!":
+                messages.success(request, "Se ha modificado el estado del  usuario")
+            else:
+                messages.warning(request, "No se ha modificadoel estado del  usuario")
+        else:
+            # Manejar errores si la solicitud no fue exitosa
+            messages.warning(request,'No se pudo modificar el usuario en la API de Flask')
+
+    except requests.exceptions.RequestException:
+        messages.warning(request,'Error de conexión a la API de Flask')
+    return redirect(to="listado")
 
 
 def tomaFecha(request):
