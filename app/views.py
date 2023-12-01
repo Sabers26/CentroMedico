@@ -137,12 +137,6 @@ def modificarusuario(request, rut, tipo):
     }
     return render(request, 'admin/modificar_usuario.html', {'usuario': usuario})
 
-def modifiColab(request):
-    
-    
-    return render(request, 'admin/modificacion-cola.html')
-
-
 def eliminar(request,rut,estado):
     usuario_data = {
         "rut_usuario": str(rut),
