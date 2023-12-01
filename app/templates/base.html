@@ -87,15 +87,35 @@
     
 
     {% if messages %}
-    {% for m in messages %}
-    <script>Swal.fire({
-        "title": "Felicitaciones",
-        "text": "{{m}}",
-        "icon": "success",
-        "confirmButtonColor": "#87b56d"
-    })
-    </script>
-    {% endfor %}
+    <script>
+      {% for message in messages %}
+          {% if message.tags == 'success' %}
+              Swal.fire({
+                  title: '¡Éxito!',
+                  text: '{{ message }}',
+                  icon: 'success',
+                  confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Script específico para éxito
+                      console.log('Operación de éxito realizada.');
+                  }
+              });
+          {% elif message.tags == 'warning' %}
+              Swal.fire({
+                  title: '¡Advertencia!',
+                  text: '{{ message }}',
+                  icon: 'warning',
+                  confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Script específico para advertencia
+                      console.log('Operación de advertencia realizada.');
+                  }
+              });
+          {% endif %}
+      {% endfor %}
+  </script>
     {% endif %}
 
     <!-- Scripts dataTable -->

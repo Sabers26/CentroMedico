@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 import requests
 import json
 from django.http import JsonResponse
 from datetime import datetime
 from django.core.mail import send_mail
+from urllib.parse import unquote
 
 # Create your views here.
 
@@ -54,7 +55,7 @@ def addColaboradores(request):
                     return redirect(to="listado")
             else:
                 # Manejar errores si la solicitud no fue exitosa
-                messages.success(request,'No se pudo crear el usuario en la API de Flask')
+                messages.success(request,'Error en la respuesta de la API de Flask')
             
         except requests.exceptions.RequestException:
             messages.success(request,'Error de conexión a la API de Flask')
@@ -77,10 +78,64 @@ def listado(request):
     return render(request, 'admin/listado.html')
 
 
-def modificarusuario(request):
+def modificarusuario(request, rut, tipo):
+    try:
+        if request.method == 'POST':
+
+
+            especialidad = request.POST.get('espe')
+            
+            if especialidad == "":
+                especialidad = None
+                
+            usuario_data = {
+                "rut_usuario": rut,
+                "nombre_usuario": str(request.POST.get('nombre')),
+                "password": str(request.POST.get('password')),
+                "id_especialidad": especialidad
+            }
+            
+            print("===================================")
+            print(usuario_data)
+            
+            data_json = json.dumps(usuario_data)
+            
+
+            headers = {'Content-Type': 'application/json'}
+
+            
+            url = 'https://apiarquitectura.lusaezd.repl.co/api/usuarios/mod'
+            # Realizar una solicitud POST a la API de Flask para modificar un usuario
+            response = requests.post(url, data=data_json, headers=headers)
+
+            # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+            if response.status_code == 200:
+                respuesta = response.json()
+
+                if respuesta.get("correcto") == "Usuario modificado correctamente!":
+                    print(respuesta)
+                    messages.success(request, "Se modifico el  usuario rut: " + str(rut))
+                    return redirect(to="listado")
+                else:
+                    print("No se modifico el usuario")
+                    print(respuesta)
+                    messages.warning(request, "No se modifico el usuario")
+                    return redirect(to="listado")
+                
+            else:
+                # Manejar errores si la solicitud no fue exitosa
+                messages.warning(request, 'Error en la respuesta de la API de Flask')
+                return redirect(to="listado")
+            
+    except requests.exceptions.RequestException:
+        messages.warning(request,'Error de conexión a la API de Flask')
+        return redirect(to="listado")
     
-    
-    return render(request, 'user/modificar_usuario.html')
+    usuario = {
+        "rut_usuario": rut,
+        "id_tipo": tipo
+    }
+    return render(request, 'admin/modificar_usuario.html', {'usuario': usuario})
 
 def modifiColab(request):
     
@@ -112,10 +167,10 @@ def eliminar(request,rut,estado):
             if respuesta.get("correcto") == "Se ha modificado el estado del usuario correctamente!":
                 messages.success(request, "Se ha modificado el estado del  usuario")
             else:
-                messages.warning(request, "No se ha modificadoel estado del  usuario")
+                messages.warning(request, "No se ha modificado el estado del  usuario")
         else:
             # Manejar errores si la solicitud no fue exitosa
-            messages.warning(request,'No se pudo modificar el usuario en la API de Flask')
+            messages.warning(request,'Error en la respuesta de la API de Flask')
 
     except requests.exceptions.RequestException:
         messages.warning(request,'Error de conexión a la API de Flask')

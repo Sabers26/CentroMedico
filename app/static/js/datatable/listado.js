@@ -88,6 +88,7 @@ const listausu = async () => {
 
             if (usuario.nombre_especialidad === null) {
                 usuario.nombre_especialidad = "N/A";
+                usuario.id_especialidad = "N/A"
             }
 
             content += `
@@ -98,6 +99,7 @@ const listausu = async () => {
                     <td>${usuario.nombre_especialidad}</td>
                     <td>${usuario.habilitado_nombre}</td>
                     ${usuario.habilitado ? '<td><a href="#" onclick="eliminar_usuario(\'' + usuario.rut_usuario + '\', \'' + usuario.habilitado + '\')" role="button" class="btn btn-primary text-light">DESHABILITAR</a></td>' : '<td><a href="#" onclick="eliminar_usuario(\'' + usuario.rut_usuario + '\', \'' + usuario.habilitado + '\')" role="button" class="btn btn-primary text-light">HABILITAR</a></td>'}
+                    <td><a href="modificarusuario/${usuario.rut_usuario}/${usuario.id_tipo}" role="button" class="btn btn-primary text-light">Modificar</a></td>
                 </tr>`;
         });
         $("#table_body_clientes").html(content);

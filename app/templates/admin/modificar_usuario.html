@@ -15,15 +15,15 @@
             <div class="row">
                 <div class="mb-3">
                     <label for="Rut" class="form-label">Rut del colaborador</label>
-                    <input type="text" class="form-control" id="Rut" type="text" name="Rut" placeholder="Rut">
+                    <input type="text" class="form-control" id="rut" type="text" name="rut" placeholder="rut" value="{{usuario.rut_usuario}}" disabled>
                 </div>
                 <div class="mb-3">
-                    <label for="NombreApellido" class="form-label">Nombre y apellido</label>
-                    <input type="text" class="form-control" id="NombreApellido" placeholder="Nombre | Apellido">
+                    <label for="nombre" class="form-label">Nombre y apellido</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre | Apellido">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" placeholder="******">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="******">
                 </div>
 
                 <div class="mb-3">
@@ -31,14 +31,9 @@
                     <input type="password" class="form-control" id="password2" placeholder="******">
                 </div>
 
-                <div class="mb-3">
-                    <label for="tipo" class="form-label" id="tipo">Especialidad</label>
-                    <select class="dropdown" name="tipo" id="tipo" onchange="mostrarSelect(this.value)">
-                        <option value="0" selected>Tipo usuario</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Medico</option>
-                    </select>
-                </div>
+                
+
+                {% if usuario.id_tipo == '2'  %}
 
                 <div class="mb-3">
                     <label for="espe" class="form-label" id="espe-l">Especialidad</label>
@@ -48,6 +43,7 @@
                         <option value="2">Neurologia</option>
                     </select>
                 </div>
+                {% endif %}
 
                 <button style="width: 30%; " type="submit" class="btn btn-dark" onclick="validar()">Enviar</button>
             </div>
