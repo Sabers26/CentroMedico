@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from datetime import datetime
 from django.core.mail import send_mail
 from urllib.parse import unquote
+import openpyxl
 
 # Create your views here.
 
@@ -180,6 +181,117 @@ def tomaHorario(request):
     return render(request, 'user/toma-horario.html')
 
 def registrohorario(request):
+    try:
+        if request.method == 'POST':
+            rut= "20749760-6"
+            
+            archivo = request.FILES['archivo']
+            
+            archivo_excel = openpyxl.load_workbook(archivo, data_only=True)
+
+            hoja = archivo_excel['Hoja1']
+            rango_celdas = hoja['A9:G14']
+            rangohoras = hoja['I9:O18']
+            celdas_amarillas = {dia: [] for dia in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
+            recorriendo_rango = False
+
+            for fila in rango_celdas:
+                for celda in fila:
+                    valor_celda = celda.value
+                    color_celda = celda.fill.fgColor.rgb if celda.fill.fgColor is not None else None
+
+                    if isinstance(valor_celda, datetime):
+                        dia_celda = valor_celda.strftime('%d')
+                        mes_y_anio_celda = valor_celda.strftime('%m-%Y')
+                        dia = valor_celda.strftime('%A')  # Cambiado a inglés
+                            
+                        if dia_celda == '01':
+                            if recorriendo_rango:
+                                recorriendo_rango = False
+                            else:
+                                recorriendo_rango = True
+
+                        if recorriendo_rango:
+                            if color_celda == 'FFFFFF00' and recorriendo_rango:
+                                celdas_amarillas[dia].append(dia_celda+'-'+mes_y_anio_celda)
+                                
+            celdas_amarillas = [celdas_amarillas[dia] for dia in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]]
+
+            rango_celdas_transpuesto = list(zip(*rangohoras))
+            horas = []
+
+            for columna in rango_celdas_transpuesto:
+                columna_lista = []
+                for celda in columna:
+                    if celda.fill.start_color.rgb == 'FFFFFF00':
+                        valor_celda = str(celda.value)
+                        columna_lista.append(valor_celda)
+
+                horas.append(columna_lista)
+            
+            #Valida si tiene 
+            for i in range(len(celdas_amarillas)):
+                # Verificar si la lista en el mismo índice en la segunda lista está vacía
+                if not horas[i]:
+                    if celdas_amarillas[i] != []:
+                        print( celdas_amarillas[i] )
+                        print(f"Debe agregar en el día {i}")
+                        messages.warning(request,"Debe agregar en el día")
+                        return redirect(to="registrohorario")
+
+            messages.success(request, "Correcto")
+            
+            print("Dias seleccionados:", celdas_amarillas)
+
+            print(horas)
+
+            archivo_excel.close()
+
+            try:
+                horario_data = {
+                    "dias": celdas_amarillas,
+                    "horas":horas,
+                    "rut_usuario": rut
+                }
+                
+                
+                data_json = json.dumps(horario_data)
+                
+
+                headers = {'Content-Type': 'application/json'}
+
+                
+                url = 'https://apiarquitectura.lusaezd.repl.co/api/horarioMedico/add'
+                # Realizar una solicitud POST a la API de Flask para modificar un usuario
+                response = requests.post(url, data=data_json, headers=headers)
+
+                # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+                if response.status_code == 200:
+                    respuesta = response.json()
+
+                    if respuesta.get("correcto"):
+                        print(respuesta)
+                        messages.success(request, "Agregaron las horas al medico: " + str(rut))
+                        return redirect(to="listado")
+                    else:
+                        print("No se agregaron las horas")
+                        print(respuesta)
+                        messages.warning(request, "No Agregaron las horas al medico: " + str(rut))
+                        return redirect(to="listado")
+                    
+                else:
+                    # Manejar errores si la solicitud no fue exitosa
+                    messages.warning(request, 'Error en la respuesta de la API de Flask')
+                    return redirect(to="listado")
+            
+            except requests.exceptions.RequestException:
+                messages.warning(request,'Error de conexión a la API de Flask')
+                return redirect(to="listado")
+            
+            
+    except Exception as e:
+        messages.warning(request,'Error el procesar el archivo')
+        print("Hubo un error:", str(e))
             
     return render(request, 'admin/registro-horario.html')
 
