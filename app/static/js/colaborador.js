@@ -4,9 +4,9 @@ function mostrarSelect(valorSeleccionado) {
   var label = document.getElementById('espe-l');
   if (valorSeleccionado == '2') {
       selectSecundario.style.display = 'block';
-      selectSecundario.style.marginLeft = '5%';
+      selectSecundario.style.marginLeft = '25%';
       label.style.display = 'block';
-      label.style.marginLeft = '5%';
+      label.style.marginLeft = '1%';
   } else {
       selectSecundario.style.display = 'none';
       label.style.display = 'none';

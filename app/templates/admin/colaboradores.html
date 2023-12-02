@@ -7,6 +7,13 @@
 
 {% endblock css %}
 
+{% block script %}
+
+<script src="{% static 'js/colaborador.js' %}"></script>
+<script src="{% static 'js/password.js' %}"></script>
+<script src="{% static 'js/base.js' %}"></script>
+
+{% endblock script %}
 
 
 {% block contenido %}
@@ -36,9 +43,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="tipo" class="form-label" id="tipo">Especialidad</label>
+                    <label for="tipo" class="form-label" id="tipo">Tipo usuario</label>
                     <select class="dropdown" name="tipo" id="tipo" onchange="mostrarSelect(this.value)">
-                        <option value="0" selected>Tipo usuario</option>
+                        <option value="0" selected disabled>Tipo usuario</option>
                         <option value="1">Administrador</option>
                         <option value="2">Medico</option>
                     </select>
@@ -47,7 +54,7 @@
                 <div class="mb-3">
                     <label for="espe" class="form-label" id="espe-l">Especialidad</label>
                     <select class="dropdown" name="espe" id="espe">
-                        <option value="0" selected>Especialidad</option>
+                        <option value="0" selected disabled>Especialidad</option>
                         <option value="1">Pediatria</option>
                         <option value="2">Neurologia</option>
                     </select>
@@ -62,10 +69,3 @@
 {% endblock contenido %}
 
 
-{% block script %}
-
-<script src="{% static 'js/colaborador.js' %}"></script>
-<script src="{% static 'js/password.js' %}"></script>
-<script src="{% static 'js/base.js' %}"></script>
-
-{% endblock script %}
