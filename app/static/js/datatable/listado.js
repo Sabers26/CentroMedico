@@ -98,7 +98,7 @@ const listausu = async () => {
                     <td>${usuario.nombre_tipo}</td>
                     <td>${usuario.nombre_especialidad}</td>
                     <td>${usuario.habilitado_nombre}</td>
-                    ${usuario.habilitado ? '<td><a href="#" onclick="eliminar_usuario(\'' + usuario.rut_usuario + '\', \'' + usuario.habilitado + '\')" role="button" class="btn btn-primary text-light">DESHABILITAR</a></td>' : '<td><a href="#" onclick="eliminar_usuario(\'' + usuario.rut_usuario + '\', \'' + usuario.habilitado + '\')" role="button" class="btn btn-primary text-light">HABILITAR</a></td>'}
+                    ${usuario.habilitado ? '<td><a href="#" onclick="eliminar_usuario(\'' + String(usuario.rut_usuario) + '\', \'' + usuario.habilitado + '\')" role="button" class="btn btn-primary text-light">DESHABILITAR</a></td>' : '<td><a href="#" onclick="eliminar_usuario(\'' + usuario.rut_usuario + '\', \'' + usuario.habilitado + '\')" role="button" class="btn btn-primary text-light">HABILITAR</a></td>'}
                     <td>
                         <a href="modificarusuario/${usuario.rut_usuario}/${usuario.id_tipo}" role="button" class="btn btn-primary text-light">Modificar</a>
                         ${usuario.id_tipo === 2 ? `<a href="listadoHorarioMedico/${usuario.rut_usuario}" role="button" class="btn btn-primary text-light">Ver horas</a>` : ''}

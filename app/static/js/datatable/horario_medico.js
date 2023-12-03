@@ -74,6 +74,7 @@ const initDataTable = async () => {
 
 const listausu = async () => {
     try {
+        const user = usuario;
         const data = datosUsuarios;
         let content = ``;
 
@@ -93,6 +94,10 @@ const listausu = async () => {
                         <td>${horario.horario}</td>
                         <td>${horario.disponible}</td>
                         <td>${horario.observacion}</td>
+                        ${horario.disponible === "Disponible" ?
+                            '<td><a href="#" onclick="anular_horario(\'' + horario.fecha_horario + '\', \'' + horario.id_horario + '\', \'' + user + '\')" role="button" class="btn btn-primary text-light">DESHABILITAR</a></td>' :
+                            '<td> </td>'
+                        }
                     </tr>`;
             });
             $("#table_body_clientes").html(content);

@@ -16,6 +16,6 @@ urlpatterns = [
     path('buscarAtencion', buscarAtencion, name='buscarAtencion'),
     path('listadoHorarioMedico/<rut>', listadoHorarioMedico, name='listadoHorarioMedico'),
     path('confirmaciontoma', confirmaciontoma, name='confirmaciontoma'),
-    path('eliminarhorario', resumen, name='resumen'),
+    path('eliminarhorario/<fecha>/<id>/<rut>/<observacion>', eliminarhorario, name='eliminarhorario'),
     path('lista_usuarios',lista_usuarios, name='lista_usuarios'),
     ]

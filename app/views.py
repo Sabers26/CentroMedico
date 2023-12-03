@@ -342,11 +342,12 @@ def registrohorario(request,rut):
 
 
 
-def listadoHorarioMedico(request,rut):
+def listadoHorarioMedico(request,rut:str):
     # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
     usuario_data = {
-        "rut": rut,
+        "rut": str(rut),
     }
+    
     
     data_json = json.dumps(usuario_data)
     
@@ -357,8 +358,11 @@ def listadoHorarioMedico(request,rut):
         
         context= {
             'datos_usuarios':data,
-            'rut':rut
+            'rut': rut.replace("-", "")
         }
+        
+        print("RUT00000000000000000000000000000000000000")
+        print(context['rut'])
         if response.status_code == 200:
                 respuesta = response.json()
                 if isinstance(respuesta, list):
@@ -397,8 +401,43 @@ def buscarAtencion(request):
     return render(request , 'admin/buscar-atencion.html')
 
 
-def eliminarhorario(request):
-    return render(request, 'eliminar-horario.html')
+def eliminarhorario(request, fecha, id, rut, observacion):
+    
+    rut = agregar_guin_a_rut(rut)
+    
+    usuario_data = {
+        "fecha": fecha,
+        "id_horario": id,
+        "rut_usuario": rut,
+        "observacion": observacion
+    }
+    data_json = json.dumps(usuario_data)
+    
+    
+    headers = {'Content-Type': 'application/json'}
+    
+    try:
+        url = 'https://apiarquitectura.lusaezd.repl.co/api/horarioMedico/cambiar'
+        # Realizar una solicitud POST a la API de Flask para deshabilitar el usuario
+        response = requests.post(url, data=data_json, headers=headers)
+
+        # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+        if response.status_code == 200:
+            respuesta = response.json()
+            print("RESPUESTA==============")
+            print(respuesta)
+
+            if respuesta.get("correcto") == "Horario anulado correctamente":
+                messages.success(request, "Se ha anulado el horario")
+            else:
+                messages.warning(request, "No se ha anulado el horario")
+        else:
+            # Manejar errores si la solicitud no fue exitosa
+            messages.warning(request,'Error en la respuesta de la API de Flask')
+
+    except requests.exceptions.RequestException:
+        messages.warning(request,'Error de conexión a la API de Flask')
+    return redirect(to="http://127.0.0.1:8000/listadoHorarioMedico/"+rut)
 
 
 
@@ -414,3 +453,16 @@ def lista_usuarios(rut):
     else:
         # Manejar el caso en que la respuesta no sea exitosa
         return JsonResponse({'error': 'No se pudo obtener la lista de usuarios'}, status=response.status_code)
+
+
+
+
+def agregar_guin_a_rut(rut):
+    # Dividir el RUT en parte antes del guion y parte después del guion
+    parte1 = rut[:-1]
+    parte2 = rut[-1]
+
+    # Concatenar con un guion en el medio
+    rut_con_guin = f"{parte1}-{parte2}"
+
+    return rut_con_guin
