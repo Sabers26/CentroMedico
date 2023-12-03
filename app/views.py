@@ -8,6 +8,7 @@ from datetime import datetime
 from django.core.mail import send_mail
 from urllib.parse import unquote
 import openpyxl
+from django.urls import reverse
 
 # Create your views here.
 
@@ -66,7 +67,43 @@ def addColaboradores(request):
     return render(request, 'admin/colaboradores.html')
 
 def login(request):
+    api_url = 'https://apiarquitectura.lusaezd.repl.co/api/usuarios/login'
     
+    if request.method == 'POST':
+        # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
+        usuario_data = {
+            "rut_usuario": str(request.POST.get('rut')),
+            "password": str(request.POST.get('password')),
+        }
+        
+        data_json = json.dumps(usuario_data)
+        
+        headers = {'Content-Type': 'application/json'}
+        try:
+            # Realizar una solicitud POST a la API de Flask para crear un usuario
+            response = requests.post(api_url, data=data_json, headers=headers)
+
+            # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+            if response.status_code == 200:
+                respuesta = response.json()
+
+                if respuesta.get("message") :
+                    print("No inicio sesion")
+                    messages.warning(request, "Usuario y/o contraseña incorrectos")
+                    print(respuesta)
+                else:
+                    request.session['usuario_data'] = usuario_data
+                    messages.success(request, "El usuario " + respuesta.get("nombre_usuario") + " inicio sesion")
+                    return redirect(to="inicio")
+                    
+            else:
+                # Manejar errores si la solicitud no fue exitosa
+                messages.success(request,'Error en la respuesta de la API de Flask')
+                return redirect(to="inicio")
+
+        except requests.exceptions.RequestException as e:
+            messages.warning('Error de conexión a la API de Flask')
+            return redirect(to="inicio")
     return render(request, 'login.html')
 
 def register(request):
@@ -180,10 +217,10 @@ def tomaHorario(request):
     
     return render(request, 'user/toma-horario.html')
 
-def registrohorario(request):
+def registrohorario(request,rut):
     try:
         if request.method == 'POST':
-            rut= "20749760-6"
+            rut_medico= rut
             
             archivo = request.FILES['archivo']
             
@@ -202,7 +239,7 @@ def registrohorario(request):
 
                     if isinstance(valor_celda, datetime):
                         dia_celda = valor_celda.strftime('%d')
-                        mes_y_anio_celda = valor_celda.strftime('%m-%Y')
+                        mes_y_anio_celda = valor_celda.strftime('%Y-%m')
                         dia = valor_celda.strftime('%A')  # Cambiado a inglés
                             
                         if dia_celda == '01':
@@ -213,7 +250,7 @@ def registrohorario(request):
 
                         if recorriendo_rango:
                             if color_celda == 'FFFFFF00' and recorriendo_rango:
-                                celdas_amarillas[dia].append(dia_celda+'-'+mes_y_anio_celda)
+                                celdas_amarillas[dia].append(mes_y_anio_celda+'-'+dia_celda)
                                 
             celdas_amarillas = [celdas_amarillas[dia] for dia in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]]
 
@@ -249,44 +286,50 @@ def registrohorario(request):
 
             try:
                 horario_data = {
-                    "dias": celdas_amarillas,
-                    "horas":horas,
-                    "rut_usuario": rut
+                    "dias": f"{celdas_amarillas}",
+                    "horas":f"{horas}",
+                    "rut_usuario": f"{rut_medico}"
                 }
                 
-                
+                {
+                    "dias": "[['12-06-2023', '26-06-2023'], ['27-06-2023'], ['07-06-2023'], ['15-06-2023'], ['09-06-2023'], ['24-06-2023'], []]", 
+                    "horas": "[['2', '4'], ['2', '4'], ['7'], ['4'], ['7', '10'], ['5'], []]", 
+                    "rut_usuario": "20749760-6"
+                }
                 data_json = json.dumps(horario_data)
                 
-
+                print(data_json)
+                
                 headers = {'Content-Type': 'application/json'}
 
                 
                 url = 'https://apiarquitectura.lusaezd.repl.co/api/horarioMedico/add'
                 # Realizar una solicitud POST a la API de Flask para modificar un usuario
                 response = requests.post(url, data=data_json, headers=headers)
-
+                respuesta = response.json()
                 # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
                 if response.status_code == 200:
-                    respuesta = response.json()
+                    
 
-                    if respuesta.get("correcto"):
+                    if respuesta.get("correcto") == "Se han ingresado los horarios a la agenda del medico":
                         print(respuesta)
                         messages.success(request, "Agregaron las horas al medico: " + str(rut))
-                        return redirect(to="listado")
+                        return redirect(to=reverse("listadoHorarioMedico", kwargs={'rut': rut_medico}))
                     else:
                         print("No se agregaron las horas")
                         print(respuesta)
                         messages.warning(request, "No Agregaron las horas al medico: " + str(rut))
-                        return redirect(to="listado")
+                        return redirect(to=reverse("listadoHorarioMedico", kwargs={'rut': rut_medico}))
                     
                 else:
                     # Manejar errores si la solicitud no fue exitosa
-                    messages.warning(request, 'Error en la respuesta de la API de Flask')
-                    return redirect(to="listado")
+                    messages.warning(request, 'Error en la respuesta de la API de Flask') #Error en la respuesta de la API de Flask
+                    return redirect(to=reverse("listadoHorarioMedico", kwargs={'rut': rut_medico}))
             
-            except requests.exceptions.RequestException:
+            except requests.exceptions.RequestException as e:
+                print("ERRORRRR: ",e)
                 messages.warning(request,'Error de conexión a la API de Flask')
-                return redirect(to="listado")
+                return redirect(to=reverse("listadoHorarioMedico", kwargs={'rut': rut_medico}))
             
             
     except Exception as e:
@@ -299,9 +342,43 @@ def registrohorario(request):
 
 
 
-def listadoHorarioMedico(request):
+def listadoHorarioMedico(request,rut):
+    # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
+    usuario_data = {
+        "rut": rut,
+    }
     
-    return render(request, 'admin/listado-horarios.html')
+    data_json = json.dumps(usuario_data)
+    
+    headers = {'Content-Type': 'application/json'}
+    try:
+        response = requests.post("https://apiarquitectura.lusaezd.repl.co/api/horarioMedico/buscar", data=data_json, headers=headers)
+        data = response.json()
+        
+        context= {
+            'datos_usuarios':data,
+            'rut':rut
+        }
+        if response.status_code == 200:
+                respuesta = response.json()
+                if isinstance(respuesta, list):
+                    return render(request, 'admin/listado-horarios.html', {'context': context})
+                elif respuesta.get("message") == "No hay horarios asociados al medico ":
+                    print("No hay horas asociadas a este medico")
+                    print(respuesta)
+                    return render(request, 'admin/listado-horarios.html', {'context': context})
+                else:
+                    print("No error al obtener horario")
+                    messages.warning(request, "No error al obtener horario")
+                    print(respuesta)
+                    return redirect(to="listado")
+        else:
+            messages.warning(request, "ERROR API")
+            print(respuesta)
+            return redirect(to="listado")
+    except Exception as ex:
+        print("EXCEPCION: ",ex)
+        return redirect(to="listado")
 
 
 
@@ -313,11 +390,6 @@ def resumen(request):
     
     return render(request, 'user/resumen.html')
 
-def horario(request):
-    
-    
-    
-    return render(request, 'horario.html')
 
 def buscarAtencion(request):
     
@@ -330,7 +402,7 @@ def eliminarhorario(request):
 
 
 
-def lista_usuarios(_request):
+def lista_usuarios(rut):
     api_url = 'https://apiarquitectura.lusaezd.repl.co/api/usuarios/'
     response = requests.get(api_url)
     

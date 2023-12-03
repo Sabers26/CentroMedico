@@ -2,58 +2,64 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/listado.css' %}">
 {% endblock css %}
 
 {% block contenido %}
-{% if messages  %}
-    <ul class="messages mensaje-box">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
 
+{% block script2 %}
 
-    <div class="content">
-        <h1>Horario del medico: {{datos.nombre}}</h1>
-        <div class="derecha">
-            {% comment %} <p>Filtro:</p>
-            <label class="labels">Rut:</label>
-            <input class="lRut" type="text" name="Rut" id="Rut" placeholder="Rut">
-    
-            <input class="boton2" type="submit" value="Buscar"> {% endcomment %}
+<script>
+    // Estew script es para obtener la información desde la view de dajango para poder ser utilizada en el datatable
+    var datosUsuarios = {{ context.datos_usuarios|safe }};
+    // Lógica de JavaScript aquí
+    // Puedes acceder a los datos usando 'datosUsuarios'
+    console.log(datosUsuarios);
+</script>
+{% endblock script2 %}
+<div class="container mt-5">
+    <div class="row my-5">
+        <div class="col-sm-12 col-md-12 col-lg-12 cot-xl-12">
+            <div class="mb-2" style="text-align: right;">
+            </div>
+            <div class="table-responsive">
+                <a href="{% url 'registrohorario' rut=context.rut %}" role="button" class="btn btn-primary text-light">Registrar horas</a>
+                <table id="datatable-responsive" class="table table-striped table-bordered">
+                    <thead class="table-primary">
+                        <tr>
+                            <th class="centered">Fecha</th>
+                            <th class="centered">Horario</th>
+                            <th class="centered">Disponible</th>
+                            <th class="centered">Observación</th>
+                        </tr>
+                        <!-- Fila de Selects para Filtrar -->
+                        <tr id="filterRow">
+                            <th></th> <!-- Celda vacía para la columna ID -->
+                            <th></th> <!-- Celda vacía para la columna Nombre -->
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    
+                        <!-- Fila de Encabezado de la Tabla -->
+                        
+                    </thead>
+                    <tbody id="table_body_clientes">
+
+                    </tbody>
+                </table>
+                
+            </div>
+            
         </div>
 
-        <table>
-            <p>RUT del Médico: {{ datos.rut }}</p>
-            <p>Especialidad: {{ datos.especialidad.nombre_especialidad }}</p>
-            <tr>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Disponible</th>
-            </tr>
-            {% for hora in datos.horario_medico %}
-                <tr>
-                    <td>{{ hora.fecha }}</td>
-                    <td>{{ hora.horario.hora_bloque }}</td>
-                    <td>
-                        {% if hora.disponible %}
-                            Disponible
-                        {% else %}
-                            No Disponible
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    
-        
     </div>
+
+
+</div>
+
 
 
 {% endblock contenido %}
 
 {% block script %}
-    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/datatable/horario_medico.js' %}"></script>
 {% endblock script %}
