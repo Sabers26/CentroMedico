@@ -3,9 +3,9 @@ let dataTableIsInitialized;
 
 const dataTableOptions = {
     columnDefs: [
-        { className: "centered", targets: [0, 1] },
-        { orderable: false, targets: [0, 1] },
-        { searchable: true, targets: [0, 1] },
+        { className: "centered", targets: [0, 1, 2, 3] },
+        { orderable: false, targets: [0, 1, 2, 3] },
+        { searchable: true, targets: [0, 1, 2] },
     ],
     pageLength: 4,
     destroy: true,
@@ -13,7 +13,7 @@ const dataTableOptions = {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
     },
     initComplete: function () {
-        this.api().columns([0,1]).every(function () {
+        this.api().columns([0,1, 2]).every(function () {
             let column = this;
     
             // Create select element
@@ -79,7 +79,14 @@ const listausu = async () => {
 
         if (data.length > 0) {
             data.forEach((horario) => {
-                horario.fecha_horario = convertirFormatoFecha(horario.fecha_horario);
+                if (horario.disponible == "True") {
+                    horario.disponible = "Disponible";
+                } else {
+                    horario.disponible = "No Disponible";
+                }
+
+
+                // horario.fecha_horario = convertirFormatoFecha(horario.fecha_horario);
                 content += `
                     <tr>
                         <td>${horario.fecha_horario}</td>
