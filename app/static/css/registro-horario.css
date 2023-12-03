@@ -1,0 +1,43 @@
+*{
+    color: white;
+}
+
+.margen{
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 10%;
+    padding-top: 2%;
+    border-radius: 25px;
+    background-image: radial-gradient(circle at 120.71% 50%, #7e54f8 0, #4d42d4 50%, #0331b0 100%);
+    box-shadow: 10px 14px 31px -1px rgba(0,0,0,0.72);
+    padding-bottom: 5%;
+}
+
+
+
+.form-control{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.form-label{
+    margin-right: 40%;
+}
+
+.form-text{
+    color: white;
+}
+
+html,body{
+    background-color: rgb(245, 245, 234);
+}
+
+select, option{
+    font-size: 19px;
+    color: black;
+    width: 50%;
+}
+
+h2, p{
+    padding-bottom: 3%;
+}

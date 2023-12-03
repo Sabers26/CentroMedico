@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/modificacion-cola.css' %}">
+    <link rel="stylesheet" href="{% static 'css/registro-horario.css' %}">
 {% endblock css %}
 
 {% block contenido %}
@@ -11,9 +11,10 @@
         <div class="margen">
             <form method="post" enctype="multipart/form-data">
                 <h2>Registro horario medico</h2>
+                <p>Subir su archivo Excel</p>
                 {% csrf_token %}
                 <input type="file" name="archivo" accept=".xlsx">
-                <button type="submit">Enviar</button>
+                <button style="width: 30%;" type="submit" class="btn btn-dark">Enviar</button>
             </form>
             </div>
         </div>
