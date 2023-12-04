@@ -3,9 +3,9 @@ let dataTableIsInitialized;
 
 const dataTableOptions = {
     columnDefs: [
-        { className: "centered", targets: [0, 1, 2, 3] },
-        { orderable: false, targets: [0, 1, 2, 3] },
-        { searchable: true, targets: [0, 1, 2] },
+        { className: "centered", targets: [0, 1] },
+        { orderable: false, targets: [0, 1] },
+        { searchable: true, targets: [0, 1] },
     ],
     pageLength: 4,
     destroy: true,
@@ -13,7 +13,7 @@ const dataTableOptions = {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
     },
     initComplete: function () {
-        this.api().columns([0,1, 2]).every(function () {
+        this.api().columns([0,1]).every(function () {
             let column = this;
     
             // Create select element
@@ -73,38 +73,26 @@ const initDataTable = async () => {
 };
 
 const listausu = async () => {
+    console.log("listausu se está ejecutando");
     try {
-        const user = usuario;
-        const data = datosUsuarios;
+        console.log("INFORMACAOOOOOO")
+        const data = horas
+        const rut = rut_paciente
+
         console.log(data)
+
         let content = ``;
-
-        if (data.length > 0) {
-            data.forEach((horario) => {
-                // if (horario.disponible == "True") {
-                //     horario.disponible = "Disponible";
-                // } else {
-                //     horario.disponible = "No Disponible";
-                // }
-                console.log(horario.disponible)
-
-                // horario.fecha_horario = convertirFormatoFecha(horario.fecha_horario);
-                content += `
-                    <tr>
-                        <td>${horario.fecha_horario}</td>
-                        <td>${horario.horario}</td>
-                        <td>${horario.disponible}</td>
-                        <td>${horario.observacion}</td>
-                        ${horario.disponible === "Disponible" ?
-                            '<td><a href="#" onclick="anular_horario(\'' + horario.fecha_horario + '\', \'' + horario.id_horario + '\', \'' + user + '\')" role="button" class="btn btn-primary text-light">DESHABILITAR</a></td>' :
-                            '<td> </td>'
-                        }
-                    </tr>`;
-            });
-            $("#table_body_clientes").html(content);
-        } else {
-
-        }
+        data.forEach((hora) => {
+            console.log(hora[2]['fecha_horario'])
+            content += `
+                <tr>
+                    <td>${hora[2]['fecha_horario']}</td>
+                    <td>${hora[2]['horario']}</td>
+                    <td>${hora[1]}</td>
+                    <td><a href="#" onclick="tomar_atencion('${hora[0].replace("-", "")}', '${hora[2]['fecha_horario']}', '${hora[2]['id_horario']}')" role="button" class="btn btn-primary text-light">Tomar atencion</a></td>
+                </tr>`;
+        });
+        $("#table_body_clientes").html(content);
 
     } catch (ex) {
         alert(ex);
@@ -114,19 +102,3 @@ const listausu = async () => {
 window.addEventListener('load', async () => {
     await initDataTable();
 });
-
-
-function convertirFormatoFecha(fechaString) {
-    // Crear un objeto Date a partir de la cadena de fecha
-    var fecha = new Date(fechaString);
-
-    // Obtener los componentes de la fecha
-    var dia = fecha.getDate();
-    var mes = fecha.getMonth() + 1; // Meses en JavaScript son de 0 a 11
-    var año = fecha.getFullYear();
-
-    // Formatear la fecha en el formato deseado
-    var formatoFecha = dia + '-' + mes + '-' + año;
-
-    return formatoFecha;
-}

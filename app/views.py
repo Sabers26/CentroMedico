@@ -210,14 +210,153 @@ def eliminar(request,rut,estado):
 
 
 def tomaFecha(request):
-    
+    if request.method == 'POST':
+        
+        if 'usuario_data' in request.session:
+            # Accede al diccionario almacenado en la sesión
+            usuario_data = request.session['usuario_data']
+
+            # Recupera el valor de 'rut_usuario'
+            rut_usuario = usuario_data.get('rut_usuario', None)
+        else:
+            messages.warning(request,"Debe iniciar sesion para poder ver horarios.")
+            return redirect(to="login")
+        
+        
+        fecha = request.POST.get('dia')
+        id_especialidad = request.POST.get('Espe')
+        
+        if not fecha:
+            messages.warning(request,"Debe ingresar la fecha.")
+            
+        if id_especialidad == "0":
+            messages.warning(request, "Debe seleccionar una el especialidad.")
+            
+        if fecha and id_especialidad != "0":
+            usuario_data = {
+                "fecha": fecha,
+                "id_especialidad": id_especialidad,
+            }
+            return redirect(to="tomahorario/"+fecha+"/"+id_especialidad+"/"+rut_usuario)
+
     return render(request, 'user/toma-fecha.html')
 
-def tomaHorario(request):
+def tomaHorario(request, fecha, especialidad, rut):
+    # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
+    usuario_data = {
+        "fecha": fecha,
+        "id_especialidad": especialidad,
+    }
     
-    return render(request, 'user/toma-horario.html')
+    print(fecha)
+    
+    
+    data_json = json.dumps(usuario_data)
+    
+    headers = {'Content-Type': 'application/json'}
+    try:
+        response = requests.post("https://apiarquitectura.lusaezd.repl.co/api/horarioMedico/buscarEsp", data=data_json, headers=headers)
+        data = response.json()
+        
+        context = {
+            "data": data,
+            "rut_paciente": rut.replace("-", "")
+        }
+        
+        if response.status_code == 200:
+                respuesta = response.json()
+                if isinstance(respuesta, list):
+                    print(respuesta)
+                    print("Hubo respuesta")
+                    if len(respuesta) > 0:
+                        print("si se encontraron datos")
+                        print(respuesta)
+                        return render(request, 'user/toma-horario.html', {'context': context})
+                    else:
+                        messages.warning(request, "No se encontraron horarios para el dia indicado")
+                        print("no se encontraron horarios")
+                        return redirect(to="toma-fecha")
+                else:
+                    print("Error al obtener horas por especialidad")
+                    messages.warning(request, "No error al obtener horarios")
+                    print(respuesta)
+                    return redirect(to="toma-fecha")
+        else:
+            messages.warning(request, "ERROR API")
+            print(respuesta)
+            return redirect(to="toma-fecha")
+    except Exception as ex:
+        print("EXCEPCION: ",ex)
+        return redirect(to="toma-fecha")
+
+
+def atencion (request, rut_medico,rut_paciente, fecha, id_horario, correo):
+    
+    rut_medico = rut_medico[:8] + '-' + rut_medico[8:]
+    
+    rut_paciente = rut_paciente[:8] + '-' + rut_paciente[8:]
+    
+    usuario_data ={
+        "rut_medico": rut_medico,
+        "rut_paciente": rut_paciente,
+        "fecha": fecha,
+        "id_horario": id_horario
+    }
+    
+    data_json = json.dumps(usuario_data)
+    
+    print(data_json)
+    
+    headers = {'Content-Type': 'application/json'}
+    
+    try:
+        url = 'https://apiarquitectura.lusaezd.repl.co/api/atenciones/add'
+        # Realizar una solicitud POST a la API de Flask para deshabilitar el usuario
+        response = requests.post(url, data=data_json, headers=headers)
+
+        # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+        if response.status_code == 200:
+            respuesta = response.json()
+            print("RESPUESTA==============")
+            print(respuesta)
+
+            if respuesta.get("correcto") == "Atencion agregada correctamente":
+                send_mail(
+                        'Reserva hora centro medico',
+                        'Hora confirmada.',
+                        'apicorreosduoc@gmail.com',
+                        [correo],
+                        fail_silently=False,
+                        )
+                messages.success(request, "Atencion agregada correctamente")
+                
+                url_resumen = reverse('resumen', kwargs={'rut_medico': rut_medico, 'rut_paciente': rut_paciente, 'fecha': fecha, 'id_horario': id_horario})
+                return redirect(url_resumen)
+            else:
+                messages.warning(request, "No se pudo tomar la atencion")
+        else:
+            # Manejar errores si la solicitud no fue exitosa
+            messages.warning(request,'Error en la respuesta de la API de Flask')
+
+    except requests.exceptions.RequestException:
+        messages.warning(request,'Error de conexión a la API de Flask')
+    return redirect(to="toma-fecha")
+
+def resumen(request, rut_medico, rut_paciente, fecha, id_horario):
+    horario = ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"]
+    print("LLEGUE AL RESUMEN")
+    print("RUT_MEDICO: ", rut_medico)
+    print("HORA", id_horario)
+    hora = horario[int(id_horario)-1]
+    
+
+    # ... tu código existente ...
+    return render(request, 'user/resumen.html', {'rut_medico': rut_medico, 'rut_paciente': rut_paciente, 'fecha': fecha, 'hora': hora})
+
 
 def registrohorario(request,rut):
+    print("ASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+    print(rut)
     try:
         if request.method == 'POST':
             rut_medico= rut
@@ -349,6 +488,9 @@ def listadoHorarioMedico(request,rut:str):
     }
     
     
+    
+    rutoriginal = rut
+    
     data_json = json.dumps(usuario_data)
     
     headers = {'Content-Type': 'application/json'}
@@ -358,13 +500,13 @@ def listadoHorarioMedico(request,rut:str):
         
         context= {
             'datos_usuarios':data,
-            'rut': rut.replace("-", "")
+            'rut': rutoriginal,
+            'rutsin': rut.replace("-", "")
         }
         
-        print("RUT00000000000000000000000000000000000000")
-        print(context['rut'])
         if response.status_code == 200:
                 respuesta = response.json()
+                print(respuesta)
                 if isinstance(respuesta, list):
                     return render(request, 'admin/listado-horarios.html', {'context': context})
                 elif respuesta.get("message") == "No hay horarios asociados al medico ":
@@ -385,14 +527,11 @@ def listadoHorarioMedico(request,rut:str):
         return redirect(to="listado")
 
 
-
 def confirmaciontoma(request):
     
     return render(request, 'user/confirmacion-toma.html')
 
-def resumen(request): 
-    
-    return render(request, 'user/resumen.html')
+
 
 
 def buscarAtencion(request):

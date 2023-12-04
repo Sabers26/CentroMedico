@@ -2,39 +2,81 @@
 {% load static %}
 
 {% block css %}     
-<link rel="stylesheet" type="text/css" href="{% static 'css/toma-fecha.css' %}" />
+<link rel="stylesheet" href="{% static 'css/listado.css' %}">
 {% endblock css %}
 
 {% block contenido %}
-<form action="" method="post">
-    {% csrf_token %}
-    <section class="content">
-        <h1>Toma de atencion</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Fecha Bloque</th>
-                    <th>Hora Bloque</th>
-                    <th>Nombre</th>
-                    <th>RUT</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in lista %}
-                    <tr>
-                        <td>{{ item.fecha }}</td>
-                        <td>{{ item.hora_bloque }}</td>
-                        <td>{{ item.nombre }}</td>
-                        <td>{{ item.rut }}</td>
-                        {% comment %} <td><a class="ruta" href="{% url 'resumen'  diccionario.usuariob.rut  diccionario.usuariob.habilitado %}" role="button">Tomar Hora</a></td> {% endcomment %}
+{% block script2 %}
 
-                        <td>
-                            <a class="ruta" href="{% url 'confirmaciontoma' item %}" role="button">Tomar Hora</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </section>
-</form>
+<script>
+    // Este script es para obtener la información desde la view de Django para ser utilizada en el datatable
+    var horas = {{ context.data|safe }};
+    var rut_paciente = {{ context.rut_paciente|safe }};
+</script>
+<script src="{% static 'js/datatable/listado_especialidad.js' %}"></script>
+{% endblock script2 %}
+
+<div class="container mt-5">
+    <div class="row my-5">
+        <div class="col-sm-12 col-md-12 col-lg-12 cot-xl-12">
+            <div class="mb-2" style="text-align: right;">
+            </div>
+            <div class="table-responsive">
+                <a href="{% url 'addColaboradores' %}" role="button" class="btn btn-primary text-light">Registrar Colaborador</a>
+                <table id="datatable-responsive" class="table table-striped table-bordered">
+                    <thead class="table-primary">
+                        <tr>
+                            <th class="centered">Fecha</th>
+                            <th class="centered">Hora</th>
+                            <th class="centered">Medico</th>
+                            <th class="centered"> </th>
+                        </tr>
+                        <!-- Fila de Selects para Filtrar -->
+                        <tr id="filterRow">
+                            <th></th> <!-- Celda vacía para la columna ID -->
+                            <th></th> <!-- Celda vacía para la columna Nombre -->
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    
+                        <!-- Fila de Encabezado de la Tabla -->
+                        
+                    </thead>
+                    <tbody id="table_body_clientes">
+
+                    </tbody>
+                </table>
+                
+            </div>
+            
+        </div>
+
+    </div>
+
+
+</div>
+
 {% endblock contenido %}
+
+
+
+{% block script %}
+<script>
+    function tomar_atencion(rut_medico, fecha, id_horario){
+        console.log(fecha)
+        Swal.fire({
+            "title": "¿Estás seguro?",
+            "text": "Se deshabilitará el horario",
+            "icon": "question",
+            "showCancelButton": true,
+            "input": "text",
+            "inputPlaceholder": "Ingrese su correo",
+        }).then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "http://127.0.0.1:8000/atencion/" + rut_medico + "/" + rut_paciente + "/" + fecha + "/" + id_horario + "/" + result.value;;
+            }
+        })
+    }
+</script>
+
+{% endblock script %}

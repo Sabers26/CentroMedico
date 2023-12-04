@@ -12,7 +12,7 @@
 <script>
     // Este script es para obtener la información desde la view de Django para ser utilizada en el datatable
     var datosUsuarios = {{ context.datos_usuarios|safe }};
-    var usuario = {{ context.rut }}; // No use 'safe' aquí
+    var usuario = {{ context.rutsin }}; // No use 'safe' aquí
     console.log(usuario);
     // Lógica de JavaScript aquí
     // Puedes acceder a los datos usando 'datosUsuarios'
