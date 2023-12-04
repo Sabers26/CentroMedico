@@ -47,9 +47,9 @@ def addColaboradores(request):
                 print("RESPUESTA")
                 print(respuesta)
                 
-                if respuesta.get("correcto") :
+                if "correcto" in respuesta :
                     print("Si se pudo")
-                    messages.success(request, respuesta["correcto"])
+                    messages.success(request, "Se registro al usuario rut: "+ str(request.POST.get('rut')))
                     return redirect(to="listado")
                 else:
                     print("No se pudo")
@@ -107,7 +107,50 @@ def login(request):
     return render(request, 'login.html')
 
 def register(request):
+    api_url = 'https://apiarquitectura.lusaezd.repl.co/api/usuarios/add'
+    
+    if request.method == 'POST':
+        # Si se envió un formulario, trae los datos del formulario y los guarda en un JSON
+        usuario_data = {
+            "rut_usuario": str(request.POST.get('rut')),
+            "nombre_usuario": str(request.POST.get('nombreApellido')),
+            "id_tipo": 3,
+            "password": str(request.POST.get('password')),
+            "id_especialidad": None
+        }
         
+        data_json = json.dumps(usuario_data)
+        
+        print(usuario_data)
+        
+        headers = {'Content-Type': 'application/json'}
+        
+        try:
+            response = requests.post(api_url, data=data_json, headers=headers)
+            print("vacio")
+            
+            if response.status_code == 200:
+                print("Obtuve respusta api")
+                respuesta = response.json()
+                
+                print("RESPUESTA")
+                print(respuesta)
+                
+                if "correcto" in respuesta :
+                    print("Si se pudo")
+                    messages.success(request, "Se registro al usuario rut: "+ str(request.POST.get('rut')))
+                    return redirect(to="inicio")
+                else:
+                    print("No se pudo")
+                    messages.warning(request, "No se registro el colaborador")
+                    return redirect(to="inicio")
+            else:
+                # Manejar errores si la solicitud no fue exitosa
+                messages.success(request,'Error en la respuesta de la API de Flask')
+            
+        except requests.exceptions.RequestException:
+            messages.success(request,'Error de conexión a la API de Flask')
+            return redirect(to="inicio")
         
     return render(request, 'register.html')
 
@@ -292,9 +335,9 @@ def tomaHorario(request, fecha, especialidad, rut):
 
 def atencion (request, rut_medico,rut_paciente, fecha, id_horario, correo):
     
-    rut_medico = rut_medico[:8] + '-' + rut_medico[8:]
+    rut_medico = agregar_guin_a_rut(rut_medico)
     
-    rut_paciente = rut_paciente[:8] + '-' + rut_paciente[8:]
+    rut_paciente = agregar_guin_a_rut(rut_paciente)
     
     usuario_data ={
         "rut_medico": rut_medico,
@@ -319,6 +362,7 @@ def atencion (request, rut_medico,rut_paciente, fecha, id_horario, correo):
             respuesta = response.json()
             print("RESPUESTA==============")
             print(respuesta)
+            print(rut_paciente)
 
             if respuesta.get("correcto") == "Atencion agregada correctamente":
                 send_mail(
@@ -354,9 +398,87 @@ def resumen(request, rut_medico, rut_paciente, fecha, id_horario):
     return render(request, 'user/resumen.html', {'rut_medico': rut_medico, 'rut_paciente': rut_paciente, 'fecha': fecha, 'hora': hora})
 
 
+def lista_atenciones(request,rut):
+    usuario_data = {
+        "rut_usuario": str(rut),
+    }
+    
+    
+    
+    rutoriginal = rut
+    
+    data_json = json.dumps(usuario_data)
+    
+    headers = {'Content-Type': 'application/json'}
+    try:
+        response = requests.post("https://apiarquitectura.lusaezd.repl.co/api/atenciones/buscar", data=data_json, headers=headers)
+        data = response.json()
+        
+        context= {
+            'datos_usuarios':data,
+            'rut': rutoriginal,
+            'rutsin': rut.replace("-", "")
+        }
+        
+        if response.status_code == 200:
+                respuesta = response.json()
+                if isinstance(respuesta, list):
+                    return render(request, 'user/listado-atenciones.html', {'context': context})
+                elif respuesta.get("message") == "No hay atenciones asociadas al paciente":
+                    context['datos_usuarios'] = []
+                    print("No hay horas atenciones asociadas a este paciente")
+                    return render(request, 'user/listado-atenciones.html', {'context': context})
+                else:
+                    print("No error al obtener atenciones")
+                    messages.warning(request, "Error al obtener las atenciones")
+                    return redirect(to="listado")
+        else:
+            messages.warning(request, "ERROR API")
+            print(respuesta)
+            return redirect(to="listado")
+    except Exception as ex:
+        print("EXCEPCION: ",ex)
+        return redirect(to="listado")
+
+def eliminar_atencion(request, ida, rut, fecha, idh, rutpa):
+
+    rutpa = agregar_guin_a_rut(rutpa)
+    usuario_data = {
+        "id_atencion": ida,
+        "rut_medico": rut,
+        "fecha_consulta": fecha,
+        "id_horario": idh
+    }
+    data_json = json.dumps(usuario_data)
+    
+    
+    headers = {'Content-Type': 'application/json'}
+    
+    try:
+        url = 'https://apiarquitectura.lusaezd.repl.co/api/atenciones/anular'
+        # Realizar una solicitud POST a la API de Flask para deshabilitar el usuario
+        response = requests.post(url, data=data_json, headers=headers)
+
+        # Comprobar si la solicitud fue exitosa (código de estado 201 para creación exitosa)
+        if response.status_code == 200:
+            respuesta = response.json()
+            print("RESPUESTA==============")
+            print(respuesta)
+
+            if respuesta.get("correcto") == "Se ha anulado correctamente la atencion":
+                messages.success(request, "Se ha anulado la atencion")
+            else:
+                messages.warning(request, "No se ha anulado la atencion")
+        else:
+            # Manejar errores si la solicitud no fue exitosa
+            messages.warning(request,'Error en la respuesta de la API de Flask')
+
+    except requests.exceptions.RequestException:
+        messages.warning(request,'Error de conexión a la API de Flask')
+    return redirect(to="http://127.0.0.1:8000/lista_atenciones/"+rutpa)
+
+
 def registrohorario(request,rut):
-    print("ASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-    print(rut)
     try:
         if request.method == 'POST':
             rut_medico= rut
@@ -487,8 +609,6 @@ def listadoHorarioMedico(request,rut:str):
         "rut": str(rut),
     }
     
-    
-    
     rutoriginal = rut
     
     data_json = json.dumps(usuario_data)
@@ -525,11 +645,6 @@ def listadoHorarioMedico(request,rut:str):
     except Exception as ex:
         print("EXCEPCION: ",ex)
         return redirect(to="listado")
-
-
-def confirmaciontoma(request):
-    
-    return render(request, 'user/confirmacion-toma.html')
 
 
 
@@ -605,3 +720,13 @@ def agregar_guin_a_rut(rut):
     rut_con_guin = f"{parte1}-{parte2}"
 
     return rut_con_guin
+
+
+def cerrar_sesion(request):
+    # Realiza la lógica necesaria para cerrar la sesión
+    # Por ejemplo, puedes usar request.session.flush() para limpiar toda la sesión
+    request.session.flush()
+    messages.success(request, "Se ha cerrado la sesion")
+    
+    # Redirige a la página actual para recargarla
+    return redirect(to="inicio")

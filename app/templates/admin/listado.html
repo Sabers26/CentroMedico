@@ -69,26 +69,21 @@
 
 
 <script>
-    function eliminar_usuario(rut, estado){
+    function eliminar_usuario(rut, estado) {
         if (estado == 'true') {
             estado = false;
         } else {
             estado = true;
         }
-
+    
         Swal.fire({
             title: "¿Estas seguro?",
-            text: "Se deshabilitara el bloque horario",
+            text: "Se modificara el estado del usuario",
             icon: "question",
             showCancelButton: true,
-            html: '<input type="text" id="inputValue" placeholder="Ingresa un valor">',
-            preConfirm: function() {
-                return document.getElementById('inputValue').value;
-            }
-        }).then(function(result){
-            if(result.isConfirmed){
-                // Acción con el valor del input
-                window.location.href = "eliminar/"+rut+"/"+estado+"?inputValue=" + result.value;
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                window.location.href = "eliminar/" + rut + "/" + estado;
             }
         });
     }

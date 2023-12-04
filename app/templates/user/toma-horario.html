@@ -22,7 +22,6 @@
             <div class="mb-2" style="text-align: right;">
             </div>
             <div class="table-responsive">
-                <a href="{% url 'addColaboradores' %}" role="button" class="btn btn-primary text-light">Registrar Colaborador</a>
                 <table id="datatable-responsive" class="table table-striped table-bordered">
                     <thead class="table-primary">
                         <tr>
@@ -65,17 +64,25 @@
     function tomar_atencion(rut_medico, fecha, id_horario){
         console.log(fecha)
         Swal.fire({
-            "title": "¿Estás seguro?",
-            "text": "Se deshabilitará el horario",
-            "icon": "question",
-            "showCancelButton": true,
-            "input": "text",
-            "inputPlaceholder": "Ingrese su correo",
+            title: "¿Estás seguro?",
+            text: "Se tomara la atencion",
+            icon: "question",
+            showCancelButton: true,
+            input: "email",  // Tipo de input de email
+            inputPlaceholder: "Ingrese su correo",
+            inputAttributes: {
+                required: "true"  // Atributo para hacerlo obligatorio
+            },
+            preConfirm: function (value) {
+                if (!value) {
+                    Swal.showValidationMessage("Ingrese su correo");
+                }
+            }
         }).then(function(result){
             if(result.isConfirmed){
-                window.location.href = "http://127.0.0.1:8000/atencion/" + rut_medico + "/" + rut_paciente + "/" + fecha + "/" + id_horario + "/" + result.value;;
+                window.location.href = "http://127.0.0.1:8000/atencion/" + rut_medico + "/" + rut_paciente + "/" + fecha + "/" + id_horario + "/" + result.value;
             }
-        })
+        });
     }
 </script>
 

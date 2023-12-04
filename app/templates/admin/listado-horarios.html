@@ -25,7 +25,6 @@
             <div class="mb-2" style="text-align: right;">
             </div>
             <div class="table-responsive">
-                <p>Rut: {{ context.rut }}</p>
                 <a href="{% url 'registrohorario' rut=context.rut %}" role="button" class="btn btn-primary text-light">Registrar horas</a>
                 <table id="datatable-responsive" class="table table-striped table-bordered">
                     <thead class="table-primary">
@@ -68,19 +67,27 @@
 
 {% block script %}
 <script>
-    function anular_horario(fecha, id, rut){
+    function anular_horario(fecha, id, rut) {
         Swal.fire({
-            "title": "¿Estás seguro?",
-            "text": "Se deshabilitará el horario",
-            "icon": "question",
-            "showCancelButton": true,
-            "input": "text",
-            "inputPlaceholder": "Ingrese un valor",
-        }).then(function(result){
-            if(result.isConfirmed){
+            title: "¿Estás seguro?",
+            text: "Se deshabilitará el horario",
+            icon: "question",
+            showCancelButton: true,
+            input: "text",
+            inputPlaceholder: "Ingrese un valor",
+            inputAttributes: {
+                required: true  // Hace que el campo sea obligatorio
+            },
+            preConfirm: function (value) {
+                if (!value) {
+                    Swal.showValidationMessage("Debe ingresat una observacion");
+                }
+            }
+        }).then(function (result) {
+            if (result.isConfirmed) {
                 window.location.href = "http://127.0.0.1:8000/eliminarhorario/" + fecha + "/" + id + "/" + rut + "/" + result.value;
             }
-        })
+        });
     }
 </script>
     <script src="{% static 'js/datatable/horario_medico.js' %}"></script>
